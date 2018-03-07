@@ -5,7 +5,7 @@
         <div class="d-flex flex-column text-center justify-content-center pb-xl-5" style="height: 100vh">
             <div>
                 <h1 class="display-1">EEvent</h1>
-                <p>[ Where Everything meets Everywhere ]</>
+                <p>[ Where Everything meets Everywhere ]</p>
                 <div>
                     <a class="btn btn-success m-2" href={{route('login')}}>Join Us</a>
                 </div>
