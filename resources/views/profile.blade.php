@@ -7,6 +7,7 @@
                 <img src="uploads/avatars/{{$user->avatar }}"
                      style="width: 150px; height: 150px; float: left; border-radius: 50%;margin-right: 20px">
                 <h2>Hi! {{$user->name}}</h2>
+                <h3>Email: {{$user->email}}</h3>
                 <form enctype="multipart/form-data" action="{{route('profile')}}" method="POST">
                     <label> Update Profile Image</label>
                     <input type="file" name="avatar" accept=".jpg, .png">
