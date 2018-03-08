@@ -18,3 +18,12 @@ Route::get('/profile', 'UserController@profile')->name('profile')->middleware('a
 Route::post('/profile', 'UserController@updateAvatar');
 Route::resource('events', 'EventController');
 Route::get('/events/{query}', 'EventController@search');
+
+Route::get('admin', function () {
+    return redirect(route('users.index'));
+});
+
+Route::prefix('admin')->group(function () {
+    Route::resource('users', 'Admin\UserController')->middleware('auth');
+});
+
