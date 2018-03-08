@@ -63,6 +63,25 @@
             @yield('content')
         </main>
     </div>
+    <div class="container">
+        <div class="blockquote-footer">
+            <div class="row">
+                    <div class="col-md-3">
+                        <h3>Explore EEvent</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <h3>Customer Support</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <h3>For Organizer</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <h3 style="align-items: right">Context</h3>
+                    </div> 
+            </div> 
+        </div>
+    </div>
+        
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 </body>

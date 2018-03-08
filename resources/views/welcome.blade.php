@@ -12,10 +12,11 @@
             </div>
         </div>
         <div class="d-flex jumbotron justify-content-center">
+            <h4>search: </h4>
             <form class="">
-                <p>search by:</p>
                 <input type="text" class="form-text">
             </form>
+
         </div>
     </div>   
 @endsection
