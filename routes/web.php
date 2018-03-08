@@ -12,9 +12,9 @@
 */
 
 Route::view('/', 'welcome');
-Route::resource('events', 'EventController');
 Route::auth();
-
-Route::get('/profile', 'UserController@profile')->name('profile');
-Route::post('/profile', 'UserController@updateAvatar');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/profile', 'UserController@profile')->name('profile')->middleware('auth');
+Route::post('/profile', 'UserController@updateAvatar');
+Route::resource('events', 'EventController');
+Route::get('/events/{query}', 'EventController@search');
