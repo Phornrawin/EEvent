@@ -1,76 +1,68 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
+@section('title', Auth::user()->name . '- EEvent');
 
 @section('content')
-
     <div class="container">
-        <div class="row">
-            <div class="col-md-10">
-                <img src="uploads/avatars/{{$user->avatar }}"
-                     style="width: 150px; height: 150px; float: left; border-radius: 50%;margin-right: 20px">
-
-                <h2>Hi! {{$user->name}}</h2>
-                <h3>Email: {{$user->email}}</h3>
-                <form enctype="multipart/form-data" action="{{route('profile')}}" method="POST">
-                    <label> Update Profile Image</label>
-                    <input type="file" name="avatar" accept=".jpg, .png">
-                    <input type="hidden" name="_token" value="{{csrf_token()}}">
-                    <button type="submit">ok</button>
-                </form>
-                <br><br><br>
-                @if(!$user->attendEvent->isEmpty())
-                    <h3>Event ที่เคยเข้าร่วม</h3>
-                    <table style="width:100% ; border: 4px solid #34ce57">
-                        <tr style="width:100% ; border: 1px solid #34ce57">
-                            <th>Name</th>
-                            <th>Location</th>
-                            <th>Start Time</th>
-                            <th>End Time</th>
-                        </tr>
+        <div class="row profile">
+            <div class="col-md-3">
+                <div class="">
+                    <!-- SIDEBAR USERPIC -->
+                    <div class="profile-userpic">
+                        <img src="uploads/avatars/{{$user->avatar }}" class="img-fluid rounded-circle" alt=""
+                             style="max-width: 150px; max-height: 150px">
+                    </div>
+                    <!-- END SIDEBAR USERPIC -->
+                    <!-- SIDEBAR USER TITLE -->
+                    <div>
+                        <div class="">
+                            {{$user->name}}
+                        </div>
+                    </div>
+                    <!-- END SIDEBAR USER TITLE -->
+                    <!-- SIDEBAR BUTTONS -->
+                    <div class="profile-userbuttons">
+                        <button type="button" class="btn btn-success btn-sm">Profile</button>
+                        <button type="button" class="btn btn-danger btn-sm">Events</button>
+                    </div>
+                    <!-- END SIDEBAR BUTTONS -->
+                    <!-- SIDEBAR MENU -->
+                    <div class="">
+                        <ul class="nav flex-column">
+                            <li class="">
+                                <a href="#">Overview </a>
+                            </li>
+                            <li class="">
+                                <a href="#">Account Settings </a>
+                            </li>
+                            <li class="">
+                                <a href={{route('logout')}}>Logout </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END MENU -->
+                </div>
+            </div>
+            <div class="col-md-9">
+                <h3>Joined Event</h3>
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>view</th>
+                    </tr>
+                    @foreach(Auth::user()->attendEvent as $event)
                         <tr>
-                            <td>@foreach($user->attendEvent as $role)
-                                    <div><a href="#" >{{$role->name}}</a></div>
-                                @endforeach
+                            <td>{{$event->name}}</td>
+                            <td>{{$event->location}}</td>
+                            <td>
+                                <a class="btn btn-primary" href="{{route('events.show', ['id' => $event->id])}}">
+                                    View
+                                </a>
                             </td>
-                            <td>@foreach($user->attendEvent as $role)
-                                    <div>{{$role->location}}</div>
-                                @endforeach</td>
-                            <td>@foreach($user->attendEvent as $role)
-                                    <div>{{$role->start_time}}</div>
-                                @endforeach</td>
-                            <td>@foreach($user->attendEvent as $role)
-                                    <div>{{$role->end_time}}</div>
-                                @endforeach</td>
                         </tr>
-
-                    </table>
-                @elseif(!$user->organizedEvent->isEmpty())
-                    <h3>Event ที่จัด</h3>
-
-                    <table style="width:100% ; border: 4px solid #34ce57">
-                        <tr style="width:100% ; border: 1px solid #34ce57">
-                            <th>Name</th>
-                            <th>Location</th>
-                            <th>Start Time</th>
-                            <th>End Time</th>
-                        </tr>
-                        <tr>
-                            <td>@foreach($user->organizedEvent as $role)
-                                    <div><a href="#" >{{$role->name}}</a></div>
-                                @endforeach
-                            </td>
-                            <td>@foreach($user->organizedEvent as $role)
-                                    <div>{{$role->location}}</div>
-                                @endforeach</td>
-                            <td>@foreach($user->organizedEvent as $role)
-                                    <div>{{$role->start_time}}</div>
-                                @endforeach</td>
-                            <td>@foreach($user->organizedEvent as $role)
-                                    <div>{{$role->end_time}}</div>
-                                @endforeach</td>
-                        </tr>
-
-                    </table>
-                @endif
+                    @endforeach
+                </table>
             </div>
         </div>
     </div>

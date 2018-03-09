@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('EEvent\Event', 'organizers');
     }
+
+    public function profile()
+    {
+        return $this->hasOne('EEvent\Profile');
+    }
 }

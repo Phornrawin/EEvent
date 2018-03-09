@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'Search - EEvent')
+
 @section('content')
 @if($events->isEmpty())
     <div class="d-flex justify-content-center align-items-center" style="height: 80vh">

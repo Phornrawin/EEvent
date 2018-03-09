@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Profile | '. Auth::user()->name)
+@section('title', 'EEvent - The place to looks for awesome events')
 
 @section('content')
     <div class="d-flex flex-column text-center justify-content-center pb-xl-5 background"

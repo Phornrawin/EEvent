@@ -1,5 +1,6 @@
 @extends('layouts.master')
 
+@section('title', 'Events - EEvent')
 @section('content')
     <section class="jumbotron text-center">
         <div class="container">
