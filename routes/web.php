@@ -41,13 +41,13 @@ Route::post('/events/unattend', 'EventController@unAttend')
 Route::get('/search', 'EventController@search')
     ->name('events.search');
 
-//Route::post('/events/create', 'EventController@store')
-//    ->name('events.store')
-//    ->middleware('auth');
-//
-//Route::get('/events/create', function(){
-//   return view('profile');
-//});
+Route::post('/events/create', 'EventController@store')
+    ->name('events.store')
+    ->middleware('auth');
+
+Route::get('/events/create', function(){
+   return view('profile');
+});
 
 Route::resource('events', 'EventController');
 

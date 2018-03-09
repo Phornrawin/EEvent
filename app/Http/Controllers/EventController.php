@@ -52,8 +52,12 @@ class EventController extends Controller
             'price' => 'required|min:0',
             'payment_time' => 'required|',
             'start_time' => 'required',
-            'code' => '123'
         ]);
+
+//        $data = $request;
+        $data += array('organizer_id' => $request['organizer_id'], 'code' => "12341234", 'end_time' => "2018-03-23 05:47:07");
+        $data['start_time'] = date("Y-m-d", strtotime($data['start_time']));
+        $data['payment_time']= date("Y-m-d", strtotime($data['payment_time']));
 
         Event::create($data);
 
