@@ -20,7 +20,7 @@ class CreateEventsTable extends Migration
             $table->string('detail');
             $table->string('precondition', 128)->nullable();
             $table->string('location', 86);
-            $table->string('code');
+            $table->string('code')->unique();
             $table->string('category', 32);
             $table->float('price')->default(0);
             $table->dateTime('payment_time');

@@ -1,5 +1,7 @@
 <?php
 
+use EEvent\Event;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,15 +13,47 @@
 |
 */
 
-Route::view('/', 'welcome');
-Route::auth();
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/profile', 'UserController@profile')->name('profile')->middleware('auth');
-Route::post('/profile', 'UserController@updateAvatar');
-Route::resource('events', 'EventController');
-Route::get('/events/{query}', 'EventController@search');
+Route::get('/', function () {
+    $recent = Event::orderBy('created_at', 'desc')->limit(6)->get();
+    $popular = Event::orderBy('cur_capacity', 'desc')->limit(6)->get();
+    return view('welcome', ['recent' => $recent, 'popular' => $popular]);
+});
+Route::view('/about', 'home.about');
+//Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('admin', function () {
+// all authenticated route
+Route::auth();
+
+// all user and profile route
+Route::get('/profile', 'UserController@profile')
+    ->name('profile')
+    ->middleware('auth');
+Route::post('/profile', 'UserController@updateAvatar');
+
+// all event crud route
+Route::post('/events/attend', 'EventController@attend')
+    ->name('events.attend')
+    ->middleware('auth');
+
+Route::post('/events/unattend', 'EventController@unAttend')
+    ->name('events.unattend')
+    ->middleware('auth');
+Route::get('/search', 'EventController@search')
+    ->name('events.search');
+
+Route::resource('events', 'EventController');
+
+
+Route::get('/category', function () {
+    // to be implemented
+    return redirect('/');
+});
+
+
+
+
+//all admin route
+Route::get('/admin', function () {
     return redirect(route('users.index'));
 });
 

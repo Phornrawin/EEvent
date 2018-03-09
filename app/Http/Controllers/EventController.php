@@ -2,6 +2,8 @@
 
 namespace EEvent\Http\Controllers;
 
+use Auth;
+use EEvent\Attendee;
 use EEvent\Event;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,7 +17,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        return view('events.index');
+        $events = Event::all();
+        return view('events.index', ['events' => $events]);
     }
 
 
@@ -38,8 +41,8 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        Event::create($request);
-        return back('success', 'Event has been added');
+        Event::create($request->all());
+        return redirect('profile');
     }
 
     /**
@@ -76,21 +79,10 @@ class EventController extends Controller
     public function update(Request $request, $id)
     {
         $event = Event::find($id);
-        $event->name = $request->get('name');
-        $event->detail = $request->get('detail');
-        $event->precondition = $request->get('request');
-        $event->location = $request->get('location');
-        $event->category = $request->get('category');
-        $event->price = $request->get('price');
-        $event->payment_time = $request->get('payment_time');
-        $event->start_time = $request->get('start_time');
-        $event->start_time = $request->get('end_time');
-        $event->max_capacity = $request->get('max_capacity');
-        $event->image_path = $request->get('image_path');
-        $event->end_time = $request->get('end_time');
-        $event->price = $request->get('price');
-        $event->save();
-        return redirect('events')->with('success', 'Product has been updated');
+        if ($event != null) {
+            $event->update($request->all());
+        }
+        return back();
     }
 
     /**
@@ -106,12 +98,43 @@ class EventController extends Controller
             $event->delete();
         } catch (\Exception $e) {
         }
-        return redirect('events')->with('success', 'Product has been  deleted');
+        return redirect('profile');
     }
 
-    public function search($query)
+    public function search(Request $request)
     {
-        $events = Event::where("name", "LIKE", $query);
-        return view(('events.search'), ['events' => $events]);
+        $query = $request->get('q');
+        $events = Event::where("name", "like", '%' . $query . '%')->get();
+        return view('events.search', ['events' => $events]);
     }
+
+    public function attend(Request $request)
+    {
+        $event_id = $request->get('id');
+        Event::find($event_id)->cur_capacity++;
+        Attendee::create([
+            "event_id" => $event_id,
+            "user_id" => Auth::id()
+        ]);
+
+        return back();
+    }
+
+    public function unAttend(Request $request)
+    {
+        $id = $request->get('id');
+        $attendee = Attendee
+            ::where('event_id', '=', $id)
+            ->where('user_id', '=', Auth::id())->first();
+        try {
+            if ($attendee != null) {
+                Event::find($id)->cur_capacity--;
+                $attendee->delete();
+            }
+        } catch (\Exception $e) {
+
+        }
+        return back();
+    }
+
 }

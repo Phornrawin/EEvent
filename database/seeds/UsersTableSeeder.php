@@ -26,5 +26,11 @@ class UsersTableSeeder extends Seeder
             'email' => 'criticalxinfinite@gmail.com',
             'password' => Hash::make('nosleep_awesome'),
         ));
+
+        User::create(array(
+            'name' => 'test',
+            'email' => 'test@gmail.com',
+            'password' => Hash::make('testtest'),
+        ));
     }
 }

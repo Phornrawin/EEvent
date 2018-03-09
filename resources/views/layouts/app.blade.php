@@ -8,80 +8,60 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>EEvent</title>
     <!-- Styles -->
+    <script src="https://use.fontawesome.com/ebc57c5fe2.js"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <header>
-         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'EEvent') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<body style="padding-top: 100px">
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url('/') }}">
+                {{ config('app.name', 'EEvent') }}
+            </a>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+            {{--This is for resposive menu dropdown--}}
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                    </ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left Side Of Navbar -->
+                <ul class="navbar-nav mr-auto">
+                    <li><a class="nav-link" href="{{ route('events.index') }}">Events</a></li>
+                    <li><a class="nav-link" href="{{ route('events.index') }}">Category</a></li>
+                    <li><a class="nav-link" href="/">About us</a></li>
+                </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-                            <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                          style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
+                <!-- Right Side Of Navbar -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Authentication Links -->
+                    @guest
+                        <li><a class="nav-link" href="{{ route('login') }}">Sign in</a></li>
+                        <li><a class="nav-link text-danger" href="{{ route('register') }}">Sign Up</a></li>
+                    @else
+                        <li><a class="nav-link" href="{{ route('events.create') }}">Create an Event</a></li>
+                        <li><a class="nav-link" href="{{ route('profile') }}">Profile</a></li>
+                        <li><a class="nav-link" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                               document.getElementById('logout-form').submit();">Logout</a>
+                        </li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                              style="display: none;">
+                            @csrf
+                        </form>
+                    @endguest
+                </ul>
             </div>
-        </nav>
-    </header>
-    <div id="app">
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
-    <div class="container">
-        <div class="blockquote-footer">
-            <div class="row">
-                    <div class="col-md-3">
-                        <h3>Explore EEvent</h3>
-                    </div>
-                    <div class="col-md-3">
-                        <h3>Customer Support</h3>
-                    </div>
-                    <div class="col-md-3">
-                        <h3>For Organizer</h3>
-                    </div>
-                    <div class="col-md-3">
-                        <h3 style="align-items: right">Context</h3>
-                    </div> 
-            </div> 
         </div>
-    </div>
-        
+    </nav>
+</header>
+
+<main>
+    @yield('content')
+</main>
+
+
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 </body>

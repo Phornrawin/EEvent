@@ -1,6 +1,8 @@
 <?php
 
+use EEvent\User;
 use Illuminate\Http\Request;
+use EEvent\Event;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,17 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/users', function() {
+    return User::all();
+});
+
+Route::get('/events', function() {
+    return Event::all();
+});
+
+Route::get('/users/{id}', function($id) {
+    return User::find($id);
+});
+
+

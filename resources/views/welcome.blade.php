@@ -1,22 +1,36 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
+@section('title', 'Profile | '. Auth::user()->name)
 
 @section('content')
-    <div class="container">
-        <div class="d-flex flex-column text-center justify-content-center pb-xl-5" style="height: 100vh;background-image: url(http://daxushequ.com/data/out/48/img60583455.jpg)">
+    <div class="d-flex flex-column text-center justify-content-center pb-xl-5 background"
+         style="height: 100vh;">
+        <div>
+            <h1 class="display-2">EEvent</h1>
+            <p>[ Where Everything meets Everywhere ]</p>
             <div>
-                <h1 class="display-1" style="color: white">EEvent</h1>
-                <p style="color: white">[ Where Everything meets Everywhere ]</p>
-                <div>
-                    <a class="btn btn-success m-2" href={{route('login')}}>Join Us</a>
-                </div>
+                <a class="btn btn-danger m-2" href={{route('events.index')}}>Explore</a>
             </div>
         </div>
-        <div class="d-flex jumbotron justify-content-center">
-            <h4>search: </h4>
-            <form class="">
-                <input type="text" class="form-text">
-            </form>
+    </div>
 
-        </div>
-    </div>   
+    <div class="text-center w-100 bg-secondary mb-4 py-3">
+        <form method="get" action="{{route('events.search')}}">
+            <div class="form-row align-items-center justify-content-center">
+                <div class="col-sm-3 my-1">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id=""
+                               placeholder="search events" name="q">
+                        <div class="input-group-append">
+                            <button type="submit" class="input-group-text"><i class=" fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    @include('layouts.cards', ['events' => $recent])
+
 @endsection
+

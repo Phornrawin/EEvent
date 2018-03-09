@@ -3,6 +3,7 @@
 namespace EEvent\Http\Controllers;
 
 use Auth;
+use EEvent\Attendee;
 use File;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic;
@@ -11,7 +12,7 @@ class UserController extends Controller
 {
     public function profile()
     {
-        return view('profile.show', ['user' => Auth::user()]);
+        return view('profile.show', ['title' => Auth::user()->name, 'user' => Auth::user()]);
     }
 
     public function updateAvatar(Request $request)
@@ -29,6 +30,6 @@ class UserController extends Controller
             $user->avatar = $filename;
             $user->save();
         }
-        return view('/profile', ["user" => $user]);
+        return view('profile.show', ["user" => $user]);
     }
 }
