@@ -41,7 +41,22 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        Event::create($request->all());
+
+//        Event::create($request->all());
+        $data = $request->validate([
+            'name' => 'required|max:255',
+            'max_capacity' => 'required|min:1',
+            'detail' => 'required',
+            'location' => 'required',
+            'category' => 'required',
+            'price' => 'required|min:0',
+            'payment_time' => 'required|',
+            'start_time' => 'required',
+            'code' => '123'
+        ]);
+
+        Event::create($data);
+
         return redirect('profile');
     }
 

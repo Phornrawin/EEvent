@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Profile | '. Auth::user()->name)
+@section('title', 'Profile | '. Auth::user()['name'])
 
 @section('content')
     <div class="d-flex flex-column text-center justify-content-center pb-xl-5 background"
