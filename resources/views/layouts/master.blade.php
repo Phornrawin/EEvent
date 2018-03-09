@@ -10,7 +10,7 @@
     <!-- Styles -->
     <script src="https://use.fontawesome.com/ebc57c5fe2.js"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{asset('css/main.css')}}" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
 </head>
 <body class="d-flex flex-column" style="min-height: 100vh; padding-top: 55px">
 <div style="flex: 1">

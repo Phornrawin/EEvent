@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', $event->name . '- EEvent');
+
 @section('content')
     <div>
         <p>Title: {{$event->name}}</p>

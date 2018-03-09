@@ -58,14 +58,14 @@ Route::get('/category', function () {
 });
 
 
-
-
 //all admin route
 Route::get('/admin', function () {
-    return redirect(route('users.index'));
+    return redirect(route('admin.users.index'));
 });
 
-Route::prefix('admin')->group(function () {
+
+Route::name('admin.')->prefix('admin')->group(function () {
     Route::resource('users', 'Admin\UserController')->middleware('auth');
+    Route::resource('events', 'Admin\EventController')->middleware('auth');
 });
 
