@@ -4,6 +4,7 @@ namespace EEvent\Http\Controllers\Admin;
 
 use EEvent\Http\Controllers\Controller;
 use EEvent\User;
+use EEvent\Event;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -16,7 +17,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('admin.users.index', ['users' => $users]);
+        $events = Event::all();
+        return view('admin.users.index', ['users' => $users, 'events' => $events]);
     }
 
     /**

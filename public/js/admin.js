@@ -13,4 +13,8 @@ function openPage(pageName,elmnt,color) {
 
 }
 // Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
+// openPage('users', this, '#17202A')
+$(document).ready(function(e){
+    document.getElementById("defaultOpen").click();    
+    openPage('users', $("#defaultOpen"), '#17202A')
+});
