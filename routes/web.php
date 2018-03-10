@@ -49,8 +49,11 @@ Route::get('/category')->name('events.category');
 Route::resource('events', 'EventController');
 
 // Admin route
-Route::redirect('/admin', '/admin/users');
-Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::get('/admin', function () {
+   return redirect()->route('admin.users.index');
+});
+
+Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::resource('users', 'Admin\UserController');
     Route::resource('events', 'Admin\EventController');
 });

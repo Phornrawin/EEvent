@@ -51,7 +51,7 @@ class EventController extends Controller
     public function edit($id)
     {
         $event = Event::find($id);
-        return view('admin.users.edit', ['user' => $event]);
+        return view('admin.events.edit', ['event' => $event]);
     }
 
     /**
@@ -85,5 +85,10 @@ class EventController extends Controller
 
         }
         return redirect()->route('admin.users.index');
+    }
+
+    public function show()
+    {
+
     }
 }

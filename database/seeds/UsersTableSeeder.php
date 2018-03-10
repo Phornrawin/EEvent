@@ -44,19 +44,20 @@ class UsersTableSeeder extends Seeder
         User::create(array(
             'name' => 'Albert',
             'email' => 'albertawesome@gmail.com',
-            'password' => Hash::make('albertawesome'),
+            'password' => Hash::make('albertalbert'),
         ));
 
         User::create(array(
             'name' => 'Zack',
             'email' => 'zackawesome@gmail.com',
-            'password' => Hash::make('zackawesome'),
+            'password' => Hash::make('zackzack'),
         ));
 
         User::create(array(
             'name' => 'test',
             'email' => 'test@gmail.com',
             'password' => Hash::make('testtest'),
+            'role' => 'admin'
         ));
     }
 }
