@@ -12,6 +12,7 @@ function openPage(pageName,elmnt,color) {
     elmnt.style.backgroundColor = color;
 
 }
+
 // Get the element with id="defaultOpen" and click on it
 // openPage('users', this, '#17202A')
 $(document).ready(function(e){

@@ -36,7 +36,7 @@
 	            <th>delete</th>
 	        </tr>
 	        @foreach($users as $user)
-	            <tr><!-- onclick="event.preventDefault();document.getElementById('attend-form-{{$user->id}}').submit(); -->
+	            <tr>
 	                <td>{{$user->name}}</td>
 	                <td>{{$user->email}}</td>
 	                <td>{{$user->avatar}}</td>
@@ -47,12 +47,6 @@
 	                	<a href="{{url('admin/users/{user}/edit')}}" target="_blank" method="get" action="{{url('admin/users/{user}/edit')}}" type="hidden" name="user" value="$user">
 	                		edit
 	                	</a>
-
-	                	<!-- <form id="attend-form-{{$user->id}}" 
-	                		action="{{url('admin/users/{$user}/edit', ['id' => $user->id])}}" 
-	                		method="POST" style="display: none;">
-                          @csrf
-                        </form> -->
 	                </td>
 	                <td><a href="" >delete</a></td>
 	            </tr>

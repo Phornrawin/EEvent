@@ -40,8 +40,7 @@
                         <li><a class="nav-link" href="{{ route('login') }}">Sign in</a></li>
                         <li><a class="nav-link text-danger" href="{{ route('register') }}">Sign Up</a></li>
                     @else
-                        <li><a class="nav-link" href="{{ route('events.create') }}">Create an Event</a></li>
-                        <li><a class="nav-link" href="{{ route('profile') }}">Profile</a></li>
+                        <li><a class="nav-link" href="{{ route('profile.show') }}">Profile</a></li>
                         <li><a class="nav-link" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                document.getElementById('logout-form').submit();">Logout</a>
