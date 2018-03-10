@@ -47,7 +47,7 @@
                         @else
                             <li><a class="nav-link" href="{{ route('events.create') }}">
                                     <i class="fa fa-plus d-md-none mr-2"></i>Create an Event</a></li>
-                            <li><a class="nav-link" href="{{ route('profile') }}">
+                            <li><a class="nav-link" href="{{ route('profile.show') }}">
                                     <i class="fa fa-user d-md-none mr-2"></i>{{Auth::user()->name}}</a></li>
                             <li><a class="nav-link" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();

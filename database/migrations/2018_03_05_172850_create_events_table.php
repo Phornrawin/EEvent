@@ -18,14 +18,13 @@ class CreateEventsTable extends Migration
             $table->string('name', 64);
             $table->unsignedInteger('organizer_id');
             $table->string('detail');
-            $table->string('precondition', 128)->nullable();
+            $table->string('precondition', 128)->default('');
             $table->string('location', 86);
             $table->string('code')->unique();
-            $table->string('category', 32);
+            $table->unsignedInteger('category_id');
             $table->float('price')->default(0);
             $table->dateTime('payment_time');
             $table->dateTime('start_time');
-            $table->dateTime('end_time');
             $table->integer('cur_capacity')->default(0);
             $table->integer('max_capacity');
             $table->string('image_path')->default('default.jpg');
@@ -34,6 +33,9 @@ class CreateEventsTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories');
         });
     }
 

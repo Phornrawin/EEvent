@@ -9,7 +9,7 @@
                 <div class="">
                     <!-- SIDEBAR USERPIC -->
                     <div class="profile-userpic">
-                        <img src="uploads/avatars/{{$user->avatar }}" class="img-fluid rounded-circle" alt=""
+                        <img src="uploads/avatars/{{$user->avatar}}" class="img-fluid rounded-circle" alt=""
                              style="max-width: 150px; max-height: 150px">
                     </div>
                     <!-- END SIDEBAR USERPIC -->
@@ -21,7 +21,7 @@
                     </div>
                     <!-- END SIDEBAR USER TITLE -->
                     <!-- SIDEBAR BUTTONS -->
-                    <div class="profile-userbuttons">
+                    <div class="nav ">
                         <button type="button" class="btn btn-success btn-sm">Profile</button>
                         <button type="button" class="btn btn-danger btn-sm">Events</button>
                     </div>

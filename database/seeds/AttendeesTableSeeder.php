@@ -14,17 +14,17 @@ class AttendeesTableSeeder extends Seeder
     public function run()
     {
         DB::table('attendees')->delete();
-        $this->seedEvent(1, 2);
-        $this->seedEvent(1, 3);
+        $this->seedEvent(1, [2, 3, 4, 5]);
+
     }
 
-    private function seedEvent($event_id, $user_id)
+    private function seedEvent($event_id, $user_id = [])
     {
-        Attendee::create([
-            'event_id' => $event_id,
-            'user_id' => $user_id
-        ]);
         $event = Event::find($event_id);
-        $event->cur_capacity += 1;
+        foreach ($user_id as $id) {
+            $event->attendees()->create(['user_id' => $id]);
+        }
+        $event->cur_capacity += count($user_id);
+        $event->save();
     }
 }

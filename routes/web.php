@@ -19,53 +19,40 @@ Route::get('/', function () {
     return view('welcome', ['recent' => $recent, 'popular' => $popular]);
 });
 Route::view('/about', 'home.about');
-//Route::get('/home', 'HomeController@index')->name('home');
 
 // all authenticated route
 Route::auth();
 
 // all user and profile route
-Route::get('/profile', 'UserController@profile')
-    ->name('profile')
-    ->middleware('auth');
-Route::post('/profile', 'UserController@updateAvatar');
-
-// all event crud route
-Route::post('/events/attend', 'EventController@attend')
-    ->name('events.attend')
-    ->middleware('auth');
-
-Route::post('/events/unattend', 'EventController@unAttend')
-    ->name('events.unattend')
-    ->middleware('auth');
-Route::get('/search', 'EventController@search')
-    ->name('events.search');
-
-Route::post('/events/create', 'EventController@store')
-    ->name('events.store')
-    ->middleware('auth');
-
-Route::get('/events/create', function(){
-   return view('profile');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/profile', 'ProfileController@show')->name('profile.show');
+    Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
+    Route::post('/profile', 'ProfileController@update')->name('profile.update');
+    Route::post('/profile/update/avatar', 'ProfileController@updateAvatar')
+        ->name('profile.update.avatar');
 });
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/events/attend/{id}', 'EventController@attend')
+        ->name('events.attend');
+
+    Route::post('/events/unattend/{id}', 'EventController@unAttend')
+        ->name('events.unattend');
+});
+// all event crud route
+
+
+Route::get('/search', 'EventController@search')->name('events.search');
+Route::get('/category')->name('events.category');
 
 Route::resource('events', 'EventController');
 
-
-Route::get('/category', function () {
-    // to be implemented
-    return redirect('/');
+// Admin route
+Route::redirect('/admin', '/admin/users');
+Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth'], function () {
+    Route::resource('users', 'Admin\UserController');
+    Route::resource('events', 'Admin\EventController');
 });
 
-
-//all admin route
-Route::get('/admin', function () {
-    return redirect(route('admin.users.index'));
-});
-
-
-Route::name('admin.')->prefix('admin')->group(function () {
-    Route::resource('users', 'Admin\UserController')->middleware('auth');
-    Route::resource('events', 'Admin\EventController')->middleware('auth');
-});
 

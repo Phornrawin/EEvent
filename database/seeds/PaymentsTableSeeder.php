@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use EEvent\Attendee;
 use EEvent\Payment;
 use Illuminate\Database\Seeder;
 
@@ -13,9 +14,9 @@ class PaymentsTableSeeder extends Seeder
      */
     public function run()
     {
-        Payment::create([
-            'attendee_id' => 1,
-            'payment_time' => Carbon::now()->addDay(5)
-        ]);
+       $attendees = Attendee::all();
+       foreach ($attendees as $attendee) {
+           $attendee->payment()->create();
+       }
     }
 }
