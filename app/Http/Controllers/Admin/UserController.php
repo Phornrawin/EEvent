@@ -2,6 +2,7 @@
 
 namespace EEvent\Http\Controllers\Admin;
 
+use Auth;
 use EEvent\Event;
 use EEvent\Http\Controllers\Controller;
 use EEvent\User;
@@ -68,8 +69,9 @@ class UserController extends Controller
         $event = User::find($id);
         if ($event != null) {
             $event->update($request->all());
+
         }
-        return redirect()->route('/admin/users');
+        return redirect()->route('admin.users.index');
 
     }
 
@@ -81,12 +83,22 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $temp = Auth::user();
         $user = User::find($id);
+        Auth::setUser($user);
+        Auth::logout();
+        Auth::login($temp);
+
         try {
             $user->delete();
         } catch (\Exception $e) {
         }
-        return redirect()->route('/admin/users');
+        return redirect()->route('admin.users.index');
+    }
+
+    public function show()
+    {
+
     }
 
 
