@@ -37,8 +37,8 @@
 	                <td>{{$user->name}}</td>
 	                <td>{{$user->email}}</td>
 	                <td>{{$user->avatar}}</td>
-	                <td><a href="">edit</a></td>
-	                <td><a href="">delete</a></td>
+	                <td><a href="edituser.blade.php" target="_blank" >edit</a></td>
+	                <td><a href="" >delete</a></td>
 	            </tr>
 	        @endforeach
 	    </table>
@@ -86,6 +86,6 @@
 	    </table>
 	</div>
 
-
+	
 
 @endsection
