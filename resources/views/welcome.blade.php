@@ -7,7 +7,7 @@
          style="height: 100vh;">
         <div>
             <h1 class="display-2">EEvent</h1>
-            <p>[ Where Everything meets Everywhere ]</p>
+            <p>Where Everything meets Everywhere</p>
             <div>
                 <a class="btn btn-danger m-2" href={{route('events.index')}}>Explore</a>
             </div>
