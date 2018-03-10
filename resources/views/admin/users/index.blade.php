@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 @extends('layouts.app')
 
 @section('content')
@@ -33,14 +36,28 @@
 	            <th>delete</th>
 	        </tr>
 	        @foreach($users as $user)
-	            <tr>
+	            <tr><!-- onclick="event.preventDefault();document.getElementById('attend-form-{{$user->id}}').submit(); -->
 	                <td>{{$user->name}}</td>
 	                <td>{{$user->email}}</td>
 	                <td>{{$user->avatar}}</td>
-	                <td><a href="edituser.blade.php" target="_blank" >edit</a></td>
+	                <td>
+	                	<?php
+	                		$_SESSION['user'] = $user;
+	                	?>
+	                	<a href="{{url('admin/users/{user}/edit')}}" target="_blank" method="get" action="{{url('admin/users/{user}/edit')}}" type="hidden" name="user" value="$user">
+	                		edit
+	                	</a>
+
+	                	<!-- <form id="attend-form-{{$user->id}}" 
+	                		action="{{url('admin/users/{$user}/edit', ['id' => $user->id])}}" 
+	                		method="POST" style="display: none;">
+                          @csrf
+                        </form> -->
+	                </td>
 	                <td><a href="" >delete</a></td>
 	            </tr>
 	        @endforeach
+	        
 	    </table>
 	</div>
 	<div id="events" class="tabcontent">
