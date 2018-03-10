@@ -17,13 +17,11 @@ class EventsTableSeeder extends Seeder
             'precondition' => 'No life and No friend',
             'location' => 'SCU-45 Kasetsart University Bangkok',
             'code' => '123456',
-            'category' => 'adventure',
+            'category_id' => 1, //adventure
             'price' => 0,
             'payment_time' => Carbon::now()->addWeek(2)->subDay(),
             'start_time' => Carbon::now()->addWeek(2),
-            'end_time' => Carbon::now()->addWeek(2),
-            'cur_capacity' => 0,
-            'max_capacity' => 64,
+            'max_capacity' => 5,
         ));
 
         Event::create(array(
@@ -33,13 +31,11 @@ class EventsTableSeeder extends Seeder
             'precondition' => 'No life and No friend',
             'location' => 'SCU-45 Kasetsart University Bangkok',
             'code' => '111111',
-            'category' => 'adventure',
+            'category_id' => 1, //adventure
             'price' => 0,
             'payment_time' => Carbon::now()->addWeek(5)->subDay(),
             'start_time' => Carbon::now()->addWeek(5),
-            'end_time' => Carbon::now()->addWeek(5),
-            'cur_capacity' => 0,
-            'max_capacity' => 64,
+            'max_capacity' => 12,
         ));
 
         Event::create(array(
@@ -49,12 +45,10 @@ class EventsTableSeeder extends Seeder
             'precondition' => 'No life and No friend',
             'location' => 'SCU-45 Kasetsart University Bangkok',
             'code' => '222222',
-            'category' => 'dance',
+            'category_id' => 2, //Dance
             'price' => 999,
             'payment_time' => Carbon::now()->addWeek()->subDay(),
             'start_time' => Carbon::now()->addWeek(),
-            'end_time' => Carbon::now()->addWeek(),
-            'cur_capacity' => 0,
             'max_capacity' => 12,
         ));
 
@@ -65,12 +59,10 @@ class EventsTableSeeder extends Seeder
             'precondition' => 'No life and No friend',
             'location' => 'SCU-45 Kasetsart University Bangkok',
             'code' => '333333',
-            'category' => 'nature',
+            'category_id' => 2, //Dance
             'price' => 500,
             'payment_time' => Carbon::now()->addWeek()->subDay(),
             'start_time' => Carbon::now()->addWeek(),
-            'end_time' => Carbon::now()->addWeek(),
-            'cur_capacity' => 0,
             'max_capacity' => 30,
         ));
 
@@ -81,13 +73,11 @@ class EventsTableSeeder extends Seeder
             'precondition' => 'No life and No friend',
             'location' => 'SCU-45 Kasetsart University Bangkok',
             'code' => '444444',
-            'category' => 'nature',
+            'category_id' => 6, //Other
             'price' => 199,
             'payment_time' => Carbon::now()->addWeek()->subDay(),
             'start_time' => Carbon::now()->addWeek(),
-            'end_time' => Carbon::now()->addWeek(),
-            'cur_capacity' => 0,
-            'max_capacity' => 5,
+            'max_capacity' => 64,
         ));
     }
 }

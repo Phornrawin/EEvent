@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendee extends Model
 {
+
     /**
      * The attributes that are mass assignable.
      *
@@ -27,6 +28,6 @@ class Attendee extends Model
 
     public function event()
     {
-        return $this->belongsTo('event');
+        return $this->belongsTo('EEvent\Event');
     }
 }

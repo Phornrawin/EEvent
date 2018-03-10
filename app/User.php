@@ -27,14 +27,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function attendees()
+    public function profile()
     {
-        return $this->hasMany('EEvent\Attendee');
-    }
-
-    public function organizers()
-    {
-        return $this->hasMany('EEvent\Organizer');
+        return $this->hasOne('EEvent\Profile');
     }
 
     public function attendEvent()
@@ -44,11 +39,7 @@ class User extends Authenticatable
 
     public function organizedEvent()
     {
-        return $this->belongsToMany('EEvent\Event', 'organizers');
+        return $this->hasMany('EEvent\Event');
     }
 
-    public function profile()
-    {
-        return $this->hasOne('EEvent\Profile');
-    }
 }

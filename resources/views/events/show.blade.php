@@ -2,16 +2,22 @@
 
 @section('content')
     <div>
-        <div class="imageHeader">image</div>
+        @if ($errors->any())
+            <div class="alert-danger" data-toggle="modal">{{$errors}}</div>
+        @endif
+
+        <div class="imageHeader">
+            <img class="img-fluid" src="/uploads/events_pic/{{$event->image_path}}">
+        </div>
         <div class="summaryDetail">
             <div class="">
                 <p style="font-size: 25px">{{$event->name}}</p>
-                <li>date : {{$event->start_time. ' to ' . $event->end_time}}</li>
+                <li>date : {{$event->start_time}}</li>
                 <li>location : {{$event->location}}</li>
-                <li>Organizer : {{$event->organizer->user->name}}</li>
+                <li>Organizer : {{$event->organizer->name}}</li>
             </div>
             <div class="">
-                Tag : {{$event->category}} <br>
+                Tag : {{$event->category->name}} <br>
                 @if ($event->price == 0)
                     Price : <b style="color: red">free</b>
                 @else
@@ -64,7 +70,7 @@
                 <div>User: {{$attendee->user->name}}</div>
                 <div>Email: {{$attendee->user->email}}</div>
                 @if($attendee->payment != null)
-                    <div>Payment: {{$attendee->payment->payment_time}}</div>
+                    <div>Payment: {{$attendee->payment->status}}</div>
                     <br>
                 @endif
             @endforeach

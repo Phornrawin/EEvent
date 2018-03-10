@@ -17,7 +17,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
+        $events = Event::simplePaginate(3); //test
         return view('events.index', ['events' => $events]);
     }
 
@@ -57,7 +57,7 @@ class EventController extends Controller
 //        $data = $request;
         $data += array('organizer_id' => $request['organizer_id'], 'code' => "12341234", 'end_time' => "2018-03-23 05:47:07");
         $data['start_time'] = date("Y-m-d", strtotime($data['start_time']));
-        $data['payment_time']= date("Y-m-d", strtotime($data['payment_time']));
+        $data['payment_time'] = date("Y-m-d", strtotime($data['payment_time']));
 
         Event::create($data);
 
@@ -72,7 +72,11 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        $event = Event::find($id);
+        try {
+            $event = Event::findOrFail($id);
+        } catch (\Exception $e) {
+            return redirect()->route('events.search', ['q' => $id]);
+        }
         return view('events.show', ['event' => $event]);
     }
 
@@ -123,19 +127,24 @@ class EventController extends Controller
     public function search(Request $request)
     {
         $query = $request->get('q');
-        $events = Event::where("name", "like", '%' . $query . '%')->get();
+        $events = Event
+            ::where('name', 'like', '%' . $query . '%')->get();
+
         return view('events.search', ['events' => $events]);
     }
 
-    public function attend(Request $request)
+    public function attend(Request $request, $id)
     {
-        $event_id = $request->get('id');
-        Event::find($event_id)->cur_capacity++;
-        Attendee::create([
-            "event_id" => $event_id,
-            "user_id" => Auth::id()
-        ]);
-
+        $event = Event::find($id);
+        if ($event->cur_capacity < $event->max_capacity) {
+            $event->attendees()->create([
+                "user_id" => Auth::id()
+            ]);
+            $event->cur_capacity += 1;
+            $event->save();
+        } else {
+            back()->withErrors(['msg' => 'The events is full']);
+        }
         return back();
     }
 
@@ -151,9 +160,9 @@ class EventController extends Controller
                 $attendee->delete();
             }
         } catch (\Exception $e) {
-
+            back()->withErrors('msg', 'Something went wrong!!');
         }
-        return back();
+        return back()->with('success', 'Your event had been deleted!');
     }
 
 }

@@ -9,7 +9,7 @@ class Event extends Model
 {
     protected $fillable = [
         'name', 'organizer_id', 'detail', 'precondition', 'location', 'code', 'category', 'price', 'payment_time'
-        , 'start_time', 'end_time', 'max_capacity'
+        , 'start_time', 'max_capacity'
     ];
 
     protected $dates = ['payment_time', 'start_time', 'end_time'];
@@ -21,7 +21,12 @@ class Event extends Model
 
     public function organizer()
     {
-        return $this->hasOne('EEvent\Organizer');
+        return $this->belongsTo('EEvent\User', 'organizer_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('EEvent\Category');
     }
 
 
@@ -76,4 +81,6 @@ class Event extends Model
     {
         return Event::orderBy('cur_capacity', 'desc')->limit(3);
     }
+
+
 }

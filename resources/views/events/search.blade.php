@@ -20,5 +20,8 @@
         </div>
     </section>
     @include('layouts.cards')
+    <div class="d-flex justify-content-center">
+        {{$events->links()}}
+    </div>
 @endif
 @endsection

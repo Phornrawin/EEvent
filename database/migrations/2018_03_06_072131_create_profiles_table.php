@@ -14,11 +14,10 @@ class CreateProfilesTable extends Migration
     public function up()
     {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->integer('id');
-            $table->unsignedInteger('user_id');
-            $table->integer('age')->default(-1);
-            $table->integer('tel_phone')->default(-1);
-            $table->timestamps('updated_at');
+            $table->unsignedInteger('user_id')->unique();
+            $table->integer('age')->nullable();
+            $table->string('tel_phone')->nullable();
+            $table->timestamps();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

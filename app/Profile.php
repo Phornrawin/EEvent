@@ -6,8 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
+    public $incrementing = false;
+    protected $primaryKey = 'user_id';
+    protected $keyType = 'string';
     protected $fillable = [
-        'age', 'tel-phone', 'user_id'
+        'user_id', 'age', 'tel-phone'
     ];
 
     public function user()
