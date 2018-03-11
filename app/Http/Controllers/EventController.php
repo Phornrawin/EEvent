@@ -6,6 +6,7 @@ use Auth;
 use chillerlan\QRCode\QRCode;
 use EEvent\Attendee;
 use EEvent\Event;
+use EEvent\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -106,7 +107,19 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         if ($event != null) {
-            $event->update($request->all());
+            $data = $request->validate([
+                'name' => 'required|max:255',
+                'max_capacity' => 'required|',
+                'detail' => 'required',
+                'location' => 'required',
+                'category_id' => 'required|min:1',
+                'price' => 'required|min:0',
+                'payment_time' => 'required|',
+                'start_time' => 'required'
+            ]);
+            $data['start_time'] = date("Y-m-d h:i:s", strtotime($data['start_time']));
+            $data['payment_time'] = date("Y-m-d h:i:s", strtotime($data['payment_time']));
+            $event->update($data);
         }
         return back();
     }
@@ -140,11 +153,13 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         if ($event->cur_capacity < $event->max_capacity) {
-            $event->attendees()->create([
+            $attendees = $event->attendees()->create([
                 "user_id" => Auth::id()
             ]);
+            $attendees->payment()->create();
             $event->cur_capacity += 1;
             $event->save();
+            $attendees->save();
         } else {
             back()->withErrors(['msg' => 'The events is full']);
         }
@@ -156,10 +171,12 @@ class EventController extends Controller
         $attendee = Attendee
             ::where('event_id', '=', $id)
             ->where('user_id', '=', Auth::id())->first();
+        $payment = Payment::where('attendee_id','=',$attendee->id);
         try {
-            if ($attendee != null) {
+            if ($attendee != null and $payment != null) {
                 $event = Event::find($id);
                 $event->cur_capacity -= 1;
+                $payment->delete();
                 $attendee->delete();
                 $event->save();
             }

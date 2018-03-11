@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-	<script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
     <div class="container w-75 mx-auto">
         <h1>EDIT Event</h1>
         <hr>
@@ -48,6 +47,14 @@
                 </div>
             </div>
 
+            <div class="form-row">
+                <div class="col-md-5 my-1">
+                    <label for="name">Max_capacity</label>
+                    <input type="max_capacity" class="form-control mx-sm-3" id="max_capacity" name="max_capacity" placeholder="Max_capacity"
+                           value="{{$event->max_capacity}}">
+                </div>
+            </div>
+ 
             <div class="form-row">
                 <div class="col-md-5 my-1">
                     <label for="name">Max_capacity</label>

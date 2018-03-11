@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC48dOHizV6KELoop9nwltS-pNGZ9FHfdk">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/load_map.js')}}"></script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,6 +18,8 @@
     <script src="https://unpkg.com/sweetalert2@7.15.1/dist/sweetalert2.all.js"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/map.css')}}">
+
 </head>
 <body class="d-flex flex-column" style="min-height: 100vh; padding-top: 55px">
 <div style="flex: 1">

@@ -3,6 +3,10 @@
 @section('title', 'Create an Event - EEvent');
 
 @section('content')
+    <div id="map">
+
+    </div>
+    </div>
     <div class="container">
         <div class="row form-group">
             <h1>Create your event here!</h1>
@@ -28,8 +32,8 @@
                                     <option value="" selected disabled hidden>Select category</option>
                                     <option value="1">Adventure</option>
                                     <option value="2">Dance</option>
-                                    <option value="3">Food</option>
-                                    <option value="4">Movement</option>
+                                    <option value="3">Movement</option>
+                                    <option value="4">Food</option>
                                     <option value="5">Movie</option>
                                     <option value="6">Other</option>
                                 </select>
@@ -83,6 +87,7 @@
 
                 <button type="submit" class="btn btn-primary">Create!</button>
             </form>
+
         </div>
     </div>
 
