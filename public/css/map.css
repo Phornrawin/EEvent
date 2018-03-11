@@ -1,0 +1,10 @@
+html, body{
+    position:absolute;
+    width:100%;
+}
+#map{
+    height: 400px;
+    width: 600px;
+    margin: auto;
+    clear:both;
+}
