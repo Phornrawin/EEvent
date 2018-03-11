@@ -23,14 +23,14 @@
     		
     			<div class="col-md-2">
     				<h3 align="center">Manage EEvent</h3>
-    				<hr>
+    				<hr style="height: 2px; color:#1C2833; background:#1C2833;">
     				<div class="vertical-menu">
     					<ul>
     						<li><h5><span href="" onclick="onClickUser()" id="defaultOpen">Users</span></h4></li>
     						<hr>
 							<li><h5><span href="" onclick="onClickEvent()">Events</span></h4></li>
 							<hr>
-							<li><h5><span href="" onclick="">Create user</span></h4></li>
+							<li><h5><span href="" onclick="onClickCreateUser()">Create user</span></h4></li>
 							<hr>
 							<li><h5><span href="" onclick="onClickCreateEvent()">Create event</span></h4></li>
     					</ul>
@@ -39,6 +39,8 @@
 
     			<div class="col-md-10" align="center" style="width: 100%">
     				 <div id="users" class="content">
+    				 	<h3>Users Table</h3>
+    				 	<hr style="height: 1px; color:#1C2833; background:#1C2833;">
 				        <table class="table">
 				            <tr class="table table-dark">
 				                <th>name</th>
@@ -65,6 +67,8 @@
 				        </table>
     				</div>
     				<div id="events" class="content">
+    					<h3>Evants Table</h3>
+    					<hr style="height: 2px; color:#1C2833; background:#1C2833;">
 				        <table class="table">
 				            <tr class="table table-dark" style="width: 80%">
 				                <th>ID</th>
@@ -111,6 +115,93 @@
 				                </form>
 				            @endforeach
 				        </table>
+				    </div>
+
+				    <div id="createUser" class="content">
+				    	 <div class="container">
+					        <div class="row justify-content-center">
+
+					            <div class="col-md-8">
+					            	<h3>Create User</h3>
+	            					<hr style="height: 2px; color:#1C2833; background:#1C2833;">
+					                <div class="card">
+					                    <div class="card-header">Register</div>
+
+					                    <div class="card-body">
+					                        <form method="POST" action="{{ route('admin.users.store') }}">
+					                            @csrf
+
+					                            <div class="form-group row">
+					                                <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+
+					                                <div class="col-md-6">
+					                                    <input id="name" type="text"
+					                                           class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+					                                           name="name" value="{{ old('name') }}" required autofocus>
+
+					                                    @if ($errors->has('name'))
+					                                        <span class="invalid-feedback">
+					                                        <strong>{{ $errors->first('name') }}</strong>
+					                                    </span>
+					                                    @endif
+					                                </div>
+					                            </div>
+
+					                            <div class="form-group row">
+					                                <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+
+					                                <div class="col-md-6">
+					                                    <input id="email" type="email"
+					                                           class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+					                                           name="email" value="{{ old('email') }}" required>
+
+					                                    @if ($errors->has('email'))
+					                                        <span class="invalid-feedback">
+					                                        <strong>{{ $errors->first('email') }}</strong>
+					                                    </span>
+					                                    @endif
+					                                </div>
+					                            </div>
+
+					                            <div class="form-group row">
+					                                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+
+					                                <div class="col-md-6">
+					                                    <input id="password" type="password"
+					                                           class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+					                                           name="password" required>
+
+					                                    @if ($errors->has('password'))
+					                                        <span class="invalid-feedback">
+					                                        <strong>{{ $errors->first('password') }}</strong>
+					                                    </span>
+					                                    @endif
+					                                </div>
+					                            </div>
+
+					                            <div class="form-group row">
+					                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm
+					                                    Password</label>
+
+					                                <div class="col-md-6">
+					                                    <input id="password-confirm" type="password" class="form-control"
+					                                           name="password_confirmation" required>
+					                                </div>
+					                            </div>
+
+					                            <div class="form-group row mb-0">
+					                                <div class="col-md-6 offset-md-4">
+					                                    <button type="submit" class="btn btn-primary">
+					                                        Register
+					                                    </button>
+					                                </div>
+					                            </div>
+					                        </form>
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
 				    </div>
 
 				    <div id="createEvent" class="content">
