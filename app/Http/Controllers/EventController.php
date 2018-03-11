@@ -148,9 +148,8 @@ class EventController extends Controller
         return back();
     }
 
-    public function unAttend(Request $request)
+    public function unAttend(Request $request, $id)
     {
-        $id = $request->get('id');
         $attendee = Attendee
             ::where('event_id', '=', $id)
             ->where('user_id', '=', Auth::id())->first();

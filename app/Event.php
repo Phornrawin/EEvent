@@ -59,7 +59,7 @@ class Event extends Model
 
     public function getRemainingSeat()
     {
-        return $this->max_capacity - $this->cur_capcity;
+        return $this->max_capacity - $this->cur_capacity;
     }
 
     public function getRemainingDay()
