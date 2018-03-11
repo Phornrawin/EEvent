@@ -4,18 +4,16 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
+        <div class="row form-group">
             <h1>Create your event here!</h1>
 
         </div>
-        <div class="row">
-            <form method="post" class="contact1-form validate-form" action="EventController.store">
+        <div class="row form-group">
+            <form method="post" class="contact1-form validate-form" action="{{route('events.store')}}">
                 {{ csrf_field() }}
 
-
-                <div class="row">
-
-                    <label>Event name:<input type="text" name="name" placeholder="Name" class="form-control"></label>
+                <div class="row form-group">
+                    <label>Event name:<input type="text" name="name" placeholder="Name" class="form-control" size="50"></label>
                     @if($errors->has('name'))
                         <span class="help-block">{{ $errors->first('name') }}</span>
                     @endif
@@ -43,14 +41,14 @@
 
                 </div>
 
-                <div class="row">
+                <div class="row form-group">
 
                     <label>Maximum Attendee:<input type="number" name="max_capacity" placeholder="Attendee number"
                                                    min="0" class="form-control"></label>
                     @if($errors->has('max_capacity'))
                         <span class="help-block">{{ $errors->first('max_capacity') }}</span>
                     @endif
-                    <label>Event fee (Baht) <input type="float" name="price" placeholder="0" class="form-control"></label>
+                    <label>Event fee (Baht) <input type="number" name="price" placeholder="0" class="form-control"></label>
                     @if($errors->has('price'))
                         <span class="help-block">{{ $errors->first('price') }}</span>
                     @endif
@@ -61,7 +59,7 @@
                         <span class="help-block">{{ $errors->first('payment_time') }}</span>
                     @endif
                 </div>
-                <div class="row">
+                <div class="row form-group">
                     <label>Location <input type="text" name="location" placeholder="Location"
                                            class="form-control"></label>
                     @if($errors->has('location'))
@@ -75,7 +73,7 @@
                         <span class="help-block">{{ $errors->first('start_time') }}</span>
                     @endif
                 </div>
-                <div class="row">
+                <div class="row form-group">
                     <label>Detail:<textarea name="detail" placeholder="Detail" class="form-control"></textarea></label>
                     @if($errors->has('detail'))
                         <span class="help-block">{{ $errors->first('detail') }}</span>

@@ -57,8 +57,8 @@ class EventController extends Controller
         $code = random_int(100000, 999999);
 
         $data += array('organizer_id' => $request['organizer_id']) + array('code' =>$code);
-        $data['start_time'] = date("Y-m-d", strtotime($data['start_time']));
-        $data['payment_time'] = date("Y-m-d", strtotime($data['payment_time']));
+        $data['start_time'] = date("Y-m-d h:i:s", strtotime($data['start_time']));
+        $data['payment_time'] = date("Y-m-d h:i:s", strtotime($data['payment_time']));
 
         Event::create($data);
 
