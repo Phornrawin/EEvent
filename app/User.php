@@ -35,6 +35,7 @@ class User extends Authenticatable
     public function attendEvent()
     {
         return $this->belongsToMany('EEvent\Event', 'attendees');
+
     }
 
     public function organizedEvent()
