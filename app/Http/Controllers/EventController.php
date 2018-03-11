@@ -106,7 +106,19 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         if ($event != null) {
-            $event->update($request->all());
+            $data = $request->validate([
+                'name' => 'required|max:255',
+                'max_capacity' => 'required|',
+                'detail' => 'required',
+                'location' => 'required',
+                'category_id' => 'required|min:1',
+                'price' => 'required|min:0',
+                'payment_time' => 'required|',
+                'start_time' => 'required'
+            ]);
+            $data['start_time'] = date("Y-m-d h:i:s", strtotime($data['start_time']));
+            $data['payment_time'] = date("Y-m-d h:i:s", strtotime($data['payment_time']));
+            $event->update($data);
         }
         return back();
     }

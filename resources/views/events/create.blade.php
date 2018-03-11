@@ -3,6 +3,10 @@
 @section('title', 'Create an Event - EEvent');
 
 @section('content')
+
+    {{--<head>--}}
+        {{--<link rel="stylesheet" href="/maps/documentation/javascript/demos/demos.css">--}}
+    {{--</head>--}}
     <div class="container">
         <div class="row form-group">
             <h1>Create your event here!</h1>
@@ -28,8 +32,8 @@
                                     <option value="" selected disabled hidden>Select category</option>
                                     <option value="1">Adventure</option>
                                     <option value="2">Dance</option>
-                                    <option value="3">Food</option>
-                                    <option value="4">Movement</option>
+                                    <option value="3">Movement</option>
+                                    <option value="4">Food</option>
                                     <option value="5">Movie</option>
                                     <option value="6">Other</option>
                                 </select>
@@ -85,5 +89,7 @@
             </form>
         </div>
     </div>
-
+    {{--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC48dOHizV6KELoop9nwltS-pNGZ9FHfdk&callback=initMap"--}}
+            {{--async defer></script>--}}
+    {{--<script type="text/javascript" src="{{ asset('js/load_map.js') }}"></script>--}}
 @endsection

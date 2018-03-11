@@ -3,13 +3,14 @@
 @section('title', 'Edit Event - EEvent');
 
 @section('content');
+
 <div class="container">
     <div class="row">
         <h1>Edit your event here!</h1>
     </div>
 
     <div class="row">
-        <form method="post" class="contact1-form validate-form">
+        <form method="post" class="contact1-form validate-form" action="{{route('events.update', ['id'=>$event->id])}}">
             @method('PUT')
             {{ csrf_field() }}
 
@@ -31,12 +32,12 @@
                         </div>
                         <select class="custom-select" id="category_selector" name="category_id">
                             <option value="" selected disabled hidden>Select category</option>
-                            <option value="1" selected="{{$event->category_id}}==1?'selected':''">Adventure</option>
-                            <option value="2" selected="{{$event->category_id}}==2?'selected':''">Dance</option>
-                            <option value="3" selected="{{$event->category_id}}==3?'selected':''">Food</option>
-                            <option value="4" selected="{{$event->category_id}}==4?'selected':''">Movement</option>
-                            <option value="5" selected="{{$event->category_id}}==5?'selected':''">Movie</option>
-                            <option value="6" selected="{{$event->category_id}}==6?'selected':''">Other</option>
+                            <option value="1" {{($event->category_id == 1?"selected":"")}}>Adventure</option>
+                            <option value="2" {{($event->category_id == 2?"selected":"")}}>Dance</option>
+                            <option value="3" {{($event->category_id == 3?"selected":"")}}>Movement</option>
+                            <option value="4" {{($event->category_id == 4?"selected":"")}}>Food</option>
+                            <option value="5" {{($event->category_id == 5?"selected":"")}}>Movie</option>
+                            <option value="6" {{($event->category_id == 6?"selected":"")}}>Other</option>
                         </select>
                     </div>
                     @if($errors->has('category'))
@@ -58,7 +59,7 @@
                 @endif
 
                 <label>Pay fee before: <input type="datetime-local" name="payment_time"
-                                              class="form-control" value="{{$event->payment_time->format("Y-m-d\TH:i")}}"></label>
+                                              class="form-control" value="{{$event->payment_time->format("Y-m-d\Th:i")}}"></label>
                 @if($errors->has('payment_time'))
                     <span class="help-block">{{ $errors->first('payment_time') }}</span>
                 @endif
@@ -71,7 +72,7 @@
                 @endif
 
                 <label>Event start time: <input type="datetime-local" name="start_time"
-                                                class="form-control" value="{{$event->start_time->format("Y-m-d\TH:i")}}"></label>
+                                                class="form-control" value="{{$event->start_time->format("Y-m-d\Th:i")}}"></label>
                 @if($errors->has('start_time'))
                     <span class="help-block">{{ $errors->first('start_time') }}</span>
                 @endif
