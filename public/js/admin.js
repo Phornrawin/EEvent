@@ -13,9 +13,21 @@ function openPage(pageName,elmnt,color) {
 
 }
 
+function deleteUser() {
+        var x;
+        var r = confirm("Confirm delete this user?");
+        if (r == true) {
+            return event.preventDefault(); document.getElementById('delete-{{$user->id}}').submit();
+        }
+        else { 
+            return; 
+        }
+        document.getElementById("deleteButton").innerHTML = x;
+}
 // Get the element with id="defaultOpen" and click on it
 // openPage('users', this, '#17202A')
 $(document).ready(function(e){
     document.getElementById("defaultOpen").click();    
     openPage('users', $("#defaultOpen"), '#17202A')
+    deleteUser();
 });

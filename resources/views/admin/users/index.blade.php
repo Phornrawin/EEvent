@@ -1,7 +1,7 @@
 @extends('layouts.app')
  
- @section('content')
- <style type="text/css">
+@section('content')
+ 	<style type="text/css">
       .tablink {
             background-color: #555;
             color: white;
@@ -18,6 +18,7 @@
             background-color: #777;
         }
     </style>
+	    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
     <button class="tablink" onclick="openPage('users', this, '#17202A')" id="defaultOpen">Users</button>
@@ -32,44 +33,21 @@
                 <th>delete</th>
             </tr>
             @foreach($users as $user)
+                
                 <tr>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->avatar}}</td>
                     <td><a href="{{action('Admin\UserController@edit', ['id' => $user->id])}}">edit</a></td>
-                    <td><a href="" data-toggle="modal" data-target="#deleteModal">
-						<div class="modal fade"  role="dialog" id="deleteModal">
-						    <div class="modal-dialog">
-						      <div class="modal-content">
-						        <div class="modal-header">
-						          <h4 class="modal-title">Delete User</h4>
-						          <button  type="button" class="close" data-dismiss="modal">&times;</button>
-						        </div>
-						        <div class="modal-body">
-						        	<p>Confirm delete ?</p>
-						        </div>
-						        <div class="modal-footer">
-						        	<button type="button" class="btn btn-default" onclick="event.preventDefault(); document.getElementById('delete-{{$user->id}}').submit();"> 
-										<form id="delete-{{$user->id}}"
-						                      action="{{action('Admin\UserController@destroy', ['id' => $user->id])}}" method="POST"
-						                      style="display: none;">
-						                    @csrf
-						                    @method('DELETE')
-						                </form>
-						        	Comfirm</button>
-						          	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						        </div> 
-						      </div>
-						    </div>
-						</div>
-                    	delete</a>
-                    </td>
+                    <p id="demo"></p>
+                    <td><a href="#" onclick="myFunction()">delete</a></td>
 	               </tr>
-	                
-                	
-          			
-				
-
+                <form id="delete-{{$user->id}}"
+			        action="{{action('Admin\UserController@destroy', ['id' => $user->id])}}" method="POST"
+			        style="display: none;">
+			        @csrf
+			        @method('DELETE')
+			    </form>
             @endforeach
         </table>
     </div>
