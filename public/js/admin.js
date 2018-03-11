@@ -12,28 +12,22 @@ function openPage(pageName) {
 function onClickUser(){
     $("#events.content").hide();
     $("#users.content").show();
+    $("#createEvent.content").hide();
 }
 function onClickEvent(){
     $("#events.content").show();
     $("#users.content").hide();
+    $("#createEvent.content").hide();
 }
+function onClickCreateEvent() {
+    $("#createEvent.content").show();
+    $("#events.content").hide();
+    $("#users.content").hide();
 
-function deleteUser() {
-        var x;
-        var r = confirm("Confirm delete this user?");
-        if (r == true) {
-            return event.preventDefault(); document.getElementById('delete-{{$user->id}}').submit();
-        }
-        else { 
-            return; 
-        }
-        document.getElementById("deleteButton").innerHTML = x;
 }
 // Get the element with id="defaultOpen" and click on it
 
 $(document).ready(function(e){
-    $("#events.content").hide();
-    // document.getElementById("defaultOpen").click();    
-    // openPage($("#defaultOpen"));
-    // $("#users.content").hide();
+        $("#events.content").hide();
+        $("#createEvent.content").hide();
 });
