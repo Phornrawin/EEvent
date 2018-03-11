@@ -137,11 +137,13 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         if ($event->cur_capacity < $event->max_capacity) {
-            $event->attendees()->create([
+            $attendee = $event->attendees()->create([
                 "user_id" => Auth::id()
             ]);
+            $attendee->payment()->create();
             $event->cur_capacity += 1;
             $event->save();
+            $attendee->save();
         } else {
             back()->withErrors(['msg' => 'The events is full']);
         }
@@ -150,13 +152,15 @@ class EventController extends Controller
 
     public function unAttend(Request $request, $id)
     {
+        $event = Event::find($id);
         $attendee = Attendee
             ::where('event_id', '=', $id)
             ->where('user_id', '=', Auth::id())->first();
         try {
             if ($attendee != null) {
-                Event::find($id)->cur_capacity--;
+                $event->cur_capacity -= 1;
                 $attendee->delete();
+                $event->save();
             }
         } catch (\Exception $e) {
             back()->withErrors('msg', 'Something went wrong!!');
