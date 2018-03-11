@@ -3,10 +3,11 @@
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        body{
-            background: linear-gradient(#FFEDED,#BC8F8F);
+        body {
+            background: linear-gradient(#FFEDED, #BC8F8F);
         }
-        .summaryDetail{
+
+        .summaryDetail {
             background: #212529;
             color: white;
             display: flex;
@@ -19,13 +20,15 @@
             text-align: left;
             padding: 80px 200px;
         }
-        .imageHeader{
+
+        .imageHeader {
             width: 800px;
             margin-top: 50px;
             margin-left: auto;
             margin-right: auto;
         }
-        .detail{
+
+        .detail {
             background: white;
             height: 200px;
             width: 800px;
@@ -34,19 +37,23 @@
             padding: 20px 100px;
             margin-bottom: 50px;
         }
-        button{
+
+        button {
             font-size: 16px;
             padding: 15px 30px;
             height: 50px;
             width: 200px;
         }
+
         .force-overflow {
             min-height: 220px;
         }
+
         .scrollbar-primary::-webkit-scrollbar-track {
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
             background-color: #F5F5F5;
-            border-radius: 10px; }
+            border-radius: 10px;
+        }
 
         .scrollbar-primary::-webkit-scrollbar {
             width: 12px;
@@ -58,6 +65,7 @@
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
             background-color: #2D3C49;
         }
+
         .tab {
             overflow: hidden;
             border: 1px solid #5F6D7A;
@@ -104,8 +112,7 @@
             margin-bottom: 100px;
         }
 
-
-        .editBtn{
+        .editBtn {
             margin: 10px;
             padding: 20px;
             position: fixed; /* Fixed/sticky position */
@@ -126,23 +133,24 @@
             background-color: #555; /* Add a dark-grey background on hover */
         }
 
-        .commentBox{
+        .commentBox {
             height: 500px;
             width: 800px;
             margin-top: 50px;
             margin-left: auto;
             margin-right: auto;
         }
-        .comment-textinput{
-            border:1px solid rgba(1,1,1,0.3);
-            width:100%;
-            padding:4px 7px;
-            margin-top:5px;
-            font-size:13px;
-            line-height:24px;
-            resize:none;
-            transition:ease 0.2s;
-            outline:none !important;
+
+        .comment-textinput {
+            border: 1px solid rgba(1, 1, 1, 0.3);
+            width: 100%;
+            padding: 4px 7px;
+            margin-top: 5px;
+            font-size: 13px;
+            line-height: 24px;
+            resize: none;
+            transition: ease 0.2s;
+            outline: none !important;
         }
     </style>
 
@@ -160,12 +168,14 @@
                 <br>
             </div>
             <div class="" style="text-align: center;">
-                visitor<br> <b style="font-size: 30px;text-align: center;">{{$event->cur_capacity .' / ' .$event->max_capacity}}</b> <br>
+                visitor<br> <b
+                        style="font-size: 30px;text-align: center;">{{$event->cur_capacity .' / ' .$event->max_capacity}}</b>
+                <br>
 
                 @if(!$event->isAttend(Auth::id()))
                     <form method="post" action="{{route('events.attend', ['id' => $event->id])}}">
                         @csrf
-                        <button class="btn btn-primary" type="submit" >I'm going</button>
+                        <button class="btn btn-primary" type="submit">I'm going</button>
                     </form>
                 @else
                     <form method="post" action="{{route('events.unattend', ['id' => $event->id])}}">
@@ -179,11 +189,8 @@
 
 
         <div class="imageHeader">
-            @if($event->image_path == null)
-                <img class="img-fluid" src="/uploads/events_pic/{{$event->getDefaultPicture()}}" style="border-radius: 20px 20px 0px 0px">
-            @else
-                <img class="img-fluid" src="/uploads/events_pic/{{$event->image_path}}" style="border-radius: 20px 20px 0px 0px">
-            @endif
+            <img class="img-fluid" src="/uploads/events_pic/{{$event->getPicture()}}"
+                 style="border-radius: 20px 20px 0px 0px">
         </div>
         <div class="detail">
             <h1 style="font-size: 40px">{{$event->name}}</h1>
@@ -265,17 +272,21 @@
 
     {{--edit button for organizer--}}
     @if(Auth::user()!= null and Auth::user()->id == $event->organizer_id)
-    <button type="button" class="editBtn" id="editBtn" style="font-size: 30px;">Edit</button>
+        <button type="button" class="editBtn" id="editBtn" style="font-size: 30px;">Edit</button>
     @else
         @if(!$event->isAttend(Auth::id()))
             <form method="post" action="{{route('events.attend', ['id' => $event->id])}}">
                 @csrf
-                <button class="editBtn" type="submit" id="bookedBtn" style="background: darkblue; display: none;">I'm going</button>
+                <button class="editBtn" type="submit" id="bookedBtn" style="background: darkblue; display: none;">I'm
+                    going
+                </button>
             </form>
         @else
             <form method="post" action="{{route('events.unattend', ['id' => $event->id])}}">
                 @csrf
-                <button class="editBtn" type="submit" id="bookedBtn" style="background: firebrick; display: none;">I'cant go anymore</button>
+                <button class="editBtn" type="submit" id="bookedBtn" style="background: firebrick; display: none;">
+                    I'cant go anymore
+                </button>
             </form>
         @endif
     @endif
@@ -284,7 +295,7 @@
     <div class="commentBox">
         {{--action="{{route('events.unattend', ['id' => $event->id])}}"--}}
         Comments
-        <form method="post" >
+        <form method="post">
             <textarea class="comment-textinput" name="comment" id="comment"></textarea> <br>
             <input type="submit" class="comment-submit btn btn-primary" value="send message">
         </form>
@@ -292,7 +303,9 @@
     </div>
 
     <script>
-        window.onscroll = function() {scrollFunction()};
+        window.onscroll = function () {
+            scrollFunction()
+        };
 
         function scrollFunction() {
             if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
