@@ -2,9 +2,10 @@
 
 namespace EEvent;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class Profile extends Eloquent
 {
     public $incrementing = false;
     protected $primaryKey = 'user_id';

@@ -3,6 +3,7 @@
 namespace EEvent\Http\Controllers;
 
 use Auth;
+use chillerlan\QRCode\QRCode;
 use EEvent\Attendee;
 use EEvent\Event;
 use Illuminate\Http\Request;
@@ -74,11 +75,12 @@ class EventController extends Controller
     public function show($id)
     {
         try {
+            $qrcode = (new QRCode)->render('https://www.youtube.com/watch?v=DLzxrzFCyOs&t=43s');
             $event = Event::findOrFail($id);
         } catch (\Exception $e) {
             return redirect()->route('events.search', ['q' => $id]);
         }
-        return view('events.show', ['event' => $event]);
+        return view('events.show', ['event' => $event, 'code' => $qrcode]);
     }
 
     /**
@@ -156,8 +158,10 @@ class EventController extends Controller
             ->where('user_id', '=', Auth::id())->first();
         try {
             if ($attendee != null) {
-                Event::find($id)->cur_capacity--;
+                $event = Event::find($id);
+                $event->cur_capacity -= 1;
                 $attendee->delete();
+                $event->save();
             }
         } catch (\Exception $e) {
             back()->withErrors('msg', 'Something went wrong!!');

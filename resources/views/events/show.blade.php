@@ -3,11 +3,15 @@
 @section('content')
     <div>
         @if ($errors->any())
-            <div class="alert-danger" data-toggle="modal">{{$errors}}</div>
+            <script>swal('{{$errors}}')</script>
         @endif
 
         <div class="imageHeader">
-            <img class="img-fluid" src="/uploads/events_pic/{{$event->image_path}}" style="border-radius: 20px 20px 0px 0px">
+            @if($event->image_path == null)
+                <img class="img-fluid" src="/uploads/events_pic/{{$event->getDefaultPicture()}}">
+            @else
+                <img class="img-fluid" src="/uploads/events_pic/{{$event->image_path}}">
+            @endif
         </div>
         <div class="summaryDetail">
             <div class="">

@@ -62,7 +62,7 @@ class ProfileController extends Controller
     public function updateAvatar(Request $request)
     {
         $user = Auth::user();
-        if ($user->avatar != 'default.jpg') {
+        if ($user->avatar != 'other.jpg') {
             $oldAvatar = public_path('uploads/avatars/' . $user->avatar);
             File::delete($oldAvatar);
         }

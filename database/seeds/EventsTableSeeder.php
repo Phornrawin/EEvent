@@ -25,13 +25,13 @@ class EventsTableSeeder extends Seeder
         ));
 
         Event::create(array(
-            'name' => 'Test web-tech ceremony',
+            'name' => 'Dance your heart out - Round 1',
             'organizer_id' => 1,
-            'detail' => 'The ritual to summon the glorious web-tech demon in 7 days',
+            'detail' => 'Join us to night at Kasetsart University for some crazy dancing move',
             'precondition' => 'No life and No friend',
             'location' => 'SCU-45 Kasetsart University Bangkok',
             'code' => '111111',
-            'category_id' => 1, //adventure
+            'category_id' => 2, //dance
             'price' => 0,
             'payment_time' => Carbon::now()->addWeek(5)->subDay(),
             'start_time' => Carbon::now()->addWeek(5),
@@ -39,13 +39,13 @@ class EventsTableSeeder extends Seeder
         ));
 
         Event::create(array(
-            'name' => 'test1',
+            'name' => 'Dance Master - Epic Showdown',
             'organizer_id' => 2,
-            'detail' => 'The ritual to summon the glorious web-tech demon in 7 days',
+            'detail' => 'Dance showdown of the year tonight at Kasetsart',
             'precondition' => 'No life and No friend',
             'location' => 'SCU-45 Kasetsart University Bangkok',
             'code' => '222222',
-            'category_id' => 2, //Dance
+            'category_id' => 2, //dance
             'price' => 999,
             'payment_time' => Carbon::now()->addWeek()->subDay(),
             'start_time' => Carbon::now()->addWeek(),
@@ -53,13 +53,13 @@ class EventsTableSeeder extends Seeder
         ));
 
         Event::create(array(
-            'name' => 'test2',
+            'name' => 'How to be a true Vegan',
             'organizer_id' => 2,
-            'detail' => 'The ritual to summon the glorious web-tech demon in 7 days',
+            'detail' => 'Learn how to be a vegan, you will learn anything about how to be a True vegan',
             'precondition' => 'No life and No friend',
             'location' => 'SCU-45 Kasetsart University Bangkok',
             'code' => '333333',
-            'category_id' => 2, //Dance
+            'category_id' => 4, // food
             'price' => 500,
             'payment_time' => Carbon::now()->addWeek()->subDay(),
             'start_time' => Carbon::now()->addWeek(),
@@ -67,14 +67,15 @@ class EventsTableSeeder extends Seeder
         ));
 
         Event::create(array(
-            'name' => 'test3',
+            'name' => 'Voter Registration Training Workshop',
             'organizer_id' => 3,
-            'detail' => 'The ritual to summon the glorious web-tech demon in 7 days',
-            'precondition' => 'No life and No friend',
+            'detail' => 'Learn how to conduct your next voter registration drive, participate in one of the League\'s events, or train your group for their outreach activities. Led by Diane Burrows, we\'ll be talking about the logistics of voter registration, and how to run your own drives.
+The League of Women Voters of the City of New York is a nonpartisan organization whose purpose is to promote informed and active participation in government. The League neither supports nor opposes candidates or political parties. The League is supported by public-spirited individuals, businesses, and organizations.',
+            'precondition' => 'Be a Good listener',
             'location' => 'SCU-45 Kasetsart University Bangkok',
             'code' => '444444',
-            'category_id' => 6, //Other
-            'price' => 199,
+            'category_id' => 3, //Movement
+            'price' => 0,
             'payment_time' => Carbon::now()->addWeek()->subDay(),
             'start_time' => Carbon::now()->addWeek(),
             'max_capacity' => 64,

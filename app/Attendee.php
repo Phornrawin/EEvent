@@ -2,9 +2,10 @@
 
 namespace EEvent;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 
-class Attendee extends Model
+class Attendee extends Eloquent
 {
 
     /**

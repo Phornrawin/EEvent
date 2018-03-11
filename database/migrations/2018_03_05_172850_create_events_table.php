@@ -17,7 +17,7 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->string('name', 64);
             $table->unsignedInteger('organizer_id');
-            $table->string('detail');
+            $table->longText('detail');
             $table->string('precondition', 128)->default('');
             $table->string('location', 86);
             $table->string('code')->unique();
@@ -27,7 +27,7 @@ class CreateEventsTable extends Migration
             $table->dateTime('start_time');
             $table->integer('cur_capacity')->default(0);
             $table->integer('max_capacity');
-            $table->string('image_path')->default('default.jpg');
+            $table->string('image_path')->nullable();
             $table->timestamps();
             $table->foreign('organizer_id')
                 ->references('id')

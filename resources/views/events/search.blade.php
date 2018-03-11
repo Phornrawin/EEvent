@@ -20,11 +20,17 @@
                 </p>
             </div>
         </section>
-        @include('layouts.cards')
-        @if($events != null)
+        <div class="container py-4">
+            <div class="row">
+                @foreach($events as $event)
+                    @include('components.event_card', ['event' => $event])
+                @endforeach
+            </div>
+        </div>
+        @empty($events)
             <div class="d-flex justify-content-center">
                 {{$events->links()}}
             </div>
-        @endif
+        @endempty
     @endif
 @endsection
