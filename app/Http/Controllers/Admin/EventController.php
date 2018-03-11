@@ -80,7 +80,6 @@ class EventController extends Controller
     {
         $payment_time = Carbon::createFromFormat('d m Y H:i', $request->get('payment_time'));
         $start_time = Carbon::createFromFormat('d m Y H:i', $request->get('start_time'));
-        $event = Event::find($id);
         if ($event != null) {
             $event->update(array(
                 'name' => $request->get('name'),
