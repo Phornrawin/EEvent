@@ -45,12 +45,18 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/search', 'EventController@search')->name('events.search');
 Route::get('/category')->name('events.category');
+//Route::get('/events/create', function () {
+//    return view('profile');
+//});
+//Route::post('/events/create', 'EventController@store')
+//    ->name('events.store')
+//    ->middleware('auth');
 
 Route::resource('events', 'EventController');
 
 // Admin route
 Route::get('/admin', function () {
-   return redirect()->route('admin.users.index');
+    return redirect()->route('admin.users.index');
 });
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {

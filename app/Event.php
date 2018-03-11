@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $fillable = [
-        'name', 'organizer_id', 'detail', 'precondition', 'location', 'code', 'category', 'price', 'payment_time'
+        'name', 'organizer_id', 'detail', 'precondition', 'location', 'code', 'category_id', 'price', 'payment_time'
         , 'start_time', 'max_capacity'
     ];
 
-    protected $dates = ['payment_time', 'start_time', 'end_time'];
+    protected $dates = ['payment_time', 'start_time'];
 
     public function attendees()
     {
@@ -59,7 +59,7 @@ class Event extends Model
 
     public function getRemainingSeat()
     {
-        return $this->max_capacity - $this->cur_capcity;
+        return $this->max_capacity - $this->cur_capacity;
     }
 
     public function getRemainingDay()

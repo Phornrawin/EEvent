@@ -48,14 +48,15 @@ class EventController extends Controller
             'max_capacity' => 'required|min:1',
             'detail' => 'required',
             'location' => 'required',
-            'category' => 'required',
+            'category_id' => 'required|min:1',
             'price' => 'required|min:0',
             'payment_time' => 'required|',
             'start_time' => 'required',
         ]);
 
-//        $data = $request;
-        $data += array('organizer_id' => $request['organizer_id'], 'code' => "12341234", 'end_time' => "2018-03-23 05:47:07");
+        $code = random_int(100000, 999999);
+
+        $data += array('organizer_id' => $request['organizer_id']) + array('code' =>$code);
         $data['start_time'] = date("Y-m-d", strtotime($data['start_time']));
         $data['payment_time'] = date("Y-m-d", strtotime($data['payment_time']));
 
@@ -148,9 +149,8 @@ class EventController extends Controller
         return back();
     }
 
-    public function unAttend(Request $request)
+    public function unAttend(Request $request, $id)
     {
-        $id = $request->get('id');
         $attendee = Attendee
             ::where('event_id', '=', $id)
             ->where('user_id', '=', Auth::id())->first();

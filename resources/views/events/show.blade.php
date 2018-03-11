@@ -7,7 +7,7 @@
         @endif
 
         <div class="imageHeader">
-            <img class="img-fluid" src="/uploads/events_pic/{{$event->image_path}}">
+            <img class="img-fluid" src="/uploads/events_pic/{{$event->image_path}}" style="border-radius: 20px 20px 0px 0px">
         </div>
         <div class="summaryDetail">
             <div class="">
@@ -18,11 +18,7 @@
             </div>
             <div class="">
                 Tag : {{$event->category->name}} <br>
-                @if ($event->price == 0)
-                    Price : <b style="color: red">free</b>
-                @else
-                    Price : <b>{{$event->price}}</b>
-                @endif
+                Price : <b style="color: red">{{$event->getPriceText()}}</b>
                 <br>
                 Members : <b>{{$event->cur_capacity .' / ' .$event->max_capacity}}</b> <br>
 
@@ -42,9 +38,9 @@
         </div>
 
         <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'Detail')" id="default-click">Detail</button>
-            <button class="tablinks" onclick="openCity(event, 'Paid')">Paid</button>
-            <button class="tablinks" onclick="openCity(event, 'Booked')">Booked</button>
+            <button class="tablinks" onclick="openTab(event, 'Detail')" id="default-click">Detail</button>
+            <button class="tablinks" onclick="openTab(event, 'Paid')">Paid</button>
+            <button class="tablinks" onclick="openTab(event, 'Booked')">Booked</button>
         </div>
 
         <div id="Detail" class="tabcontent scrollbar-primary">
@@ -53,44 +49,73 @@
         </div>
 
         <div id="Paid" class="tabcontent scrollbar-primary">
-
+            <?php $count = 0;?>
+            <table class="table">
+                    @foreach($event->attendees as $attendee)
+                            @if($attendee->payment != null and $attendee->payment->status == "paid")
+                                <?php ++$count; ?>
+                                @if($count <= 1)
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Payment Status</th>
+                                    </tr>
+                                @endif
+                                <tr>
+                                    <td>{{$attendee->user->name}}</td>
+                                    <td>{{$attendee->user->email}}</td>
+                                    <td>{{$attendee->payment->status}}</td>
+                                </tr>
+                            @endif
+                    @endforeach
+                @if($count == 0)
+                    <p>No member</p>
+                @endif
+            </table>
             <div class="force-overflow"></div>
         </div>
 
         <div id="Booked" class="tabcontent scrollbar-primary">
-
+            <?php $count = 0; ?>
+            <table class="table">
+                @foreach($event->attendees as $attendee)
+                    @if($attendee->payment != null and $attendee->payment->status == "unpaid")
+                        <?php ++$count; ?>
+                        @if($count <= 1)
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Payment Status</th>
+                            </tr>
+                        @endif
+                        <tr>
+                            <td>{{$attendee->user->name}}</td>
+                            <td>{{$attendee->user->email}}</td>
+                            <td>{{$attendee->payment->status}}</td>
+                        </tr>
+                    @endif
+                @endforeach
+                    @if($count == 0)
+                        <p>No member</p>
+                    @endif
+            </table>
             <div class="force-overflow"></div>
         </div>
 
         <div>
-
-
             Attendee:
             @foreach($event->attendees as $attendee)
-                <div>User: {{$attendee->user->name}}</div>
-                <div>Email: {{$attendee->user->email}}</div>
+                <div>{{$attendee->user->name}}</div>
+                <div>{{$attendee->user->email}}</div>
                 @if($attendee->payment != null)
-                    <div>Payment: {{$attendee->payment->status}}</div>
+                    <div>{{$attendee->payment->status}}</div>
                     <br>
                 @endif
             @endforeach
         </div>
 
-        @if(!$event->isAttend(Auth::id()))
-            <form method="post" action="{{route('events.attend', ['id' => $event->id])}}">
-                @csrf
-                <button class="btn btn-primary" type="submit">I'm going</button>
-            </form>
-        @else
-            <form method="post" action="{{route('events.unattend', ['id' => $event->id])}}">
-                @csrf
-                <button class="btn btn-danger" type="submit">I'cant go anymore</button>
-            </form>
-        @endif
-    </div>
-
     <script>
-        function openCity(evt, cityName) {
+        function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
@@ -100,7 +125,7 @@
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
-            document.getElementById(cityName).style.display = "block";
+            document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
         }
 
