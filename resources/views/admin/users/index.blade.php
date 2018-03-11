@@ -99,9 +99,15 @@
 				                    <td>{{$event->max_capacity}}</td>
 				                    <td>{{$event->created_at}}</td>
 				                    <td>{{$event->updated_at}}</td>
-				                    <td><a href="">edit</a></td>
-				                    <td><a href="">delete</a></td>
+				                    <td><a href="{{action('Admin\EventController@edit', ['id' => $event->id])}}">edit</a></td>
+				                    <td><a href="#" onclick="event.preventDefault(); document.getElementById('delete-{{$event->id}}').submit();">delete</a></td>
 				                </tr>
+				                <form id="delete-{{$event->id}}"
+				                      action="{{action('Admin\EventController@destroy', ['id' => $event->id])}}" method="POST"
+				                      style="display: none;">
+				                    @csrf
+				                    @method('DELETE')
+				                </form>
 				            @endforeach
 				        </table>
 				    </div>
