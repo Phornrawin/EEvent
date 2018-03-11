@@ -7,55 +7,64 @@
     <div class="d-flex flex-column text-center justify-content-center pb-xl-5 background"
          style="height: 100vh;">
         <div>
-            <h1 class="logo display-2">EEvent</h1>
-            <h2 class="font-weight-light mt-3">[ Where Everywhere meets Event ]</h2>
+            <h1 class="logo display-2 text-light">EEvent</h1>
+            <h2 class="font-weight-light mt-3 text-light">[ Where Everywhere meets Event ]</h2>
             <div>
-                <a class="btn btn-lg btn-danger mt-4" href={{route('events.index')}}>Explore</a>
+                <a class="btn btn-lg btn-outline-light mt-4" href={{route('events.index')}}>Explore</a>
             </div>
         </div>
     </div>
 
     {{-----Search Events Zones-----}}
-    <div class="text-center w-100 bg-secondary mb-4 py-3">
+    <div class="w-100">
         <form method="get" action="{{route('events.search')}}">
-            <div class="form-row align-items-center justify-content-center">
-                <div class="col-sm-3 my-1">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id=""
-                               placeholder="search events" name="q">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn"><i class=" fa fa-search"></i></button>
-                        </div>
-                    </div>
+            <div class="input-group">
+                <input type="text" class="search form-control form-control-dark rounded-0 py-3"
+                       placeholder="Search for your events here eg. adventure, dance or cooking.">
+                <div class="input-group-append">
+                    <button class="btn btn-danger rounded-0" id="basic-addon2" style="min-width: 100px"><i class="fa fa-search"></i></button>
                 </div>
             </div>
+
         </form>
+    </div>
+
+    <div class="stripe row justify-content-center flex-nowrap py-4">
+        <button type="button" class="btn btn-danger rounded mx-2">Join a movement</button>
+        <button type="button" class="btn btn-danger rounded mx-2">Learn to cook</button>
+        <button type="button" class="btn btn-danger rounded mx-2">Dance your move</button>
+        <button type="button" class="btn btn-danger rounded mx-2">Watch a film</button>
+        <button type="button" class="btn btn-danger rounded mx-2">Become an adventurer</button>
     </div>
 
     {{-----Popular Events Zones-----}}
     <div class="container py-4">
+        <h3 class="font-weight-bold mb-3">What people hype about</h3>
         <div class="row">
             @foreach($popular as $event)
                 @include('components.event_card', ['event' => $event])
             @endforeach
         </div>
     </div>
+
     {{-----Recent Events Zones-----}}
-    <div class="container py-4">
+    <div class="container py-5">
         <h3 class="font-weight-bold mb-3">Newest Events</h3>
-        <p>Newest event asking you to joined</p>
-        <div class="row">
+        <div class="row mb2">
             @foreach($recent as $event)
-                @include('components.event_card', ['event' => $event])
+                <div class="col-md">
+                    @include('components.event_post', ['event' => $event])
+                </div>
             @endforeach
         </div>
+
     </div>
 
     <div class="philosophy-block text-center p-5 container">
-        <h3 class="mb-4">Philosophy of Our Team</h3>
+        <h3 class="mb-4">Our vision</h3>
         <p>At EEvent, we strive to create a place where everyone can look and become part of the great communities.
-            We believe that people, when joined and interacted with each other can bring out their potential to the
-            greatest</p>
+            We believe that people when joined and interacted with each other can bring out their potential to the
+            fullest.</p>
         <cite>The journey of a thousand miles begins with one step. ~ Lao Tzu</cite>
     </div>
 @endsection

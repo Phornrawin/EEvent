@@ -26,13 +26,13 @@
     				<hr>
     				<div class="vertical-menu">
     					<ul>
-    						<li><h5><span href="" onclick="onClickUser()" id="defaultOpen">Users</span></h4></li>
+    						<li><h5><span href="" onclick="onClickUser()" id="defaultOpen">Users</span></h5></li>
     						<hr>
-							<li><h5><span href="" onclick="onClickEvent()">Events</span></h4></li>
+							<li><h5><span href="" onclick="onClickEvent()">Events</span></h5></li>
 							<hr>
-							<li><h5><span href="" onclick="">Create user</span></h4></li>
+							<li><h5><span href="" onclick="">Create user</span></h5></li>
 							<hr>
-							<li><h5><span href="" onclick="onClickCreateEvent()">Create event</span></h4></li>
+							<li><h5><span href="" onclick="onClickCreateEvent()">Create event</span></h5></li>
     					</ul>
 					</div>
     			</div>
@@ -118,7 +118,7 @@
 				        <div class="row">
 				            <form method="post" class="contact1-form validate-form" action="{{route('admin.events.store')}}">
             					@csrf
-				                <div class="row">
+				                <div class="row">s
 				                    <label>Event name:<input type="text" name="name" placeholder="Name" class="form-control"></label>
 				                    @if($errors->has('name'))
 				                        <span class="help-block">{{ $errors->first('name') }}</span>

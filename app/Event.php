@@ -4,7 +4,6 @@ namespace EEvent;
 
 use Carbon\Carbon;
 use Eloquent;
-use Illuminate\Database\Eloquent\Model;
 
 class Event extends Eloquent
 {
@@ -83,9 +82,8 @@ class Event extends Eloquent
         return Event::orderBy('cur_capacity', 'desc')->limit(3);
     }
 
-    public function getDefaultPicture()
-    {
-        return mb_strtolower($this->category->name) . '.jpg';
+    public function getPicture() {
+        return isset($this->image_path) ?  $this->image_path : mb_strtolower($this->category->name) . '.jpg';
     }
 
 

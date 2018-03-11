@@ -7,11 +7,7 @@
         @endif
 
         <div class="imageHeader">
-            @if($event->image_path == null)
-                <img class="img-fluid" src="/uploads/events_pic/{{$event->getDefaultPicture()}}">
-            @else
-                <img class="img-fluid" src="/uploads/events_pic/{{$event->image_path}}">
-            @endif
+            <img class="img-fluid" src="/uploads/events_pic/{{$event->getPicture()}}">
         </div>
         <div class="summaryDetail">
             <div class="">
@@ -55,23 +51,23 @@
         <div id="Paid" class="tabcontent scrollbar-primary">
             <?php $count = 0;?>
             <table class="table">
-                    @foreach($event->attendees as $attendee)
-                            @if($attendee->payment != null and $attendee->payment->status == "paid")
-                                <?php ++$count; ?>
-                                @if($count <= 1)
-                                    <tr>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Payment Status</th>
-                                    </tr>
-                                @endif
-                                <tr>
-                                    <td>{{$attendee->user->name}}</td>
-                                    <td>{{$attendee->user->email}}</td>
-                                    <td>{{$attendee->payment->status}}</td>
-                                </tr>
-                            @endif
-                    @endforeach
+                @foreach($event->attendees as $attendee)
+                    @if($attendee->payment != null and $attendee->payment->status == "paid")
+                        <?php ++$count; ?>
+                        @if($count <= 1)
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Payment Status</th>
+                            </tr>
+                        @endif
+                        <tr>
+                            <td>{{$attendee->user->name}}</td>
+                            <td>{{$attendee->user->email}}</td>
+                            <td>{{$attendee->payment->status}}</td>
+                        </tr>
+                    @endif
+                @endforeach
                 @if($count == 0)
                     <p>No member</p>
                 @endif
@@ -99,9 +95,9 @@
                         </tr>
                     @endif
                 @endforeach
-                    @if($count == 0)
-                        <p>No member</p>
-                    @endif
+                @if($count == 0)
+                    <p>No member</p>
+                @endif
             </table>
             <div class="force-overflow"></div>
         </div>
@@ -118,21 +114,21 @@
             @endforeach
         </div>
 
-    <script>
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
+        <script>
+            function openTab(evt, tabName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(tabName).style.display = "block";
+                evt.currentTarget.className += " active";
             }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
 
-        document.getElementById("default-click").click();
-    </script>
+            document.getElementById("default-click").click();
+        </script>
 @endsection

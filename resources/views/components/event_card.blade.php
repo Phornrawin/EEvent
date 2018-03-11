@@ -1,9 +1,9 @@
 <div class="col-md-4">
 
-    <div class="card mb-4 position-relative card-rounded" style="box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05)">
+    <div class="card mb-4 position-relative card-rounded boxed-shadow">
 
         <img class="card-img-top vignette"
-             src="uploads/events_pic/{{$event->path ==null ?$event->getDefaultPicture() : $event->image_path}}"
+             src="uploads/events_pic/{{$event->getPicture()}}"
              alt="Card image cap" style="height: 225px; width: 100%; display: block;">
 
         <img class="rounded-circle position-absolute" style="width: 50px; height: 50px; top: 10px; left: 10px"
@@ -20,7 +20,7 @@
                 @endif
             </p>
             <p class="card-text text-ellipsis-twoline">{{$event->detail}}</p>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center mt-4">
                 <div class="btn-group">
                     <a href="{{route('events.show', ['id' => $event->id])}}"
                        class="btn btn-sm btn-outline-primary">

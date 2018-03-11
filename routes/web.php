@@ -14,8 +14,8 @@ use EEvent\Event;
 */
 
 Route::get('/', function () {
-    $recent = Event::orderBy('created_at', 'desc')->limit(6)->get();
-    $popular = Event::orderBy('cur_capacity', 'desc')->limit(3)->get();
+    $recent = Event::with(['category', 'organizer'])->orderBy('created_at', 'desc')->limit(6)->get();
+    $popular = Event::with(['category', 'organizer'])->orderBy('cur_capacity', 'desc')->limit(3)->get();
     return view('welcome', ['recent' => $recent, 'popular' => $popular]);
 });
 Route::view('/about', 'home.about');
