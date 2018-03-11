@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+	<script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
     <div class="container w-75 mx-auto">
         <h1>EDIT Event</h1>
         <hr>
