@@ -20,12 +20,10 @@
             padding: 80px 200px;
         }
         .imageHeader{
-            height: 500px;
             width: 800px;
             margin-top: 50px;
             margin-left: auto;
             margin-right: auto;
-            margin-bottom: 35px;
         }
         .detail{
             background: white;
@@ -59,9 +57,6 @@
             border-radius: 10px;
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
             background-color: #2D3C49;
-        }
-        .members{
-            font-size: 20px;
         }
         .tab {
             overflow: hidden;
@@ -108,10 +103,11 @@
             box-shadow: 0 .25rem .75rem rgb(95, 109, 122);
             margin-bottom: 100px;
         }
-        .bookedBtn{
-            display: none;
+
+
+        .editBtn{
             margin: 10px;
-            padding: 10px;
+            padding: 20px;
             position: fixed; /* Fixed/sticky position */
             bottom: 20px; /* Place the button at the bottom of the page */
             right: 30px; /* Place the button 30px from the right */
@@ -119,8 +115,14 @@
             border: none; /* Remove borders */
             outline: none; /* Remove outline */
             cursor: pointer; /* Add a mouse pointer on hover */
+            background: firebrick;
+            border-radius: 50%;
+            height: 120px;
+            width: 120px;
+            color: white;
         }
-        #bookedBtn:hover {
+
+        .editBtn:hover {
             background-color: #555; /* Add a dark-grey background on hover */
         }
 
@@ -146,46 +148,49 @@
 
     <div>
         @if ($errors->any())
-            <div class="alert-danger" data-toggle="modal">{{$errors}}</div>
+            <script>swal('{{$errors}}')</script>
         @endif
 
-            <div class="summaryDetail">
-                <div class="">
-                    <h1 style="font-size: 40px">{{$event->name}}</h1>
-                    create by {{$event->organizer->name}} <br>
-                    <b style="color: firebrick">{{$event->getRemainingDay()}}</b> days until begin <br>
-                    <i class="fa fa-dollar"></i> <b style="color: red">{{$event->getPriceText()}}</b>
-                    <br>
-                </div>
-                <div class="" style="text-align: center;">
-                    visitor<br> <b style="font-size: 30px;text-align: center;">{{$event->cur_capacity .' / ' .$event->max_capacity}}</b> <br>
-
-                    @if(!$event->isAttend(Auth::id()))
-                        <form method="post" action="{{route('events.attend', ['id' => $event->id])}}">
-                            @csrf
-                            <button class="btn btn-primary" type="submit" >I'm going</button>
-                        </form>
-                    @else
-                        <form method="post" action="{{route('events.unattend', ['id' => $event->id])}}">
-                            @csrf
-                            <button class="btn btn-danger" type="submit">I'cant go anymore</button>
-                        </form>
-                    @endif
-                </div>
-
+        <div class="summaryDetail">
+            <div class="">
+                <h1 style="font-size: 40px">{{$event->name}}</h1>
+                create by {{$event->organizer->name}} <br>
+                <b style="color: firebrick">{{$event->getRemainingDay()}}</b> days until begin <br>
+                <i class="fa fa-dollar"></i> <b style="color: red">{{$event->getPriceText()}}</b>
+                <br>
             </div>
+            <div class="" style="text-align: center;">
+                visitor<br> <b style="font-size: 30px;text-align: center;">{{$event->cur_capacity .' / ' .$event->max_capacity}}</b> <br>
+
+                @if(!$event->isAttend(Auth::id()))
+                    <form method="post" action="{{route('events.attend', ['id' => $event->id])}}">
+                        @csrf
+                        <button class="btn btn-primary" type="submit" >I'm going</button>
+                    </form>
+                @else
+                    <form method="post" action="{{route('events.unattend', ['id' => $event->id])}}">
+                        @csrf
+                        <button class="btn btn-danger" type="submit">I'cant go anymore</button>
+                    </form>
+                @endif
+            </div>
+
+        </div>
 
 
         <div class="imageHeader">
-
-            <img class="img-fluid" src="/uploads/events_pic/{{$event->image_path}}" height="500px" width="800px" style="border-radius: 20px 20px 0px 0px">
+            @if($event->image_path == null)
+                <img class="img-fluid" src="/uploads/events_pic/{{$event->getDefaultPicture()}}" style="border-radius: 20px 20px 0px 0px">
+            @else
+                <img class="img-fluid" src="/uploads/events_pic/{{$event->image_path}}" style="border-radius: 20px 20px 0px 0px">
+            @endif
         </div>
-            <div class="detail">
-                <h1 style="font-size: 40px">{{$event->name}}</h1>
-                <i class="fa fa-calendar"></i> {{$event->getFormattedDay()}} <br>
-                <i class="fa fa-location-arrow"></i> {{$event->location}} <br>
-                <i class="fa fa-tag"></i> {{$event->category->name}} <br>
-            </div>
+        <div class="detail">
+            <h1 style="font-size: 40px">{{$event->name}}</h1>
+            <i class="fa fa-calendar"></i> {{$event->getFormattedDay()}} <br>
+            <i class="fa fa-location-arrow"></i> {{$event->location}} <br>
+            <i class="fa fa-tag"></i> {{$event->category->name}} <br>
+        </div>
 
 
         <div class="tab">
@@ -202,25 +207,25 @@
         <div id="Paid" class="tabcontent scrollbar-primary">
             <?php $count = 0;?>
             <table class="table">
-                    @foreach($event->attendees as $attendee)
-                            @if($attendee->payment != null and $attendee->payment->status == "paid")
-                                <?php ++$count; ?>
-                                @if($count <= 1)
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Payment Status</th>
-                                    </tr>
-                                @endif
-                                <tr>
-                                    <td>{{$count}}</td>
-                                    <td>{{$attendee->user->name}}</td>
-                                    <td>{{$attendee->user->email}}</td>
-                                    <td>{{$attendee->payment->status}}</td>
-                                </tr>
-                            @endif
-                    @endforeach
+                @foreach($event->attendees as $attendee)
+                    @if($attendee->payment != null and $attendee->payment->status == "paid")
+                        <?php ++$count; ?>
+                        @if($count <= 1)
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Payment Status</th>
+                            </tr>
+                        @endif
+                        <tr>
+                            <td>{{$count}}</td>
+                            <td>{{$attendee->user->name}}</td>
+                            <td>{{$attendee->user->email}}</td>
+                            <td>{{$attendee->payment->status}}</td>
+                        </tr>
+                    @endif
+                @endforeach
                 @if($count == 0)
                     <p style="font-size: 30px;padding-top: 200px;">No visitor</p>
                 @endif
@@ -250,17 +255,31 @@
                         </tr>
                     @endif
                 @endforeach
-                    @if($count == 0)
-                        <p style="font-size: 30px;padding-top: 200px;">No visitor</p>
-                    @endif
+                @if($count == 0)
+                    <p style="font-size: 30px;padding-top: 200px;">No visitor</p>
+                @endif
             </table>
             <div class="force-overflow"></div>
         </div>
     </div>
-            {{--edit button for organizer--}}
-            {{--@if(Auth::user()!= null and Auth::user()->id == $event->organizer_id)--}}
-                {{--<button type="button" class="bookedBtn btn btn-danger" id="editBtn">Edit</button>--}}
-            {{--@endif--}}
+
+    {{--edit button for organizer--}}
+    @if(Auth::user()!= null and Auth::user()->id == $event->organizer_id)
+    <button type="button" class="editBtn" id="editBtn" style="font-size: 30px;">Edit</button>
+    @else
+        @if(!$event->isAttend(Auth::id()))
+            <form method="post" action="{{route('events.attend', ['id' => $event->id])}}">
+                @csrf
+                <button class="editBtn" type="submit" id="bookedBtn" style="background: darkblue; display: none;">I'm going</button>
+            </form>
+        @else
+            <form method="post" action="{{route('events.unattend', ['id' => $event->id])}}">
+                @csrf
+                <button class="editBtn" type="submit" id="bookedBtn" style="background: firebrick; display: none;">I'cant go anymore</button>
+            </form>
+        @endif
+    @endif
+
 
     <div class="commentBox">
         {{--action="{{route('events.unattend', ['id' => $event->id])}}"--}}
@@ -271,19 +290,6 @@
         </form>
 
     </div>
-
-
-    @if(!$event->isAttend(Auth::id()))
-        <form method="post" action="{{route('events.attend', ['id' => $event->id])}}">
-            @csrf
-            <button class="bookedBtn btn btn-primary" type="submit" id="bookedBtn">I'm going</button>
-        </form>
-    @else
-        <form method="post" action="{{route('events.unattend', ['id' => $event->id])}}">
-            @csrf
-            <button class="bookedBtn btn btn-danger" type="submit" id="bookedBtn">I'cant go anymore</button>
-        </form>
-    @endif
 
     <script>
         window.onscroll = function() {scrollFunction()};
