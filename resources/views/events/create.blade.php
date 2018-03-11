@@ -3,10 +3,10 @@
 @section('title', 'Create an Event - EEvent');
 
 @section('content')
+    <div id="map">
 
-    {{--<head>--}}
-        {{--<link rel="stylesheet" href="/maps/documentation/javascript/demos/demos.css">--}}
-    {{--</head>--}}
+    </div>
+    </div>
     <div class="container">
         <div class="row form-group">
             <h1>Create your event here!</h1>
@@ -87,9 +87,8 @@
 
                 <button type="submit" class="btn btn-primary">Create!</button>
             </form>
+
         </div>
     </div>
-    {{--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC48dOHizV6KELoop9nwltS-pNGZ9FHfdk&callback=initMap"--}}
-            {{--async defer></script>--}}
-    {{--<script type="text/javascript" src="{{ asset('js/load_map.js') }}"></script>--}}
+
 @endsection
