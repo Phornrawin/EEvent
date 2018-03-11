@@ -1,4 +1,4 @@
-<footer class="font-weight-light text-light bg-dark pt-4 mt-4">
+<footer class="font-weight-light text-light bg-dark pt-4">
     <!--Footer Links-->
     <div class="container text-center text-md-left">
         <div class="row">
@@ -81,8 +81,8 @@
     </div>
     <hr>
 
-@guest
     <!--call to action-->
+    @guest
         <div class="text-center py-3">
             <ul class="list-unstyled list-inline mb-0">
                 <li class="list-inline-item">

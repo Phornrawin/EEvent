@@ -66,9 +66,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $event = User::find($id);
-        if ($event != null) {
-            $event->update($request->all());
+        $user = User::find($id);
+        if ($user != null) {
+            $user->update($request->all());
 
         }
         return redirect()->route('admin.users.index');

@@ -3,6 +3,7 @@
 namespace EEvent\Http\Controllers;
 
 use Auth;
+use chillerlan\QRCode\QRCode;
 use EEvent\Attendee;
 use EEvent\Event;
 use Illuminate\Http\Request;
@@ -48,16 +49,17 @@ class EventController extends Controller
             'max_capacity' => 'required|min:1',
             'detail' => 'required',
             'location' => 'required',
-            'category' => 'required',
+            'category_id' => 'required|min:1',
             'price' => 'required|min:0',
             'payment_time' => 'required|',
             'start_time' => 'required',
         ]);
 
-//        $data = $request;
-        $data += array('organizer_id' => $request['organizer_id'], 'code' => "12341234", 'end_time' => "2018-03-23 05:47:07");
-        $data['start_time'] = date("Y-m-d", strtotime($data['start_time']));
-        $data['payment_time'] = date("Y-m-d", strtotime($data['payment_time']));
+        $code = random_int(100000, 999999);
+
+        $data += array('organizer_id' => $request['organizer_id']) + array('code' =>$code);
+        $data['start_time'] = date("Y-m-d h:i:s", strtotime($data['start_time']));
+        $data['payment_time'] = date("Y-m-d h:i:s", strtotime($data['payment_time']));
 
         Event::create($data);
 
@@ -73,11 +75,12 @@ class EventController extends Controller
     public function show($id)
     {
         try {
+            $qrcode = (new QRCode)->render('https://www.youtube.com/watch?v=DLzxrzFCyOs&t=43s');
             $event = Event::findOrFail($id);
         } catch (\Exception $e) {
             return redirect()->route('events.search', ['q' => $id]);
         }
-        return view('events.show', ['event' => $event]);
+        return view('events.show', ['event' => $event, 'code' => $qrcode]);
     }
 
     /**
@@ -103,7 +106,19 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         if ($event != null) {
-            $event->update($request->all());
+            $data = $request->validate([
+                'name' => 'required|max:255',
+                'max_capacity' => 'required|',
+                'detail' => 'required',
+                'location' => 'required',
+                'category_id' => 'required|min:1',
+                'price' => 'required|min:0',
+                'payment_time' => 'required|',
+                'start_time' => 'required'
+            ]);
+            $data['start_time'] = date("Y-m-d h:i:s", strtotime($data['start_time']));
+            $data['payment_time'] = date("Y-m-d h:i:s", strtotime($data['payment_time']));
+            $event->update($data);
         }
         return back();
     }
@@ -137,13 +152,11 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         if ($event->cur_capacity < $event->max_capacity) {
-            $attendee = $event->attendees()->create([
+            $event->attendees()->create([
                 "user_id" => Auth::id()
             ]);
-            $attendee->payment()->create();
             $event->cur_capacity += 1;
             $event->save();
-            $attendee->save();
         } else {
             back()->withErrors(['msg' => 'The events is full']);
         }
@@ -152,12 +165,12 @@ class EventController extends Controller
 
     public function unAttend(Request $request, $id)
     {
-        $event = Event::find($id);
         $attendee = Attendee
             ::where('event_id', '=', $id)
             ->where('user_id', '=', Auth::id())->first();
         try {
             if ($attendee != null) {
+                $event = Event::find($id);
                 $event->cur_capacity -= 1;
                 $attendee->delete();
                 $event->save();

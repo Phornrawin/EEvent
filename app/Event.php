@@ -3,16 +3,17 @@
 namespace EEvent;
 
 use Carbon\Carbon;
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class Event extends Eloquent
 {
     protected $fillable = [
-        'name', 'organizer_id', 'detail', 'precondition', 'location', 'code', 'category', 'price', 'payment_time'
+        'name', 'organizer_id', 'detail', 'precondition', 'location', 'code', 'category_id', 'price', 'payment_time'
         , 'start_time', 'max_capacity'
     ];
 
-    protected $dates = ['payment_time', 'start_time', 'end_time'];
+    protected $dates = ['payment_time', 'start_time'];
 
     public function attendees()
     {
@@ -80,6 +81,11 @@ class Event extends Model
     public function getPopularEvent()
     {
         return Event::orderBy('cur_capacity', 'desc')->limit(3);
+    }
+
+    public function getDefaultPicture()
+    {
+        return mb_strtolower($this->category->name) . '.jpg';
     }
 
 

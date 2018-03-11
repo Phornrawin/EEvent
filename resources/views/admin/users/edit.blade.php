@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container w-75 mx-auto">
-        <h1>EDIT</h1>
+        <h1>EDIT User</h1>
         <hr>
         <form method="post" action="{{route('admin.users.update', ['id' => $user->id])}}">
             @method('PUT')
@@ -25,7 +25,7 @@
 
             <div class="form-row">
                 <div class="col-sm-1 my-3">
-                    <button type="submit" class="btn btn-primary form form-control mx-sm-3">Save</button>
+                    	<button type="submit" class="btn btn-primary form form-control mx-sm-3" > Save</button>
                 </div>
             </div>
         </form>

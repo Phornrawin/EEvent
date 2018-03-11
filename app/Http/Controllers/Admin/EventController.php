@@ -2,6 +2,7 @@
 
 namespace EEvent\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use EEvent\Event;
 use EEvent\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::all();
-        return view('admin.events.index', ['users' => $events]);
+        return view('admin.events.index', ['events' => $events]);
     }
 
     /**
@@ -37,7 +38,21 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        Event::create($request->all());
+        $payment_time = Carbon::createFromFormat('d m Y H:i', $request->get('payment_time'));
+        $start_time = Carbon::createFromFormat('d m Y H:i', $request->get('start_time'));
+        Event::create(array(
+            'name' => $request->get('name'),
+            'organizer_id' => $request->get('organizer_id'),
+            'detail' => $request->get('detail'),
+            'precondition' => $request->get('precondition', ''),
+            'location' => $request->get('location'),
+            'code' => $request->get('code', bin2hex(openssl_random_pseudo_bytes(3))),
+            'category_id' => $request->get('category_id'),
+            'price' => $request->get('price'),
+            'payment_time' => $payment_time,
+            'start_time' => $start_time,
+            'max_capacity' => $request->get('max_capacity'),
+        ));
         return redirect()->route('admin.users.index');
     }
 
@@ -63,9 +78,21 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $event = Event::find($id);
+        $payment_time = Carbon::createFromFormat('d m Y H:i', $request->get('payment_time'));
+        $start_time = Carbon::createFromFormat('d m Y H:i', $request->get('start_time'));
         if ($event != null) {
-            $event->update($request->all());
+            $event->update(array(
+                'name' => $request->get('name'),
+                'detail' => $request->get('detail'),
+                'precondition' => $request->get('precondition', ''),
+                'location' => $request->get('location'),
+                'code' => $request->get('code'),
+                'category_id' => $request->get('category_id'),
+                'price' => $request->get('price'),
+                'payment_time' => $payment_time,
+                'start_time' => $start_time,
+                'max_capacity' => $request->get('max_capacity'),
+            ));
         }
         return redirect()->route('admin.users.index');
     }

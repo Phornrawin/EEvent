@@ -15,7 +15,7 @@ use EEvent\Event;
 
 Route::get('/', function () {
     $recent = Event::orderBy('created_at', 'desc')->limit(6)->get();
-    $popular = Event::orderBy('cur_capacity', 'desc')->limit(6)->get();
+    $popular = Event::orderBy('cur_capacity', 'desc')->limit(3)->get();
     return view('welcome', ['recent' => $recent, 'popular' => $popular]);
 });
 Route::view('/about', 'home.about');
@@ -26,7 +26,7 @@ Route::auth();
 // all user and profile route
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile', 'ProfileController@show')->name('profile.show');
-    Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
+    Route::get('/profile/edit/{id}', 'ProfileController@edit')->name('profile.edit');
     Route::post('/profile', 'ProfileController@update')->name('profile.update');
     Route::post('/profile/update/avatar', 'ProfileController@updateAvatar')
         ->name('profile.update.avatar');
@@ -45,12 +45,18 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/search', 'EventController@search')->name('events.search');
 Route::get('/category')->name('events.category');
+//Route::get('/events/create', function () {
+//    return view('profile');
+//});
+//Route::post('/events/create', 'EventController@store')
+//    ->name('events.store')
+//    ->middleware('auth');
 
 Route::resource('events', 'EventController');
 
 // Admin route
 Route::get('/admin', function () {
-   return redirect()->route('admin.users.index');
+    return redirect()->route('admin.users.index');
 });
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {

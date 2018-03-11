@@ -9,6 +9,7 @@
     <title>@yield('title')</title>
     <!-- Styles -->
     <script src="https://use.fontawesome.com/ebc57c5fe2.js"></script>
+    <script src="https://unpkg.com/sweetalert2@7.15.1/dist/sweetalert2.all.js"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
 </head>

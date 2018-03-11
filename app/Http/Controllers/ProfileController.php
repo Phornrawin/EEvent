@@ -25,8 +25,8 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        //
-    }
+        $user = User::find($id);
+        return view('profile.edit', ["user" => $user]);    }
 
     /**
      * Update the specified resource in storage.
@@ -62,7 +62,7 @@ class ProfileController extends Controller
     public function updateAvatar(Request $request)
     {
         $user = Auth::user();
-        if ($user->avatar != 'default.jpg') {
+        if ($user->avatar != 'other.jpg') {
             $oldAvatar = public_path('uploads/avatars/' . $user->avatar);
             File::delete($oldAvatar);
         }

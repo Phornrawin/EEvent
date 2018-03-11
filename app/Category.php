@@ -2,9 +2,10 @@
 
 namespace EEvent;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Category extends Eloquent
 {
     public $timestamps = false;
     protected $fillable = ['name'];
