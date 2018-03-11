@@ -3,9 +3,7 @@
 @section('title', 'Create an Event - EEvent');
 
 @section('content')
-    <div id="map">
 
-    </div>
     </div>
     <div class="container">
         <div class="row form-group">
@@ -64,12 +62,17 @@
                     @endif
                 </div>
                 <div class="row form-group">
-                    <label>Location <input type="text" name="location" placeholder="Location"
-                                           class="form-control"></label>
-                    @if($errors->has('location'))
-                        <span class="help-block">{{ $errors->first('location') }}</span>
-                    @endif
+                    <label>Location <input id="location" type="textbox" name="location" placeholder="Location" class="form-control" size="70"></label>
+                @if($errors->has('location'))
+                    <span class="help-block">{{ $errors->first('location') }}</span>
+                @endif
 
+                <input id="submit" type="button" value="Show on map" class="btn btn-dark">
+                </div>
+
+                <div id="map"></div>
+
+                <div class="row form-group">
 
                     <label>Event start time: <input type="datetime-local" name="start_time"
                                                     class="form-control"></label>
