@@ -1,16 +1,21 @@
-function openPage(pageName,elmnt,color) {
+
+function openPage(pageName) {
     var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
+    tabcontent = document.getElementsByClassName("content");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
-    tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].style.backgroundColor = "";
-    }
-    document.getElementById(pageName).style.display = "block";
-    elmnt.style.backgroundColor = color;
+    
 
+}
+
+function onClickUser(){
+    $("#events.content").hide();
+    $("#users.content").show();
+}
+function onClickEvent(){
+    $("#events.content").show();
+    $("#users.content").hide();
 }
 
 function deleteUser() {
@@ -25,9 +30,10 @@ function deleteUser() {
         document.getElementById("deleteButton").innerHTML = x;
 }
 // Get the element with id="defaultOpen" and click on it
-// openPage('users', this, '#17202A')
+
 $(document).ready(function(e){
-    document.getElementById("defaultOpen").click();    
-    openPage('users', $("#defaultOpen"), '#17202A')
-    deleteUser();
+    $("#events.content").hide();
+    // document.getElementById("defaultOpen").click();    
+    // openPage($("#defaultOpen"));
+    // $("#users.content").hide();
 });
