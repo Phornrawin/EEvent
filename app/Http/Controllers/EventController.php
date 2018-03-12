@@ -11,6 +11,8 @@ use EEvent\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Mail;
+use Carbon\Carbon;
+
 
 class EventController extends Controller
 {
@@ -49,13 +51,14 @@ class EventController extends Controller
 //        Event::create($request->all());
         $data = $request->validate([
             'name' => 'required|max:255',
+            'precondition' => 'required',
             'max_capacity' => 'required|min:1',
             'detail' => 'required',
             'location' => 'required',
             'category_id' => 'required|min:1',
-            'price' => 'required|min:>=0',
-            'payment_time' => 'required|',
-            'start_time' => 'required',
+            'price' => 'required|min:0',
+            'payment_time' => 'required',
+            'start_time' => 'required'
         ]);
         $data += array("image_path" => $request['img']);
 
@@ -112,6 +115,7 @@ class EventController extends Controller
         if ($event != null) {
             $data = $request->validate([
                 'name' => 'required|max:255',
+                'precondition' => 'required',
                 'max_capacity' => 'required|',
                 'detail' => 'required',
                 'location' => 'required',

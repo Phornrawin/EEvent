@@ -53,13 +53,11 @@ function createMarker(pos) {
 
 function geocodeAddress() {
     var address = document.getElementById('location').value;
-    geocoder.geocode
     geocoder.geocode({'address': address}, function (results, status) {
-        console.log("test geocoder");
         if (status === 'OK') {
+            map.setZoom(10);
             map.setCenter(results[0].geometry.location);
             createMarker(results[0].geometry.location);
-
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
         }
