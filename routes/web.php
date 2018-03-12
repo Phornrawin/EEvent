@@ -66,4 +66,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth', 'a
     Route::resource('events', 'Admin\EventController');
 });
 
+Route::get('test', function () {
+   return Hash::check('eiei', Auth::user()->makeVisible('password')->password);
+});
+
 

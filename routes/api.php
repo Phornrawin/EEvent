@@ -30,6 +30,7 @@ Route::get('/users/{id}', function ($id) {
     return User::find($id);
 });
 
+
 // all events json
 Route::get('/events', function () {
     return Event::all();

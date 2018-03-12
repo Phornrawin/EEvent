@@ -40,7 +40,7 @@ class User extends Authenticatable
 
     public function organizedEvent()
     {
-        return $this->hasMany('EEvent\Event');
+        return $this->hasMany('EEvent\Event' , 'organizer_id');
     }
 
 }

@@ -14,4 +14,6 @@ class Category extends Eloquent
     {
         return $this->hasMany('EEvent\Event');
     }
+
+
 }

@@ -182,7 +182,7 @@ class EventController extends Controller
         } else {
             back()->withErrors(['msg' => 'The events is full']);
         }
-        return back()->with('success', 'You are going there!');
+        return redirect()->route('events.show', ['id' => $id])->with('success', 'You are going there!');
     }
 
     public function unAttend(Request $request, $id)

@@ -14,10 +14,12 @@ class CategoriesTableSeeder extends Seeder
     {
         DB::table('categories')->delete();
         $names = ['Adventure', 'Dance', 'Movement', 'Food', 'Movie', 'Other'];
-
-        foreach ($names as $name) {
+        $colors = ['#FF4136', '#F012BE', '#0074D9', '#FF851B', '#001f3f', '#AAAAAA'];
+        for ($i = 0; $i < count($names); $i++) {
             Category::create([
-                'name' => $name]);
+                'name' => $names[$i],
+                'color' => $colors[$i]]);
         }
+
     }
 }

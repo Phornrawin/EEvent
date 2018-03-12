@@ -2,7 +2,7 @@
 
 @section('title', 'All Events - EEvent')
 @section('content')
-    <section class="background jumbotron rounded-0 text-center text-light mb-0">
+    <section class="bg-firewatch jumbotron rounded-0 text-center text-light mb-0">
         <div class="container">
             <h1 class="font-weight-light mb-4">
                 Pick your Event

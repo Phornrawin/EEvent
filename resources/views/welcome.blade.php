@@ -4,7 +4,7 @@
 
 @section('content')
     {{-----Focal Points Zone-----}}
-    <div class="d-flex flex-column text-center justify-content-center pb-xl-5 background"
+    <div class="d-flex flex-column text-center justify-content-center pb-xl-5 bg-firewatch"
          style="height: 100vh;">
         <div>
             <h1 class="logo display-2 text-light">EEvent</h1>
@@ -27,19 +27,21 @@
     </nav>
 
     {{-----Popular Events Zones-----}}
-    <section class="container py-4">
-        <h3 class="font-weight-bold mb-3">What people hype about</h3>
-        <div class="row">
-            @foreach($popular as $event)
-                @include('components.event_card', ['event' => $event])
-            @endforeach
+    <section class="py-4 bg-white">
+        <div class="container">
+            <h3 class="font-weight-bold mb-3">What people hype about</h3>
+            <div class="row">
+                @foreach($popular as $event)
+                    @include('components.event_card', ['event' => $event])
+                @endforeach
+            </div>
         </div>
     </section>
 
     {{-----Recent Events Zones-----}}
     <section class="container py-5">
-        <h3 class="font-weight-bold mb-3">Newest Events</h3>
-        <div class="row mb2">
+        <h3 class="font-weight-bold ml-4 mb-4">Newest Events</h3>
+        <div class="row mb-2 card-deck">
             @foreach($recent as $event)
                 <div class="col-md">
                     @include('components.event_post', ['event' => $event])
@@ -49,12 +51,15 @@
 
     </section>
 
-    <section class="philosophy-block text-center p-5 container">
-        <h3 class="mb-4">Our vision</h3>
-        <p>At EEvent, we strive to create a place where everyone can look and become part of the great communities.
-            We believe that people when joined and interacted with each other can bring out their potential to the
-            fullest.</p>
-        <cite>The journey of a thousand miles begins with one step. ~ Lao Tzu</cite>
+    <section class="philosophy-block text-center p-5 bg-white">
+        <div class="container">
+            <h3 class="mb-4">Our vision</h3>
+            <p>At EEvent, we strive to create a place where everyone can look and become part of the great communities.
+                We believe that people when joined and interacted with each other can bring out their potential to the
+                fullest.</p>
+            <cite>The journey of a thousand miles begins with one step. ~ Lao Tzu</cite>
+
+        </div>
     </section>
 @endsection
 

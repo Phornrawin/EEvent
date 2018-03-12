@@ -3,6 +3,7 @@
 namespace EEvent\Http\Controllers;
 
 use Auth;
+use EEvent\Event;
 use EEvent\User;
 use File;
 use Illuminate\Http\Request;
@@ -15,7 +16,8 @@ class ProfileController extends Controller
 
     public function show()
     {
-        return view('profile.show', ['user' => Auth::user()]);
+        $recent = Event::with(['category', 'organizer'])->orderBy('created_at', 'desc')->limit(6)->get();
+        return view('profile.show', ['user' => Auth::user(), 'recent' => $recent]);
     }
 
     /**

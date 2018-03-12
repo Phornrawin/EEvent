@@ -12,7 +12,8 @@
     <script src="https://use.fontawesome.com/ebc57c5fe2.js"></script>
     <script src="https://unpkg.com/sweetalert2@7.15.1/dist/sweetalert2.all.js"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
+    <link href="{{asset('css/main.css')}}" rel="stylesheet">
+
 
 </head>
 <body class="d-flex flex-column" style="min-height: 100vh; padding-top: 55px">
@@ -50,9 +51,10 @@
                         @else
                             <li><a class="nav-link" href="{{ route('events.create') }}">
                                     <i class="fa fa-plus d-md-none mr-2"></i>Create an Event</a></li>
-                            <li><a class="nav-link" href="{{ route('profile.show') }}">
-                                    <i class="fa fa-user d-md-none mr-2"></i>{{Auth::user()->name}}</a></li>
-                            <li><a class="nav-link" href="{{ route('logout') }}"
+                            <li class="nav-link d-none d-md-block mr-2"> |</li>
+                            <li><a class="nav-link font-weight-bold" href="{{ route('profile.show') }}">
+                                    <i class="fa fa-user mr-2"></i>{{Auth::user()->name}}</a></li>
+                            <li><a class="nav-link font-weight-bold text-danger" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                document.getElementById('logout-form').submit();">
                                     <i class="fa fa-sign-out d-md-none mr-2"></i>Logout</a>

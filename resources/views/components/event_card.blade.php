@@ -1,6 +1,6 @@
 <div class="col-md-4">
 
-    <div class="card mb-4 position-relative card-rounded boxed-shadow">
+    <div class="card mb-4 position-relative card-rounded box-shadow">
 
         <img class="card-img-top vignette"
              src="uploads/events_pic/{{$event->getPicture()}}"
