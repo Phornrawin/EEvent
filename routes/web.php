@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/events/unattend/{id}', 'EventController@unAttend')
         ->name('events.unattend');
+
 });
 // all event crud route
 

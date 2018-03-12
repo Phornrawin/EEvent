@@ -161,6 +161,11 @@
             <script>swal('{{$errors}}')</script>
         @endif
 
+        @if (session('success'))
+            <script>swal("Success!", "{{session('success')}}", "success");</script>
+        @endif
+
+
         <div class="summaryDetail">
             <div class="">
                 <h1 style="font-size: 40px">{{$event->name}}</h1>
