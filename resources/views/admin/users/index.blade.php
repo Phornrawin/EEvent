@@ -144,92 +144,92 @@
 		                                </a>
 		                            </td>
 		                            <td>
-		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                <a href="#" ng-click="sortType = 'precondition'; sortReverse = !sortReverse">
 		                                    Precondition
-		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                    <span ng-show="sortType == 'precondition' && !sortReverse"
 		                                          class="fa fa-caret-down"></span>
-		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                    <span ng-show="sortType == 'precondition' && sortReverse"
 		                                          class="fa fa-caret-up"></span>
 		                                </a>
 		                            </td>
 		                            <td>
-		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                <a href="#" ng-click="sortType = 'location'; sortReverse = !sortReverse">
 		                                    Location
-		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                    <span ng-show="sortType == 'location' && !sortReverse"
 		                                          class="fa fa-caret-down"></span>
-		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                    <span ng-show="sortType == 'location' && sortReverse"
 		                                          class="fa fa-caret-up"></span>
 		                                </a>
 		                            </td>
 		                            <td>
-		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                <a href="#" ng-click="sortType = 'code'; sortReverse = !sortReverse">
 		                                    Code
-		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                    <span ng-show="sortType == 'code' && !sortReverse"
 		                                          class="fa fa-caret-down"></span>
-		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                    <span ng-show="sortType == 'code' && sortReverse"
 		                                          class="fa fa-caret-up"></span>
 		                                </a>
 		                            </td>
 		                            <td>
-		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                <a href="#" ng-click="sortType = 'price'; sortReverse = !sortReverse">
 		                                    Price
-		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                    <span ng-show="sortType == 'price' && !sortReverse"
 		                                          class="fa fa-caret-down"></span>
-		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                    <span ng-show="sortType == 'price' && sortReverse"
 		                                          class="fa fa-caret-up"></span>
 		                                </a>
 		                            </td>
 		                            <td>
-		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                <a href="#" ng-click="sortType = 'payment_time'; sortReverse = !sortReverse">
 		                                    Payment_time
-		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                    <span ng-show="sortType == 'payment_time' && !sortReverse"
 		                                          class="fa fa-caret-down"></span>
-		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                    <span ng-show="sortType == 'payment_time' && sortReverse"
 		                                          class="fa fa-caret-up"></span>
 		                                </a>
 		                            </td>
 		                            <td>
-		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                <a href="#" ng-click="sortType = 'start_time'; sortReverse = !sortReverse">
 		                                    Start_time
-		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                    <span ng-show="sortType == 'start_time' && !sortReverse"
 		                                          class="fa fa-caret-down"></span>
-		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                    <span ng-show="sortType == 'start_time' && sortReverse"
 		                                          class="fa fa-caret-up"></span>
 		                                </a>
 		                            </td>
 		                            <td>
-		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                <a href="#" ng-click="sortType = 'cur_capacity'; sortReverse = !sortReverse">
 		                                    Cur_capacity
-		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                    <span ng-show="sortType == 'cur_capacity' && !sortReverse"
 		                                          class="fa fa-caret-down"></span>
-		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                    <span ng-show="sortType == 'cur_capacity' && sortReverse"
 		                                          class="fa fa-caret-up"></span>
 		                                </a>
 		                            </td>
 		                            <td>
-		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                <a href="#" ng-click="sortType = 'max_capacity'; sortReverse = !sortReverse">
 		                                    Max_capacity
-		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                    <span ng-show="sortType == 'max_capacity' && !sortReverse"
 		                                          class="fa fa-caret-down"></span>
-		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                    <span ng-show="sortType == 'max_capacity' && sortReverse"
 		                                          class="fa fa-caret-up"></span>
 		                                </a>
 		                            </td>
 		                            <td>
-		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                <a href="#" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
 		                                    Created_at
-		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                    <span ng-show="sortType == 'created_at' && !sortReverse"
 		                                          class="fa fa-caret-down"></span>
-		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                    <span ng-show="sortType == 'created_at' && sortReverse"
 		                                          class="fa fa-caret-up"></span>
 		                                </a>
 		                            </td>
 		                            <td>
-		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                <a href="#" ng-click="sortType = ' updated_at'; sortReverse = !sortReverse">
 		                                    Updated_at
-		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                    <span ng-show="sortType == 'updated_at' && !sortReverse"
 		                                          class="fa fa-caret-down"></span>
-		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                    <span ng-show="sortType == 'updated_at' && sortReverse"
 		                                          class="fa fa-caret-up"></span>
 		                                </a>
 		                            </td>
