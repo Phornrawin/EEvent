@@ -421,14 +421,24 @@
 
 							                <div id="map"></div>
 	            						</div>
-		            					<div class="col-md-6">
+	            						<div class="col-md-6">
+	            							<div class="form-group">
+							                    <label>Precondition<textarea id="precondition" name="precondition" class="form-control" row="20"
+							                                                 cols="50" style="height:350px"></textarea></label>
+							                    @if($errors->has('precondition'))
+							                        <span class="help-block alert alert-danger">{{ $errors->first('precondition') }}</span>
+							                    @endif
+							                </div>
+	            						</div>
+	            					</div>
+	            					<br>
+		            					<div class="col-md-12">
 						                    <label>Detail:
 						                    	<br><textarea rows="15" cols="80" name="detail" placeholder="Detail" class="form-control"></textarea></label>
 						                    @if($errors->has('detail'))
 						                        <span class="help-block">{{ $errors->first('detail') }}</span>
 						                    @endif
 		            					</div>
-	            					</div>
 	            					<br>
 	            					<div class="col-md-12">
 	            						<input type="hidden" value="{{Auth::id()}}" name="organizer_id">
