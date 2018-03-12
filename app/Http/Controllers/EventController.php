@@ -6,9 +6,11 @@ use Auth;
 use chillerlan\QRCode\QRCode;
 use EEvent\Attendee;
 use EEvent\Event;
+use EEvent\Mail\AttendingMailer;
 use EEvent\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Mail;
 
 class EventController extends Controller
 {
@@ -121,7 +123,7 @@ class EventController extends Controller
             $data['payment_time'] = date("Y-m-d h:i:s", strtotime($data['payment_time']));
             $event->update($data);
         }
-        return back();
+        return redirect()->route('events.show', ['id' => $id])->with('success', 'Your event has been updated');
     }
 
     /**
@@ -143,16 +145,16 @@ class EventController extends Controller
     public function search(Request $request)
     {
         $query = $request->get('q');
-        $events = Event
-            ::where('name', 'like', '%' . $query . '%')->get();
-
-        return view('events.search', ['events' => $events]);
+        $events = Event::where('name', 'like', '%' . $query . '%')->simplePaginate(3);
+        session()->flash('q', $query);
+        return view('events.index', ['events' => $events, 'query' => $query]);
     }
 
     public function attend(Request $request, $id)
     {
         $event = Event::find($id);
         if ($event->cur_capacity < $event->max_capacity) {
+            Mail::to($request->user())->send(new AttendingMailer($event));
             $attendees = $event->attendees()->create([
                 "user_id" => Auth::id()
             ]);
@@ -163,7 +165,7 @@ class EventController extends Controller
         } else {
             back()->withErrors(['msg' => 'The events is full']);
         }
-        return back();
+        return back()->with('success', 'You are going there!');
     }
 
     public function unAttend(Request $request, $id)
@@ -183,7 +185,7 @@ class EventController extends Controller
         } catch (\Exception $e) {
             back()->withErrors('msg', 'Something went wrong!!');
         }
-        return back()->with('success', 'Your event had been deleted!');
+        return back()->with('success', 'You not going there anymore!');
     }
 
 }
