@@ -62,12 +62,20 @@
     				 	<h3>Users Table</h3>
     				 	<hr style="height: 1px; color:#1C2833; background:#1C2833;">
     				 	<form>
-	                        <div class="form-group">
-	                            <div class="input-group">
-	                            	<div class="input-group-addon"><i class="fa fa-search form-control"></i></div><input type="text" class="form-control" placeholder="Search User"
-	                                       ng-model="searchName">
-	                            </div>
-	                        </div>
+	                        <div class="w-100">
+					    <form method="get" action="{{route('events.search')}}">
+					        <div class="input-group">
+					            <input type="text" name="q" class="search form-control form-control-dark rounded-0 py-3"
+					                   placeholder="Search  Events "
+					                   value="{{session()->has('q') ? session('q') : ''}}" ng-model="searchName">
+					            <div class="input-group-append d-none d-md-flex">
+					                <button class="btn rounded-0" id="basic-addon" style="min-width: 100px; background-color: #424B55; color: white" ><i
+					                            class="fa fa-search"></i></button>
+					            </div>
+					        </div>
+					    </form>
+					</div>
+					<br>
                     	</form>
     				 	
 				        <table class="table table-bordered table-striped">
@@ -114,14 +122,20 @@
     				<div id="events" class="content" ng-controller="eventController">
     					<h3>Events Table</h3>
     					<hr style="height: 2px; color:#1C2833; background:#1C2833;">
-    					<form>
-	                        <div class="form-group">
-	                            <div class="input-group">
-	                            	<div class="input-group-addon"><i class="fa fa-search form-control"></i></div><input type="text" class="form-control" placeholder="Search Event"
-	                                       ng-model="searchName">
-	                            </div>
-	                        </div>
-                    	</form>
+                    	<div class="w-100">
+					    <form method="get" action="{{route('events.search')}}">
+					        <div class="input-group">
+					            <input type="text" name="q" class="search form-control form-control-dark rounded-0 py-3"
+					                   placeholder="Search  Events "
+					                   value="{{session()->has('q') ? session('q') : ''}}" ng-model="searchName">
+					            <div class="input-group-append d-none d-md-flex">
+					                <button class="btn rounded-0" id="basic-addon" style="min-width: 100px; background-color: #424B55; color: white" ><i
+					                            class="fa fa-search"></i></button>
+					            </div>
+					        </div>
+					    </form>
+					</div>
+					<br>
                     	
 
 							<table class="table table-bordered table-striped">
@@ -393,7 +407,7 @@
 	            						</div>
 	            						<div class="col-md-4">
 	            							 <label>Pay fee before: <input type="datetime-local" name="payment_time"
-                                                  class="form-control"></label>
+                                                  class="form-control" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"></label>
 						                    @if($errors->has('payment_time'))
 						                        <span class="help-block">{{ $errors->first('payment_time') }}</span>
 						                    @endif
@@ -401,7 +415,7 @@
 	            					
 	            						<div class="col-md-4">
 	            							<label>Event start time: <input type="datetime-local" name="start_time"
-                                                    class="form-control"></label>
+                                                    class="form-control" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"></label>
 						                    @if($errors->has('start_time'))
 						                        <span class="help-block">{{ $errors->first('start_time') }}</span>
 						                    @endif
