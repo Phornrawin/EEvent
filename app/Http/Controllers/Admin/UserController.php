@@ -83,17 +83,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $temp = Auth::user();
-        $user = User::find($id);
-        Auth::setUser($user);
-        Auth::logout();
-        Auth::login($temp);
+         $user = User::find($id);
+        $user->delete();
 
-        try {
-            $user->delete();
-        } catch (\Exception $e) {
-        }
-        return redirect()->route('admin.users.index');
+        return response($user);
     }
 
     public function show()
