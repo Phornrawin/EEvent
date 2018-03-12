@@ -3,6 +3,12 @@
 @section('title', 'Edit Event - EEvent');
 
 @section('content');
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC48dOHizV6KELoop9nwltS-pNGZ9FHfdk">
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{asset('js/load_map.js')}}"></script>
+<link rel="stylesheet" href="{{asset('css/map.css')}}">
 
 <div class="container">
     <div class="row">
@@ -19,7 +25,7 @@
                 <div class="form-group">
                     <label>Event name:</label>
                     <input type="text" name="name" value="{{$event->name}}" class="form-control"
-                                             size="100">
+                           size="100">
                     @if($errors->has('name'))
                         <span class="help-block">{{ $errors->first('name') }}</span>
                     @endif
@@ -53,26 +59,37 @@
                 @if($errors->has('max_capacity'))
                     <span class="help-block">{{ $errors->first('max_capacity') }}</span>
                 @endif
-                <label>Event fee (Baht) <input type="number" name="price" value="{{$event->price}}" class="form-control"></label>
+                <label>Event fee (Baht) <input type="number" name="price" value="{{$event->price}}"
+                                               class="form-control"></label>
                 @if($errors->has('price'))
                     <span class="help-block">{{ $errors->first('price') }}</span>
                 @endif
 
                 <label>Pay fee before: <input type="datetime-local" name="payment_time"
-                                              class="form-control" value="{{$event->payment_time->format("Y-m-d\Th:i")}}"></label>
+                                              class="form-control"
+                                              value="{{$event->payment_time->format("Y-m-d\Th:i")}}"></label>
                 @if($errors->has('payment_time'))
                     <span class="help-block">{{ $errors->first('payment_time') }}</span>
                 @endif
             </div>
-            <div class="row">
-                <label>Location <input type="text" name="location" value="{{$event->location}}"
-                                       class="form-control"></label>
+
+
+            <div class="row form-group">
+                <label>Location <input id="location" type="textbox" name="location" value="{{$event->location}}"
+                                       class="form-control" size="70"></label>
                 @if($errors->has('location'))
                     <span class="help-block">{{ $errors->first('location') }}</span>
                 @endif
 
+                <input id="submit" type="button" value="Show on map" class="btn btn-dark">
+            </div>
+
+            <div id="map"></div>
+
+            <div class="row form-group">
                 <label>Event start time: <input type="datetime-local" name="start_time"
-                                                class="form-control" value="{{$event->start_time->format("Y-m-d\Th:i")}}"></label>
+                                                class="form-control"
+                                                value="{{$event->start_time->format("Y-m-d\Th:i")}}"></label>
                 @if($errors->has('start_time'))
                     <span class="help-block">{{ $errors->first('start_time') }}</span>
                 @endif
