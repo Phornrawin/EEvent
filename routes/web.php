@@ -18,7 +18,7 @@ Route::get('/', function () {
     $popular = Event::with(['category', 'organizer'])->orderBy('cur_capacity', 'desc')->limit(3)->get();
     return view('welcome', ['recent' => $recent, 'popular' => $popular]);
 });
-Route::view('/about', 'home.about');
+Route::view('/about', 'home.about')->name('about');
 
 // all authenticated route
 Route::auth();
@@ -28,6 +28,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile', 'ProfileController@show')->name('profile.show');
     Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
     Route::post('/profile', 'ProfileController@update')->name('profile.update');
+    Route::get('/profile/update/bio', 'ProfileController@editBio')
+        ->name('profile.edit.bio');
+    Route::post('/profile/update/bio', 'ProfileController@updateBio')
+        ->name('profile.update.bio');
     Route::post('/profile/update/avatar', 'ProfileController@updateAvatar')
         ->name('profile.update.avatar');
 });

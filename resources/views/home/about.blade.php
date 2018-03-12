@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
-@section('title', 'About us - EEvent');
+@section('title', 'About us - EEvent')
 
 @section('content')
     <div class="d-flex justify-content-center align-items-center" >
-        <div class="display-3" style="line-height: 100px;">
+        <div class="display-2" style="line-height: 100px;">
             About Us
         </div>
     </div>

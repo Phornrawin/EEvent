@@ -175,10 +175,12 @@ class EventController extends Controller
             $attendees = $event->attendees()->create([
                 "user_id" => Auth::id()
             ]);
-            $attendees->payment()->create();
             $event->cur_capacity += 1;
             $event->save();
             $attendees->save();
+            if ($event->price != 0) {
+                $attendees->payment()->create(['status' => 'unpaid']);
+            }
         } else {
             back()->withErrors(['msg' => 'The events is full']);
         }
@@ -190,12 +192,10 @@ class EventController extends Controller
         $attendee = Attendee
             ::where('event_id', '=', $id)
             ->where('user_id', '=', Auth::id())->first();
-        $payment = Payment::where('attendee_id', '=', $attendee->id);
         try {
-            if ($attendee != null and $payment != null) {
+            if ($attendee != null) {
                 $event = Event::find($id);
                 $event->cur_capacity -= 1;
-                $payment->delete();
                 $attendee->delete();
                 $event->save();
             }

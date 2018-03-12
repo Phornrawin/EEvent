@@ -52,7 +52,7 @@ class Event extends Eloquent
     public function getPriceText()
     {
         if ($this->price > 0) {
-            return $this->price;
+            return '$' . $this->price;
         }
         return 'Free!';
     }
@@ -82,8 +82,14 @@ class Event extends Eloquent
         return Event::orderBy('cur_capacity', 'desc')->limit(3);
     }
 
-    public function getPicture() {
-        return isset($this->image_path) ?  $this->image_path : mb_strtolower($this->category->name) . '.jpg';
+    public function getPicture()
+    {
+        return isset($this->image_path) ? $this->image_path : mb_strtolower($this->category->name) . '.jpg';
+    }
+
+    public function getPaymentStatus($id)
+    {
+        return Attendee::find($id)->payment->status;
     }
 
 

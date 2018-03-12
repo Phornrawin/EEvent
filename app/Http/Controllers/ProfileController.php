@@ -7,7 +7,6 @@ use EEvent\Event;
 use EEvent\User;
 use File;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManagerStatic;
 
@@ -29,7 +28,26 @@ class ProfileController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        return view('profile.edit', ["user" => $user]);    }
+        return view('profile.edit', ["user" => $user]);
+    }
+
+    public function editBio()
+    {
+        $user = Auth::user();
+        return view('profile.bio', ['user' => $user]);
+    }
+
+    public function updateBio(Request $request)
+    {
+        $user = Auth::user();
+        $data = $request->validate([
+            'age' => 'numeric|between:1,130|',
+            'tel_phone' => 'digits_between:10,12',
+        ]);
+
+        $user->profile()->update($data);
+        return redirect()->route('profile.edit.bio')->with('success', 'Your Bio has been updated :)');
+    }
 
     /**
      * Update the specified resource in storage.
@@ -47,23 +65,24 @@ class ProfileController extends Controller
                 'email' => 'required'
             ]);
             $user->update($data);
+            return redirect()->route('profile.edit')->with('success', 'Your account has been updated');
         }
 
-        $checkCur = Hash::check($_POST["currentPass"], $user->password);
-        if($checkCur){
-            if($_POST["password"] == $_POST["retypeNewPass"] && $_POST["retypeNewPass"] != "" && $_POST["password"] != ""){
-                $data2 = $request->validate([
-                    'password' => 'required'
-                ]);
-                $data2['password'] = Hash::make($_POST["password"]);
-                $user->update($data2);
-                return redirect()->route('profile.show')->with('success', 'Your input wrong current password');
-            }else{
-                return redirect()->route('profile.edit', ['id' => $user->id])->with('alert1', 'Mismatch new password');
-            }
-        }else{
-            return redirect()->route('profile.edit')->with('alert2', 'Your input wrong current password');
-        }
+//        $checkCur = Hash::check($_POST["currentPass"], $user->password);
+//        if ($checkCur) {
+//            if ($_POST["password"] == $_POST["retypeNewPass"] && $_POST["retypeNewPass"] != "" && $_POST["password"] != "") {
+//                $data2 = $request->validate([
+//                    'password' => 'required'
+//                ]);
+//                $data2['password'] = Hash::make($_POST["password"]);
+//                $user->update($data2);
+//                return redirect()->route('profile.show')->with('success', 'Your input wrong current password');
+//            } else {
+//                return redirect()->route('profile.edit', ['id' => $user->id])->with('alert1', 'Mismatch new password');
+//            }
+//        } else {
+//            return redirect()->route('profile.edit')->with('alert2', 'Your input wrong current password');
+//        }
     }
 
     /**
@@ -88,13 +107,13 @@ class ProfileController extends Controller
     public function updateAvatar(Request $request)
     {
         $user = Auth::user();
-        if ($user->avatar != 'other.jpg') {
+        if ($user->avatar != 'default.jpg') {
             $oldAvatar = public_path('uploads/avatars/' . $user->avatar);
             File::delete($oldAvatar);
         }
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
-            $filename = Carbon::now() . $user->name . '.' . $avatar->getClientOriginalExtension();
+            $filename = $user->name . '.' . $avatar->getClientOriginalExtension();
             $path = public_path('uploads/avatars/' . $filename);
             ImageManagerStatic::make($avatar)->resize(300, 300)->save($path);
             $user->avatar = $filename;

@@ -30,7 +30,11 @@
                 <ul class="navbar-nav mr-auto">
                     <li><a class="nav-link" href="{{ route('events.index') }}">Events</a></li>
                     <li><a class="nav-link" href="{{ route('events.index') }}">Category</a></li>
+<<<<<<< HEAD
                     <li><a class="nav-link" href="/">About us</a></li>
+=======
+                    <li><a class="nav-link" href="{{route('about')}}">About us</a></li>
+>>>>>>> 4151fcce2aa5fcece7e5bae7e26e218b68e6417f
                 </ul>
 
                 <!-- Right Side Of Navbar -->

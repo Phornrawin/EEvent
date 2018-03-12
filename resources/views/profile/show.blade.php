@@ -8,6 +8,8 @@
             <div class="col-md-3 my-5">
                 @include('components.profile_card')
             </div>
+
+
             <div class="col-md-9 my-5">
                 <div class="d-flex align-items-center py-4 px-3 text-white bg-sunset rounded box-shadow">
                     <div class="">
@@ -21,13 +23,13 @@
                         <div class="pt-3 text-muted">No events coming, why not look for one</div>
                     @endif
                     @foreach(Auth::user()->attendEvent as $event)
-                        <div class="media text-muted pt-3">
+                        <div class="media text-muted pt-3 ">
                             <div alt="color" class="mr-2 rounded"
                                  style="width: 32px; height: 32px; background-color: {{'#'. bin2hex(openssl_random_pseudo_bytes(3))}}"
                                  data-holder-rendered="true"></div>
                             <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
                                 <strong class="d-block text-gray-dark">{{$event->name}}</strong>
-                                <i class="d-block text-gray-dark">{{$event->start_time}}</i>
+                                <i class="d-block text-gray-dark lato">{{$event->start_time}}</i>
                                 {{$event->detail}}
                             </p>
                             <a class="btn btn-primary" href="{{route('events.show', ['id' => $event->id])}}">
@@ -56,7 +58,7 @@
                                  data-holder-rendered="true"></div>
                             <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
                                 <strong class="d-block text-gray-dark">{{$event->name}}</strong>
-                                <i class="d-block text-gray-dark">{{$event->start_time}}</i>
+                                <i class="d-block text-gray-dark lato">{{$event->start_time}}</i>
                                 {{$event->detail}}                            </p>
                             <div class="row">
                                 <a class="col btn btn-outline-warning mx-1"
