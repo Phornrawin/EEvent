@@ -58,7 +58,7 @@
 
     			<div class="col-md-10" align="center" style="width: 90%; padding: 10px" ng-app="sortApp" >
     				
-    				 <div id="users" class="content" ng-controller="mainController">
+    				 <div id="users" class="content" ng-controller="userController">
     				 	<h3>Users Table</h3>
     				 	<hr style="height: 1px; color:#1C2833; background:#1C2833;">
     				 	<form>
@@ -111,55 +111,157 @@
 	                        </tr>
                     	</table>        
     				</div>
-    				<div id="events" class="content">
+    				<div id="events" class="content" ng-controller="eventController">
     					<h3>Evants Table</h3>
     					<hr style="height: 2px; color:#1C2833; background:#1C2833;">
-				        <table class="table">
-				            <tr class="table table-dark" style="width: 80%">
-				                <th>ID</th>
-				                <th>Name</th>
-				                <th>Detail</th>
-				                <th>Precondition</th>
-				                <th>Location</th>
-				                <th>Code</th>
-				                <th>Category</th>
-				                <th>Price</th>
-				                <th>Payment_time</th>
-				                <th>Start_time</th>
-				                <th>Cur_capacity</th>
-				                <th>Max_capacity</th>
-				                <th>Created_at</th>
-				                <th>Updated_at</th>
-				                <th>edit</th>
-				                <th>delete</th>
-				            </tr>
-				            @foreach($events as $event)
-				                <tr>
-				                    <td>{{$event->id}}</td>
-				                    <td>{{$event->name}}</td>
-				                    <td>{{$event->detail}}</td>
-				                    <td>{{$event->precondition}}</td>
-				                    <td>{{$event->location}}</td>
-				                    <td>{{$event->code}}</td>
-				                    <td>{{$event->category}}</td>
-				                    <td>{{$event->price}}</td>
-				                    <td>{{$event->payment_time}}</td>
-				                    <td>{{$event->start_time}}</td>
-				                    <td>{{$event->cur_capacity}}</td>
-				                    <td>{{$event->max_capacity}}</td>
-				                    <td>{{$event->created_at}}</td>
-				                    <td>{{$event->updated_at}}</td>
-				                    <td><a href="{{action('Admin\EventController@edit', ['id' => $event->id])}}">edit</a></td>
-				                    <td><a href="#" onclick="event.preventDefault(); document.getElementById('delete-{{$event->id}}').submit();">delete</a></td>
-				                </tr>
-				                <form id="delete-{{$event->id}}"
-				                      action="{{action('Admin\EventController@destroy', ['id' => $event->id])}}" method="POST"
-				                      style="display: none;">
-				                    @csrf
-				                    @method('DELETE')
-				                </form>
-				            @endforeach
-				        </table>
+    					<form>
+	                        <div class="form-group">
+	                            <div class="input-group">
+	                            	<div class="input-group-addon"><i class="fa fa-search form-control"></i></div><input type="text" class="form-control" placeholder="Search Event"
+	                                       ng-model="searchName">
+	                            </div>
+	                        </div>
+                    	</form>
+                    	
+
+							<table class="table table-bordered table-striped">
+		                        <tr>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+		                                    ID
+		                                    <span ng-show="sortType == 'name' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'email'; sortReverse = !sortReverse">
+		                                    Name
+		                                    <span ng-show="sortType == 'email' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'email' && sortReverse"
+		                                          class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                    Precondition
+		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                          class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                    Location
+		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                          class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                    Code
+		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                          class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                    Category
+		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                          class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                    Price
+		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                          class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                    Payment_time
+		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                          class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                    Start_time
+		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                          class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                    Cur_capacity
+		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                          class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                    Max_capacity
+		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                          class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                    Created_at
+		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                          class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                    Updated_at
+		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                          class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                        </tr>
+
+	                        <tr ng-repeat="event in events | orderBy:sortType:sortReverse | filter:searchName">
+	                            <td><% event.id %></td>
+	                            <td><% event.name %></td>
+	                            <td><% event.precondition %></td>
+	                            <td><% event.location %></td>
+	                            <td><% event.code %></td>
+	                            <td><% event.category %></td>
+	                            <td><% event.price %></td>
+	                            <td><% event.payment_time %></td>
+	                            <td><% event.start_time %></td>
+	                            <td><% event.cur_capacity %></td>
+	                            <td><% event.max_capacity %></td>
+	                            <td><% event.created_at %></td>
+	                            <td><% event.updated_at %></td>
+	                            <td><a href="#" ng-click="editView(event.id)">edit</a></td>
+	                            <td><a href="#" ng-click="deleteUser(event.id)">delete</a></td>
+	                        </tr>
+                    	</table> 
 				    </div>
 
 				    <div id="createUser" class="content">
@@ -337,7 +439,7 @@
 						                    @endif
 		            					</div>
 	            					</div>
-
+	            					<br>
 	            					<div class="col-md-12">
 	            						<input type="hidden" value="{{Auth::id()}}" name="organizer_id">
 

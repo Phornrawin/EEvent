@@ -102,12 +102,9 @@ class EventController extends Controller
     public function destroy($id)
     {
         $event = Event::find($id);
-        try {
-            $event->delete();
-        } catch (\Exception $e) {
+        $event->delete();
 
-        }
-        return redirect()->route('admin.users.index');
+        return response($event);
     }
 
     public function show()
