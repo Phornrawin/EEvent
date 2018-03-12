@@ -10,15 +10,31 @@
 		    width: 80%;  
 		}
 
+		#map{
+		    height: 300px;
+		    width: 500px;
+		    margin: auto;
+		    clear:both;
+		}
+		#summit{
+			width: 30%
+			height: 20%;
+		}
+
 		/*input{
 			margin: 10px;
 		}*/
 
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/load_map.js')}}"></script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC48dOHizV6KELoop9nwltS-pNGZ9FHfdk&callback=initMap"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/filter.js')}}"></script>
+
     
     <div class="content" ">
     	
@@ -46,89 +62,54 @@
     				 	<h3>Users Table</h3>
     				 	<hr style="height: 1px; color:#1C2833; background:#1C2833;">
     				 	<form>
-						    <div class="form-group">
-						      <div class="input-group">
-						        <div class="input-group-addon form-control"><i class="fa fa-search"></i></div>
-						        <input type="text" class="form-control" placeholder="Search name or category" ng-model="searchName" style="width: 90%">
-						      </div>      
-						    </div>
-				 		</form>
+	                        <div class="form-group">
+	                            <div class="input-group">
+	                            	<div class="input-group-addon"><i class="fa fa-search form-control"></i></div><input type="text" class="form-control" placeholder="Search User"
+	                                       ng-model="searchName">
+	                            </div>
+	                        </div>
+                    	</form>
     				 	
 				        <table class="table table-bordered table-striped">
 
-							<thead>
-							      <tr>
-							        <td>
-							          <a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
-							            Name 
-							            <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
-							            <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
-							          </a>
-							        </td>
-							        <td>
-							          <a href="#" ng-click="sortType = 'email'; sortReverse = !sortReverse">
-							          Email 
-							            <span ng-show="sortType == 'email' && !sortReverse" class="fa fa-caret-down"></span>
-							            <span ng-show="sortType == 'email' && sortReverse" class="fa fa-caret-up"></span>
-							          </a>
-							        </td>
-							        <td>
-							          <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
-							          Avatar
-							            <span ng-show="sortType == 'avatar' && !sortReverse" class="fa fa-caret-down"></span>
-							            <span ng-show="sortType == 'avatar' && sortReverse" class="fa fa-caret-up"></span>
-							          </a>
-							        </td>
-							        <td></td>
-							        <td></td>
-							      </tr>
-							    </thead>
+							<table class="table table-bordered table-striped">
+		                        <tr>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+		                                    Name
+		                                    <span ng-show="sortType == 'name' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'email'; sortReverse = !sortReverse">
+		                                    Email
+		                                    <span ng-show="sortType == 'email' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'email' && sortReverse"
+		                                          class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                            <td>
+		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+		                                    Avatar
+		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
+		                                          class="fa fa-caret-down"></span>
+		                                    <span ng-show="sortType == 'avatar' && sortReverse"
+		                                          class="fa fa-caret-up"></span>
+		                                </a>
+		                            </td>
+		                        </tr>
 
-							     <tbody>
-							     
-							      	<div ng-repeat="user in users">
-							      		 <tr>
-								      		<form ><!--  action="events/<%user.id%>" -->
-									      		<td>
-									      			<% user.name %>
-									      		</td>
-										        <td>
-										        	<% user.email %>
-										        </td>
-										        <td>
-										        	<% user.avatar %>
-										        </td>
-										        <td><a href="#">edit</a></td>
-							                    <td><a href="#" onclick="event.preventDefault(); document.getElementById('delete-' + <%user.id%>).submit();">delete</a></td>
-								      	</form>
-								      </tr >
-							      	</div>   
-							      
-							    </tbody>
-<!-- 
-				            <tr class="table table-dark">
-				                <th>name</th>
-				                <th>email</th>
-				                <th>avatar</th>
-				                <th>edit</th>
-				                <th>delete</th>
-				            </tr>
-				            @foreach($users as $user)
-				                <tr>
-				                    <td>{{$user->name}}</td>
-				                    <td>{{$user->email}}</td>
-				                    <td>{{$user->avatar}}</td>
-				                    <td><a href="{{action('Admin\UserController@edit', ['id' => $user->id])}}">edit</a></td>
-				                    <td><a href="#" onclick="event.preventDefault(); document.getElementById('delete-{{$user->id}}').submit();">delete</a></td>
-					               </tr>
-				                <form id="delete-{{$user->id}}"
-				                      action="{{action('Admin\UserController@destroy', ['id' => $user->id])}}" method="POST"
-				                      style="display: none;">
-				                    @csrf
-				                    @method('DELETE')
-				                </form> -->
-				           <!--  @endforeach -->
-				        </table>
+	                        <tr ng-repeat="user in users | orderBy:sortType:sortReverse | filter:searchName">
+	                            <td><% user.name %></td>
+	                            <td><% user.email %></td>
+	                            <td><% user.avatar %></td>
+	                            <td><a href="#" ng-click="editView(user.id)">edit</a></td>
+	                            <td><a href="#" ng-click="deleteUser(user.id)">delete</a></td>
+	                        </tr>
+                    	</table>        
     				</div>
     				<div id="events" class="content">
     					<h3>Evants Table</h3>
@@ -312,27 +293,21 @@
 	            					</div>
 
 	            					<div class="row"> <!-- second row -->
-	            						<div class="col-md-3">
+	            						<div class="col-md-4">
 	            							<label>Event fee (Baht) <input type="float" name="price" placeholder="0" class="form-control"></label>
 						                    @if($errors->has('price'))
 						                        <span class="help-block">{{ $errors->first('price') }}</span>
 						                    @endif
 	            						</div>
-	            						<div class="col-md-3">
+	            						<div class="col-md-4">
 	            							 <label>Pay fee before: <input type="datetime-local" name="payment_time"
                                                   class="form-control"></label>
 						                    @if($errors->has('payment_time'))
 						                        <span class="help-block">{{ $errors->first('payment_time') }}</span>
 						                    @endif
 	            						</div>
-	            						<div class="col-md-3">
-	            							<label>Location <input type="text" name="location" placeholder="Location"
-                                           class="form-control"></label>
-						                    @if($errors->has('location'))
-						                        <span class="help-block">{{ $errors->first('location') }}</span>
-						                    @endif
-	            						</div>
-	            						<div class="col-md-3">
+	            					
+	            						<div class="col-md-4">
 	            							<label>Event start time: <input type="datetime-local" name="start_time"
                                                     class="form-control"></label>
 						                    @if($errors->has('start_time'))
@@ -341,13 +316,28 @@
 	            						</div>
 	            					</div>
 
-	            					<div class="col-md-12">
-					                    <label>Detail:<textarea rows="10" cols="80" name="detail" placeholder="Detail" class="form-control"></textarea></label>
-					                    @if($errors->has('detail'))
-					                        <span class="help-block">{{ $errors->first('detail') }}</span>
-					                    @endif
+	            					<div class="row">
+	            						<div class="col-md-6">
+								            <div class="row form-group">
+							                    <label>Location <input id="location" type="textbox" name="location" placeholder="Location" class="form-control" size="200"></label>
+							                    @if($errors->has('location'))
+							                        <span class="help-block">{{ $errors->first('location') }}</span>
+							                    @endif
+
+							                    <input id="submit" type="button" value="Show on map" class="form-control btn btn-primary" style="width: 30%" align="center">
+							                </div>
+
+							                <div id="map"></div>
+	            						</div>
+		            					<div class="col-md-6">
+						                    <label>Detail:
+						                    	<br><textarea rows="15" cols="80" name="detail" placeholder="Detail" class="form-control"></textarea></label>
+						                    @if($errors->has('detail'))
+						                        <span class="help-block">{{ $errors->first('detail') }}</span>
+						                    @endif
+		            					</div>
 	            					</div>
-	            					
+
 	            					<div class="col-md-12">
 	            						<input type="hidden" value="{{Auth::id()}}" name="organizer_id">
 
