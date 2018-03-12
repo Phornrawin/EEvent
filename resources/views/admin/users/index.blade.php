@@ -431,7 +431,7 @@
 							                </div>
 	            						</div>
 	            					</div>
-	            					<br>
+	            					<br>	
 		            					<div class="col-md-12">
 						                    <label>Detail:
 						                    	<br><textarea rows="15" cols="80" name="detail" placeholder="Detail" class="form-control"></textarea></label>
