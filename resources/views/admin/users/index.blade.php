@@ -15,12 +15,12 @@
 		}*/
 
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
-    <script type="text/javascript" src="{{asset('js/filter.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/filter.js')}}"></script>
     
-    <div class="content" ng-app="sortApp" ng-controller="mainController">
+    <div class="content" ">
     	
     	<div class="row">
     		
@@ -40,18 +40,20 @@
 					</div>
     			</div>
 
-    			<div class="col-md-10" align="center" style="width: 100%">
-    				<form>
-					    <div class="form-group">
-					      <div class="input-group">
-					        <div class="input-group-addon"><i class="fa fa-search"></i></div>
-					        <input type="text" class="form-control" placeholder="Search name" ng-model="searchName">
-					      </div>      
-					    </div>
-				 	</form>
-    				 <div id="users" class="content">
+    			<div class="col-md-10" align="center" style="width: 90%; padding: 10px" ng-app="sortApp" >
+    				
+    				 <div id="users" class="content" ng-controller="mainController">
     				 	<h3>Users Table</h3>
     				 	<hr style="height: 1px; color:#1C2833; background:#1C2833;">
+    				 	<form>
+						    <div class="form-group">
+						      <div class="input-group">
+						        <div class="input-group-addon form-control"><i class="fa fa-search"></i></div>
+						        <input type="text" class="form-control" placeholder="Search name or category" ng-model="searchName" style="width: 90%">
+						      </div>      
+						    </div>
+				 		</form>
+    				 	
 				        <table class="table table-bordered table-striped">
 
 							<thead>
@@ -77,17 +79,31 @@
 							            <span ng-show="sortType == 'avatar' && sortReverse" class="fa fa-caret-up"></span>
 							          </a>
 							        </td>
+							        <td></td>
+							        <td></td>
 							      </tr>
 							    </thead>
 
 							     <tbody>
-							      <tr ng-repeat="user in users | orderBy:sortType:sortReverse | filter:searchName">
-							        <td>{{ user.name }}</td>
-							        <td>{{ user.email }}</td>
-							        <td>{{ user.avatar }}</td>
-							        <td><a href="{{action('Admin\UserController@edit', ['id' => user.id])}}">edit</a></td>
-				                    <td><a href="#" onclick="event.preventDefault(); document.getElementById('delete-{{$user->id}}').submit();">delete</a></td>
-							      </tr>
+							     
+							      	<div ng-repeat="user in users">
+							      		 <tr>
+								      		<form ><!--  action="events/<%user.id%>" -->
+									      		<td>
+									      			<% user.name %>
+									      		</td>
+										        <td>
+										        	<% user.email %>
+										        </td>
+										        <td>
+										        	<% user.avatar %>
+										        </td>
+										        <td><a href="#">edit</a></td>
+							                    <td><a href="#" onclick="event.preventDefault(); document.getElementById('delete-' + <%user.id%>).submit();">delete</a></td>
+								      	</form>
+								      </tr >
+							      	</div>   
+							      
 							    </tbody>
 <!-- 
 				            <tr class="table table-dark">
@@ -346,11 +362,7 @@
 
     			</div>
     	</div>
-    	<footer class="font-weight-light text-light bg-dark pt-4">
-    		<h5>Search: <input  ng-model="typefilter"></h5>
-            <br>
-           <div ng-if=" typefilter == ''">
-    	</footer>
+    	
     </div>
     
 @endsection
