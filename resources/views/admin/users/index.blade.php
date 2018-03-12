@@ -172,15 +172,6 @@
 		                            </td>
 		                            <td>
 		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
-		                                    Category
-		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
-		                                          class="fa fa-caret-down"></span>
-		                                    <span ng-show="sortType == 'avatar' && sortReverse"
-		                                          class="fa fa-caret-up"></span>
-		                                </a>
-		                            </td>
-		                            <td>
-		                                <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
 		                                    Price
 		                                    <span ng-show="sortType == 'avatar' && !sortReverse"
 		                                          class="fa fa-caret-down"></span>
@@ -250,7 +241,6 @@
 	                            <td><% event.precondition %></td>
 	                            <td><% event.location %></td>
 	                            <td><% event.code %></td>
-	                            <td><% event.category %></td>
 	                            <td><% event.price %></td>
 	                            <td><% event.payment_time %></td>
 	                            <td><% event.start_time %></td>
