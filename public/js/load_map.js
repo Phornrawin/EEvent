@@ -1,15 +1,13 @@
 var marker;
-var infowindow;
 var geocoder;
 var pos;
 var map;
-$(document).ready(function () {
-
+// $(document).ready(function () {
+function initMap() {
     //default marker position is in Australia
     pos = {lat: -25.363, lng: 131.044};
 
     geocoder = new google.maps.Geocoder();
-    infowindow = new google.maps.InfoWindow;
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 4,
@@ -23,19 +21,20 @@ $(document).ready(function () {
             position: pos,
             draggable: true
         });
-        geocodeAddress(geocoder);
+        geocodeAddress();
     } else {
-        createMarker(geocoder, pos);
-
+        createMarker(pos);
     }
 
     document.getElementById('submit').addEventListener('click', function () {
-        geocodeAddress(geocoder, map);
+        geocodeAddress();
     });
-})
+}
+// })
 
-function createMarker(geocoder, pos) {
+function createMarker(pos) {
     if (marker != null) {
+        // marker.removeAttr("map")
         marker.setMap(null);
     }
     marker = new google.maps.Marker({
@@ -48,16 +47,18 @@ function createMarker(geocoder, pos) {
     marker.addListener("dragend", function () {
         this.map.setCenter(marker.position);
         document.getElementById('location').value = marker.position.lat().toFixed(5) + "," + marker.position.lng().toFixed(5);
-        geocodeLatLng(geocoder, map, marker.position);
+        geocodeLatLng();
     })
 }
 
-function geocodeAddress(geocoder) {
+function geocodeAddress() {
     var address = document.getElementById('location').value;
+    geocoder.geocode
     geocoder.geocode({'address': address}, function (results, status) {
+        console.log("test geocoder");
         if (status === 'OK') {
             map.setCenter(results[0].geometry.location);
-            createMarker(map, results[0].geometry.location)
+            createMarker(results[0].geometry.location);
 
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
@@ -65,15 +66,14 @@ function geocodeAddress(geocoder) {
     });
 }
 
-function geocodeLatLng(geocoder, map, infowindow) {
+function geocodeLatLng() {
     var input = document.getElementById('location').value;
     var latlngStr = input.split(',', 2);
     var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
     geocoder.geocode({'location': latlng}, function (results, status) {
         if (status === 'OK') {
             if (results[0]) {
-                // marker.setMap(null);
-                createMarker(geocoder, map, latlng);
+                createMarker(latlng);
                 document.getElementById("location").value = results[0].formatted_address;
             } else {
                 window.alert('No results found');

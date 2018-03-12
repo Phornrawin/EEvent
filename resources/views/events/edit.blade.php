@@ -3,11 +3,12 @@
 @section('title', 'Edit Event - EEvent');
 
 @section('content');
+<script type="text/javascript" src="{{asset('js/load_map.js')}}"></script>
+
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC48dOHizV6KELoop9nwltS-pNGZ9FHfdk">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC48dOHizV6KELoop9nwltS-pNGZ9FHfdk&callback=initMap">
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="{{asset('js/load_map.js')}}"></script>
 <link rel="stylesheet" href="{{asset('css/map.css')}}">
 
 <div class="container">
