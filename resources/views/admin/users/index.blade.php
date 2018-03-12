@@ -21,9 +21,9 @@
     <div class="content">
     	<div class="row">
     		
-    			<div class="col-md-2">
+    			<div class="col-md-2" >
     				<h3 align="center">Manage EEvent</h3>
-    				<hr style="height: 2px; color:#1C2833; background:#1C2833;">
+    				<br>
     				<div class="vertical-menu">
     					<ul>
     						<li><h5><span href="" onclick="onClickUser()" id="defaultOpen">Users</span></h4></li>

@@ -17,10 +17,15 @@
     </div>
 
     <div class="row">
-        <form method="post" class="contact1-form validate-form" action="{{route('events.update', ['id'=>$event->id])}}">
+        <form method="post" class="contact1-form validate-form" action="{{route('events.update', ['id'=>$event->id])}}" enctype="multipart/form-data">
             @method('PUT')
             {{ csrf_field() }}
 
+            <div class="row form-group">
+                <label>Select cover image</label>
+                <br>
+                <input type="file" class="form-control" name="image_path">
+            </div>
 
             <div class="row">
                 <div class="form-group">
@@ -101,6 +106,8 @@
                     <span class="help-block">{{ $errors->first('detail') }}</span>
                 @endif
             </div>
+
+
             <input type="hidden" value="{{Auth::id()}}" name="organizer_id">
 
             <button type="submit" class="btn btn-primary">Save</button>
