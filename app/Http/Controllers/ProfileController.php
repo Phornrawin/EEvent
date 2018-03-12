@@ -7,6 +7,7 @@ use EEvent\User;
 use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManagerStatic;
 
 class ProfileController extends Controller
@@ -23,9 +24,9 @@ class ProfileController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        $user = User::find($id);
+        $user = Auth::user();
         return view('profile.edit', ["user" => $user]);    }
 
     /**
@@ -35,9 +36,31 @@ class ProfileController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user = Auth::user()->makeVisible('password');
+        if ($user != null) {
+            $data = $request->validate([
+                'name' => 'required|max:50',
+                'email' => 'required'
+            ]);
+            $user->update($data);
+        }
+
+        $checkCur = Hash::check($_POST["currentPass"], $user->password);
+        if($checkCur){
+            if($_POST["password"] == $_POST["retypeNewPass"]){
+                $data2 = $request->validate([
+                    'password' => 'required'
+                ]);
+                $data2['password'] = Hash::make($_POST["password"]);
+                $user->update($data2);
+            }else{
+                return redirect()->route('profile.edit', ['id' => $user->id])->with('success', 'Your profile has been updated');
+            }
+            return redirect()->route('profile.show')->with('success', 'Your profile has been updated');
+        }
+        return redirect()->route('profile.show')->with('success', 'Your profile has been updated');
     }
 
     /**

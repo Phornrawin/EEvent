@@ -18,6 +18,9 @@
                         <div class="">
                             {{$user->name}}
                         </div>
+                        <div class="">
+                            {{$user->email}}
+                        </div>
                     </div>
                     <!-- END SIDEBAR USER TITLE -->
                     <!-- SIDEBAR BUTTONS -->
@@ -33,7 +36,7 @@
                                 <a href="#">Overview </a>
                             </li>
                             <li class="">
-                                <a href="{{route('profile.edit', ['id' => $user->id])}}">Account Settings </a>
+                                <a href="{{route('profile.edit')}}">Account Settings </a>
                             </li>
                             <li class="">
                                 <a href={{route('logout')}}>Logout </a>
