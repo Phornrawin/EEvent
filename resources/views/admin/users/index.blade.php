@@ -318,13 +318,13 @@
 
 	            					<div class="row">
 	            						<div class="col-md-6">
-								            <div class="row form-group">
-							                    <label>Location <input id="location" type="textbox" name="location" placeholder="Location" class="form-control" size="200"></label>
+								            <div class="row input-group-prepend">
+							                    <label>Location <input id="location" type="textbox" name="location" placeholder="Location" class="form-control" size="300" style="width: 100%"></label>
 							                    @if($errors->has('location'))
 							                        <span class="help-block">{{ $errors->first('location') }}</span>
 							                    @endif
 
-							                    <input id="submit" type="button" value="Show on map" class="form-control btn btn-primary" style="width: 30%" align="center">
+							                    <input id="submit" type="button" value="Show on map" class="form-control btn btn-primary" style="width: 30%; align-items: center;" >
 							                </div>
 
 							                <div id="map"></div>
