@@ -52,7 +52,7 @@ class Event extends Eloquent
     public function getPriceText()
     {
         if ($this->price > 0) {
-            return $this->price . '$';
+            return $this->price;
         }
         return 'Free!';
     }

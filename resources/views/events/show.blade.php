@@ -14,15 +14,16 @@
             justify-content: space-between;
             align-items: center;
             margin-top: 0px;
-            margin-left: auto;
-            margin-right: auto;
             margin-bottom: 50px;
             text-align: left;
             padding: 80px 200px;
+            width: auto;
+
         }
 
         .imageHeader {
             width: 800px;
+            height: auto;
             margin-top: 50px;
             margin-left: auto;
             margin-right: auto;
@@ -30,11 +31,11 @@
 
         .detail {
             background: white;
-            height: 200px;
+            height: auto;
             width: 800px;
             margin-left: auto;
             margin-right: auto;
-            padding: 20px 100px;
+            padding: 50px 100px;
             margin-bottom: 50px;
         }
 
@@ -101,14 +102,13 @@
             background: white;
             text-align: center;
             display: none;
-            padding: 6px 12px;
+            padding: 50px;
             border-top: none;
             height: 500px;
             width: 800px;
             margin-left: auto;
             margin-right: auto;
             overflow: scroll;
-            box-shadow: 0 .25rem .75rem rgb(95, 109, 122);
             margin-bottom: 100px;
         }
 
@@ -127,10 +127,12 @@
             height: 120px;
             width: 120px;
             color: white;
+            box-shadow: 0 .25rem .75rem rgba(0, 0, 0,0.2);
         }
 
         .editBtn:hover {
-            background-color: #555; /* Add a dark-grey background on hover */
+            background-color: #494E53;
+            box-shadow: 0 .25rem .75rem rgba(0, 0, 0,0.5);
         }
 
         .commentBox {
@@ -164,7 +166,7 @@
                 <h1 style="font-size: 40px">{{$event->name}}</h1>
                 create by {{$event->organizer->name}} <br>
                 <b style="color: firebrick">{{$event->getRemainingDay()}}</b> days until begin <br>
-                <i class="fa fa-dollar"></i> <b style="color: red">{{$event->getPriceText()}}</b>
+                <i class="fa fa-btc"></i> <b style="color: red">{{$event->getPriceText()}}</b>
                 <br>
             </div>
             <div class="" style="text-align: center;">
@@ -206,7 +208,7 @@
             <button class="tablinks" onclick="openTab(event, 'Booked')">Booked</button>
         </div>
 
-        <div id="Detail" class="tabcontent scrollbar-primary">
+        <div id="Detail" class="tabcontent scrollbar-primary" style="text-align: left;">
             {{$event->detail}}
             <div class="force-overflow"></div>
         </div>
@@ -284,7 +286,7 @@
         @else
             <form method="post" action="{{route('events.unattend', ['id' => $event->id])}}">
                 @csrf
-                <button class="editBtn" type="submit" id="bookedBtn" style="background: firebrick; display: none;">
+                <button class="editBtn" type="submit" id="bookedBtn" style="display: none;">
                     I'cant go anymore
                 </button>
             </form>
