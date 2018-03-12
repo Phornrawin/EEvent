@@ -49,18 +49,19 @@ class ProfileController extends Controller
 
         $checkCur = Hash::check($_POST["currentPass"], $user->password);
         if($checkCur){
-            if($_POST["password"] == $_POST["retypeNewPass"]){
+            if($_POST["password"] == $_POST["retypeNewPass"] && $_POST["retypeNewPass"] != "" && $_POST["password"] != ""){
                 $data2 = $request->validate([
                     'password' => 'required'
                 ]);
                 $data2['password'] = Hash::make($_POST["password"]);
                 $user->update($data2);
+                return redirect()->route('profile.show')->with('success', 'Your input wrong current password');
             }else{
-                return redirect()->route('profile.edit', ['id' => $user->id])->with('success', 'Your profile has been updated');
+                return redirect()->route('profile.edit', ['id' => $user->id])->with('alert1', 'Mismatch new password');
             }
-            return redirect()->route('profile.show')->with('success', 'Your profile has been updated');
+        }else{
+            return redirect()->route('profile.edit')->with('alert2', 'Your input wrong current password');
         }
-        return redirect()->route('profile.show')->with('success', 'Your profile has been updated');
     }
 
     /**

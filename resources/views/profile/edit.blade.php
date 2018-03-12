@@ -26,10 +26,21 @@
                     <br><br>
 
                     <h2>Change Password</h2>
+
+                    @if (session('alert2'))
+                        <div class="alert alert-success" style="color: #e60000; background-color: #ffb3b3">
+                            {{ session('alert2') }}
+                        </div>
+                    @endif
                     <label style="font-size: 18px">Your current password</label>
                     <input type="password" name="currentPass" value="" class="form-control"
                            size="100">
                     <br>
+                    @if (session('alert1'))
+                        <div class="alert alert-success" style="color: #e60000; background-color: #ffb3b3">
+                            {{ session('alert1') }}
+                        </div>
+                    @endif
                     <label style="font-size: 18px">Your new password</label>
                     <input type="password" name="password" value="" class="form-control"
                            size="100">
