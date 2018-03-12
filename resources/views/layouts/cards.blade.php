@@ -4,7 +4,7 @@
             <div class="col-md-4">
                 <div class="card mb-4" style="box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05)">
                     <img class="card-img-top"
-                         src="uploads/events_pic/{{$event->path ==null ?$event->getDefaultPicture() : $event->image_path}}"
+                         src="uploads/events_pic/{{$event->path ==null ?$event->getPicture() : $event->image_path}}"
                          alt="Card image cap" style="height: 225px; width: 100%; display: block;">
                     <div class="card-body">
                         <h5 class="card-title">{{$event->name}}</h5>
