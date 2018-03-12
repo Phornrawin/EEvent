@@ -9,7 +9,7 @@ class Event extends Eloquent
 {
     protected $fillable = [
         'name', 'organizer_id', 'detail', 'precondition', 'location', 'code', 'category_id', 'price', 'payment_time'
-        , 'start_time', 'max_capacity'
+        , 'start_time', 'max_capacity', 'image_path'
     ];
 
     protected $dates = ['payment_time', 'start_time'];
