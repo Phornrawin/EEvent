@@ -77,20 +77,16 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        $payment_time = Carbon::createFromFormat('d m Y H:i', $request->get('payment_time'));
-        $start_time = Carbon::createFromFormat('d m Y H:i', $request->get('start_time'));
+
+    {   
+        $event = Event::find($id);
         if ($event != null) {
             $event->update(array(
                 'name' => $request->get('name'),
                 'detail' => $request->get('detail'),
                 'precondition' => $request->get('precondition', ''),
                 'location' => $request->get('location'),
-                'code' => $request->get('code'),
                 'category_id' => $request->get('category_id'),
-                'price' => $request->get('price'),
-                'payment_time' => $payment_time,
-                'start_time' => $start_time,
                 'max_capacity' => $request->get('max_capacity'),
             ));
         }

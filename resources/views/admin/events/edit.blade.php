@@ -42,8 +42,8 @@
             <div class="form-row">
                 <div class="col-md-5 my-1">
                     <label for="name">Category</label>
-                    <input type="category" class="form-control mx-sm-3" id="category" name="category" placeholder="Category"
-                           value="{{$event->category}}">
+                    <input type="category_id" class="form-control mx-sm-3" id="category_id" name="category_id" placeholder="Category"
+                           value="{{$event->category_id}}">
                 </div>
             </div>
 
@@ -55,14 +55,6 @@
                 </div>
             </div>
  
-            <div class="form-row">
-                <div class="col-md-5 my-1">
-                    <label for="name">Max_capacity</label>
-                    <input type="max_capacity" class="form-control mx-sm-3" id="max_capacity" name="max_capacity" placeholder="Max_capacity"
-                           value="{{$event->max_capacity}}">
-                </div>
-            </div>
-
             <div class="form-row">
                 <div class="col-sm-1 my-3">
                     	<button type="submit" class="btn btn-primary form form-control mx-sm-3" > Save</button>
