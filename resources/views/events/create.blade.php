@@ -17,8 +17,14 @@
 
         </div>
         <div class="row form-group">
-            <form method="post" class="contact1-form validate-form" action="{{route('events.store')}}">
+            <form method="post" class="contact1-form validate-form" action="{{route('events.store')}}" enctype="m">
                 {{ csrf_field() }}
+
+                <div class="row form-group">
+                    <label>Select cover image</label>
+                    <br>
+                    <input type="file" class="form-control" name="image_path">
+                </div>
 
                 <div class="row form-group">
                     <label>Event name:<input type="text" name="name" placeholder="Name" class="form-control"
@@ -50,6 +56,8 @@
 
                 </div>
 
+
+
                 <div class="row form-group">
 
                     <label>Maximum Attendee:<input type="number" name="max_capacity" placeholder="Attendee number"
@@ -57,7 +65,7 @@
                     @if($errors->has('max_capacity'))
                         <span class="help-block">{{ $errors->first('max_capacity') }}</span>
                     @endif
-                    <label>Event fee (Baht) <input type="number" name="price" placeholder="0"
+                    <label>Event fee (Baht) <input type="number" name="price" placeholder="0" min="0"
                                                    class="form-control"></label>
                     @if($errors->has('price'))
                         <span class="help-block">{{ $errors->first('price') }}</span>
@@ -95,6 +103,8 @@
                         <span class="help-block">{{ $errors->first('detail') }}</span>
                     @endif
                 </div>
+
+
                 <input type="hidden" value="{{Auth::id()}}" name="organizer_id">
 
                 <button type="submit" class="btn btn-primary">Create!</button>

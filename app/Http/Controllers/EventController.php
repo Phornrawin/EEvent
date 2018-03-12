@@ -53,14 +53,15 @@ class EventController extends Controller
             'detail' => 'required',
             'location' => 'required',
             'category_id' => 'required|min:1',
-            'price' => 'required|min:0',
+            'price' => 'required|min:>=0',
             'payment_time' => 'required|',
             'start_time' => 'required',
         ]);
+        $data += array("image_path" => $request['img']);
 
         $code = random_int(100000, 999999);
 
-        $data += array('organizer_id' => $request['organizer_id']) + array('code' =>$code);
+        $data += array('organizer_id' => $request['organizer_id']) + array('code' => $code);
         $data['start_time'] = date("Y-m-d h:i:s", strtotime($data['start_time']));
         $data['payment_time'] = date("Y-m-d h:i:s", strtotime($data['payment_time']));
 
@@ -117,12 +118,24 @@ class EventController extends Controller
                 'category_id' => 'required|min:1',
                 'price' => 'required|min:0',
                 'payment_time' => 'required|',
-                'start_time' => 'required'
+                'start_time' => 'required',
             ]);
             $data['start_time'] = date("Y-m-d h:i:s", strtotime($data['start_time']));
             $data['payment_time'] = date("Y-m-d h:i:s", strtotime($data['payment_time']));
+
+            if (isset($request['image_path'])) {
+                $this->validate($request, [
+                    'image_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ]);
+
+                $imageName = time() . '.' . $request->image_path->getClientOriginalExtension();
+                $request->image_path->move(public_path('uploads/events_pic'), $imageName);
+                $data += array('image_path' => $imageName);
+            }
+
             $event->update($data);
         }
+
         return redirect()->route('events.show', ['id' => $id])->with('success', 'Your event has been updated');
     }
 
@@ -173,7 +186,7 @@ class EventController extends Controller
         $attendee = Attendee
             ::where('event_id', '=', $id)
             ->where('user_id', '=', Auth::id())->first();
-        $payment = Payment::where('attendee_id','=',$attendee->id);
+        $payment = Payment::where('attendee_id', '=', $attendee->id);
         try {
             if ($attendee != null and $payment != null) {
                 $event = Event::find($id);
