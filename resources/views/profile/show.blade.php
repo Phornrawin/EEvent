@@ -33,7 +33,7 @@
                                 <a href="#">Overview </a>
                             </li>
                             <li class="">
-                                <a href="{{route('profile.edit', ['id' => $user->profile->user_id])}}">Account Settings </a>
+                                <a href="{{route('profile.edit', ['id' => $user->id])}}">Account Settings </a>
                             </li>
                             <li class="">
                                 <a href={{route('logout')}}>Logout </a>

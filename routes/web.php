@@ -45,9 +45,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/search', 'EventController@search')->name('events.search');
 Route::get('/category')->name('events.category');
-//Route::get('/events/create', function () {
-//    return view('profile');
-//});
+Route::get('/events/create', function () {
+    return view('events.create');
+})->middleware('auth');
+
 //Route::post('/events/create', 'EventController@store')
 //    ->name('events.store')
 //    ->middleware('auth');
