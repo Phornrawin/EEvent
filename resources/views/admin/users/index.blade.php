@@ -15,10 +15,13 @@
 		}*/
 
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
-
-    <div class="content">
+    <script type="text/javascript" src="{{asset('js/filter.js')}}"></script>
+    
+    <div class="content" ng-app="sortApp" ng-controller="mainController">
+    	
     	<div class="row">
     		
     			<div class="col-md-2" >
@@ -38,10 +41,55 @@
     			</div>
 
     			<div class="col-md-10" align="center" style="width: 100%">
+    				<form>
+					    <div class="form-group">
+					      <div class="input-group">
+					        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+					        <input type="text" class="form-control" placeholder="Search name" ng-model="searchName">
+					      </div>      
+					    </div>
+				 	</form>
     				 <div id="users" class="content">
     				 	<h3>Users Table</h3>
     				 	<hr style="height: 1px; color:#1C2833; background:#1C2833;">
-				        <table class="table">
+				        <table class="table table-bordered table-striped">
+
+							<thead>
+							      <tr>
+							        <td>
+							          <a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+							            Name 
+							            <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+							            <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+							          </a>
+							        </td>
+							        <td>
+							          <a href="#" ng-click="sortType = 'email'; sortReverse = !sortReverse">
+							          Email 
+							            <span ng-show="sortType == 'email' && !sortReverse" class="fa fa-caret-down"></span>
+							            <span ng-show="sortType == 'email' && sortReverse" class="fa fa-caret-up"></span>
+							          </a>
+							        </td>
+							        <td>
+							          <a href="#" ng-click="sortType = 'avatar'; sortReverse = !sortReverse">
+							          Avatar
+							            <span ng-show="sortType == 'avatar' && !sortReverse" class="fa fa-caret-down"></span>
+							            <span ng-show="sortType == 'avatar' && sortReverse" class="fa fa-caret-up"></span>
+							          </a>
+							        </td>
+							      </tr>
+							    </thead>
+
+							     <tbody>
+							      <tr ng-repeat="user in users | orderBy:sortType:sortReverse | filter:searchName">
+							        <td>{{ user.name }}</td>
+							        <td>{{ user.email }}</td>
+							        <td>{{ user.avatar }}</td>
+							        <td><a href="{{action('Admin\UserController@edit', ['id' => user.id])}}">edit</a></td>
+				                    <td><a href="#" onclick="event.preventDefault(); document.getElementById('delete-{{$user->id}}').submit();">delete</a></td>
+							      </tr>
+							    </tbody>
+<!-- 
 				            <tr class="table table-dark">
 				                <th>name</th>
 				                <th>email</th>
@@ -62,8 +110,8 @@
 				                      style="display: none;">
 				                    @csrf
 				                    @method('DELETE')
-				                </form>
-				            @endforeach
+				                </form> -->
+				           <!--  @endforeach -->
 				        </table>
     				</div>
     				<div id="events" class="content">
@@ -298,6 +346,11 @@
 
     			</div>
     	</div>
+    	<footer class="font-weight-light text-light bg-dark pt-4">
+    		<h5>Search: <input  ng-model="typefilter"></h5>
+            <br>
+           <div ng-if=" typefilter == ''">
+    	</footer>
     </div>
     
 @endsection
