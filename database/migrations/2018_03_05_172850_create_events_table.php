@@ -19,7 +19,7 @@ class CreateEventsTable extends Migration
             $table->unsignedInteger('organizer_id');
             $table->longText('detail');
             $table->string('precondition', 128)->default('');
-            $table->string('location', 86);
+            $table->string('location', 200);
             $table->string('code')->unique();
             $table->unsignedInteger('category_id');
             $table->float('price')->default(0);
