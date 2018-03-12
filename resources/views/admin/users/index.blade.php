@@ -21,9 +21,6 @@
 			height: 20%;
 		}
 
-		/*input{
-			margin: 10px;
-		}*/
 
     </style>
     <script type="text/javascript" src="{{asset('js/load_map_foradmin.js')}}"></script>
@@ -36,31 +33,31 @@
     <script type="text/javascript" src="{{ asset('js/filter.js')}}"></script>
 
     
-    <div class="content" ">
-    	
+    <div class="content" style="padding-top: 50px">
     	<div class="row">
-    		
-    			<div class="col-md-2" >
+    			<div class="col-md-2 bg-dark" style="color: white" >
+    				<br>
     				<h3 align="center">Manage EEvent</h3>
     				<br>
     				<div class="vertical-menu">
     					<ul>
     						<li><h5><span href="" onclick="onClickUser()" id="defaultOpen">Users</span></h4></li>
-    						<hr>
+    						<hr style="background-color: white">
 							<li><h5><span href="" onclick="onClickEvent()">Events</span></h4></li>
-							<hr>
+							<hr style="background-color: white">
 							<li><h5><span href="" onclick="onClickCreateUser()">Create user</span></h4></li>
-							<hr>
+							<hr style="background-color: white">
 							<li><h5><span href="" onclick="onClickCreateEvent()">Create event</span></h4></li>
     					</ul>
 					</div>
     			</div>
 
-    			<div class="col-md-10" align="center" style="width: 90%; padding: 10px" ng-app="sortApp" >
-    				
+    			<div class="col-md-10"  style="width: 70%; padding: : 10px; align-content: center;"  ng-app="sortApp" >
+    				<br>
+
     				 <div id="users" class="content" ng-controller="userController">
     				 	<h3>Users Table</h3>
-    				 	<hr style="height: 1px; color:#1C2833; background:#1C2833;">
+    				 	<hr style="height: 1px; color:white; background:#1C2833;">
     				 	<form>
 	                        <div class="w-100">
 					    <form method="get" action="{{route('events.search')}}">
@@ -356,7 +353,7 @@
 				    </div>
 
 				    <div id="createEvent" class="content">
-				        	<div class="row" >
+				        	<div class="row" style="margin: 10px">
 					            <form method="post" class="contact1-form validate-form" action="{{route('admin.events.store')}}" style="width: 80%" align="center">
 	            					@csrf
 	            					<h3>Create Event</h3>
@@ -398,7 +395,7 @@
 								        </div>
 	            					</div>
 
-	            					<div class="row"> <!-- second row -->
+	            					<div class="row" align=" center"> <!-- second row -->
 	            						<div class="col-md-4">
 	            							<label>Event fee (Baht) <input type="float" name="price" placeholder="0" class="form-control"></label>
 						                    @if($errors->has('price'))
@@ -407,7 +404,7 @@
 	            						</div>
 	            						<div class="col-md-4">
 	            							 <label>Pay fee before: <input type="datetime-local" name="payment_time"
-                                                  class="form-control" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"></label>
+                                                  class="form-control" placeholder="yyyy-MM-ddTHH:mm:ss"></label>
 						                    @if($errors->has('payment_time'))
 						                        <span class="help-block">{{ $errors->first('payment_time') }}</span>
 						                    @endif
@@ -415,7 +412,7 @@
 	            					
 	            						<div class="col-md-4">
 	            							<label>Event start time: <input type="datetime-local" name="start_time"
-                                                    class="form-control" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"></label>
+                                                    class="form-control" placeholder="yyyy-MM-ddTHH:mm:ss"></label>
 						                    @if($errors->has('start_time'))
 						                        <span class="help-block">{{ $errors->first('start_time') }}</span>
 						                    @endif

@@ -11,7 +11,7 @@
     <script src="https://use.fontawesome.com/ebc57c5fe2.js"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body style="padding-top: 100px">
+<body style="padding-bottom: 100px">
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container">
@@ -30,7 +30,7 @@
                 <ul class="navbar-nav mr-auto">
                     <li><a class="nav-link" href="{{ route('events.index') }}">Events</a></li>
                     <li><a class="nav-link" href="{{ route('events.index') }}">Category</a></li>
-                    <li><a class="nav-link" href="{{ route('home.about')}}">About us</a></li>
+                    <li><a class="nav-link" href="/">About us</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -55,7 +55,6 @@
         </div>
     </nav>
 </header>
-
 <main>
     @yield('content')
 </main>
