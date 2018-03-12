@@ -38,8 +38,8 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $payment_time = Carbon::createFromFormat('d m Y H:i', $request->get('payment_time'));
-        $start_time = Carbon::createFromFormat('d m Y H:i', $request->get('start_time'));
+        $payment_time = Carbon::now();
+        $start_time = Carbon::now();
         Event::create(array(
             'name' => $request->get('name'),
             'organizer_id' => $request->get('organizer_id'),

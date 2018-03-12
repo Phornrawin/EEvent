@@ -26,7 +26,7 @@
 		}*/
 
     </style>
-    <script type="text/javascript" src="{{asset('js/load_map.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/load_map_foradmin.js')}}"></script>
 
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC48dOHizV6KELoop9nwltS-pNGZ9FHfdk&callback=initMap"></script>
@@ -112,7 +112,7 @@
                     	</table>        
     				</div>
     				<div id="events" class="content" ng-controller="eventController">
-    					<h3>Evants Table</h3>
+    					<h3>Events Table</h3>
     					<hr style="height: 2px; color:#1C2833; background:#1C2833;">
     					<form>
 	                        <div class="form-group">
