@@ -17,8 +17,8 @@ class ProfilesTableSeeder extends Seeder
         $users = User::all();
         foreach ($users as $user) {
             $user->profile()->create([
-                'age' => 21,
-                'tel_phone' => '+66804443873'
+                'age' => random_int(18, 25),
+                'tel_phone' => '0805556974'
             ]);
         }
     }

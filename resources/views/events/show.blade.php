@@ -42,31 +42,49 @@
                             {{--alt="Card image cap" style="height: 225px; width: 100%; display: block;">--}}
                             <div class="card-header">
                                 <h4 class="card-subtitle py-3 text-muted font-weight-light"><span
-                                            class="badge badge-danger py-1 mx-2">{{$event->getPriceText()}}</span></h4>
+                                            class="badge badge-danger  mx-2">{{$event->getPriceText()}}</span></h4>
                                 <div class="row px-3 align-items-center justify-content-between">
-                                    <h2 class="text-dark font-weight-bold mx-2 ">Are you going ? </h2>
+                                    <h2 class="text-dark font-weight-bold mx-2 ">{{Auth::id() == $event->organizer_id ? 'Hosted by you' :'Are you going ?'}} </h2>
                                     <span class="text-muted mr-2">{{$event->cur_capacity}} people going</span>
                                 </div>
 
                             </div>
                             <div class="card-footer">
                                 {{--edit button for organizer--}}
-                                @if(Auth::user()!= null and Auth::user()->id == $event->organizer_id)
-                                    <a href="{{route('events.edit', ['id'=>$event->id])}}"
-                                       class="btn btn-warning w-100 font-weight-bold text-muted">
-                                        EDIT </a>
-                                @elseif(!$event->isAttend(Auth::id()))
-                                    <form method="post" action="{{route('events.attend', ['id' => $event->id])}}">
-                                        @csrf
-                                        <button class="btn btn-info w-100 font-weight-bold">X</button>
-                                    </form>
-                                @else
-                                    <form method="post" action="{{route('events.unattend', ['id' => $event->id])}}">
-                                        @csrf
-                                        <button class="btn btn-danger w-100 font-weight-bold"><i
-                                                    class="fa fa-times"></i></button>
-                                    </form>
-                                @endif
+                                @auth
+                                    @if(Auth::id() == $event->organizer_id)
+                                        <a href="{{route('events.edit', ['id'=>$event->id])}}"
+                                           class="btn btn-warning w-100 font-weight-bold text-muted">
+                                            EDIT </a>
+                                    @elseif(!$event->isAttend(Auth::id()))
+                                        <form method="post" action="{{route('events.attend', ['id' => $event->id])}}">
+                                            @csrf
+                                            <button class="btn btn-info w-100 font-weight-bold"><i
+                                                        class="fa fa-check"></i></button>
+                                        </form>
+                                    @else
+                                        <form method="post" action="{{route('events.unattend', ['id' => $event->id])}}">
+                                            @csrf
+                                            <button class="btn btn-danger w-100 font-weight-bold">X</button>
+                                        </form>
+                                    @endif
+                                    @if($event->isAttend(Auth::id()) and $event->price != 0)
+                                        @if($event->getPaymentStatus(Auth::id()) == 'unpaid'))
+                                        <form method="post" action="">
+                                            @csrf
+                                            <button class="btn btn-success w-100 font-weight-bold">Pay Entry Fee
+                                            </button>
+                                        </form>
+                                        @else
+                                            <button class="btn btn-danger w-100 font-weight-bold disabled">Paid</button>
+                                        @endif
+                                    @endif
+                                @endauth
+                                @guest
+                                    <a class="btn btn-outline-dark text-dark w-100 font-weight-bold disabled">You need
+                                        to login first</a>
+                                @endguest
+
                             </div>
                         </div>
                     </div>
@@ -77,17 +95,34 @@
     </div>
 
     <div class="container py-5">
-        <div class="col-md-6">
-            <img class="img-fluid py-3" src="/uploads/events_pic/{{$event->getPicture()}}">
+        <div class="col-md-7">
+            <img class="img-fluid my-3 box-shadow border border-dark"
+                 src="/uploads/events_pic/{{$event->getPicture()}}">
             <hr>
             <div class="py-3">
-                <h4>- What it is about</h4>
+                <h4>What it is about</h4>
                 <p>{{$event->detail}}</p>
             </div>
-            <div class="py-3">
-                <h4>- What it is about</h4>
+            <div class="py-3 stripe">
+                <h4>What you need to know</h4>
                 <p>{{$event->precondition}}</p>
             </div>
+            <h4 class="mt-3">Attendees ({{count($event->attendees)}})</h4>
+            <div class="row mt-3">
+                @foreach($event->attendees as $attendee)
+                    <div class="card mx-1 rounded" style="min-width: 150px">
+                        <div class="card-img-top text-center py-3">
+                            <a class="d-block"><img
+                                        src="{{asset('/uploads/avatars/'. $attendee->user->avatar)}}"
+                                        style="max-width: 72px; max-height: 72px; width: 100%; border-radius: 50%; border: 4px solid white"></a>
+                        </div>
+                        <div class="card-header text-center text-truncate">
+                            <p class="text-truncate">{{$attendee->user->name}}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
         </div>
     </div>
 @endsection

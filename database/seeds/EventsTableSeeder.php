@@ -13,10 +13,10 @@ class EventsTableSeeder extends Seeder
         Event::create(array(
             'name' => 'Glorious Web-tech Ceremony',
             'organizer_id' => 1,
-            'detail' => 'The ritual to summon the glorious web-tech demon in 7 days',
-            'precondition' => 'No life and No friend',
-            'location' => 'SCU-45 Kasetsart University Bangkok',
-            'code' => '123456',
+            'detail' => 'Learn the ritual to summon a glorious web-tech software in limited time',
+            'precondition' => 'Be able to withstand ton of bugs',
+            'location' => 'Kasetsart University Bangkok',
+            'code' => bin2hex(openssl_random_pseudo_bytes(3)),
             'category_id' => 1, //adventure
             'price' => 0,
             'payment_time' => Carbon::now()->addWeek(2)->subDay(),
@@ -25,12 +25,12 @@ class EventsTableSeeder extends Seeder
         ));
 
         Event::create(array(
-            'name' => 'Dance your heart out - Round 1',
+            'name' => 'Dance your heart out - Round one',
             'organizer_id' => 1,
-            'detail' => 'Join us to night at Kasetsart University for some crazy dancing move',
-            'precondition' => 'No life and No friend',
-            'location' => 'SCU-45 Kasetsart University Bangkok',
-            'code' => '111111',
+            'detail' => 'Join us tonight at Kasetsart University for some crazy dancing move!!!',
+            'precondition' => '',
+            'location' => 'Kasetsart University Bangkok',
+            'code' => bin2hex(openssl_random_pseudo_bytes(3)),
             'category_id' => 2, //dance
             'price' => 0,
             'payment_time' => Carbon::now()->addWeek(5)->subDay(),
@@ -39,31 +39,46 @@ class EventsTableSeeder extends Seeder
         ));
 
         Event::create(array(
-            'name' => 'Dance Master - Epic Showdown',
+            'name' => 'Enjoy the Varieties of delicious VEGAN food',
             'organizer_id' => 2,
-            'detail' => 'Dance showdown of the year tonight at Kasetsart',
+            'detail' => 'Hi Dear members,
+
+I am excited to announce our first meetup ever. Sorry for delay but I want to schedule it at very good place. Finally I found it. This Vegan bakery is located at Mercury mall (BTS Chidlom) on fourth floor. The name of the cafe is "Veganerie".
+
+The Lady who owns this Vegan cafe is a Social activist and promoting Vegan food worldwide. She is an Amazing lady and she is a member of BIVA (BANGKOK INTERNATIONAL VEGETARIAN ALLIANCE). She cook in house because she dont trust any supplier for authentic vegan food.
+
+We will gather at her cafe and enjoy all the delicious VEGAN food. She has so many food varieties which I never seen before in any other cafe.
+
+We will also discuss little about the advantage of being vegan and talk about some simple rules to live healthy life.
+
+The space is limited (Around 25) so please RSVP so that I\'ll keep a record of how many people are coming up.
+
+FREE event. No need to pay anything.
+
+Just enjoy the company of likely minded healthy people.',
             'precondition' => 'No life and No friend',
-            'location' => 'SCU-45 Kasetsart University Bangkok',
-            'code' => '222222',
-            'category_id' => 2, //dance
-            'price' => 999,
+            'location' => 'BTS chidlom',
+            'code' => bin2hex(openssl_random_pseudo_bytes(3)),
+            'category_id' => 4, //food
+            'price' => 0,
             'payment_time' => Carbon::now()->addWeek()->subDay(),
             'start_time' => Carbon::now()->addWeek(),
             'max_capacity' => 12,
         ));
 
         Event::create(array(
-            'name' => 'How to be a true Vegan',
+            'name' => 'Documentary about a Zen Buddhist retreat in rural France',
             'organizer_id' => 2,
-            'detail' => 'Learn how to be a vegan, you will learn anything about how to be a True vegan',
-            'precondition' => 'No life and No friend',
-            'location' => 'SCU-45 Kasetsart University Bangkok',
-            'code' => '333333',
-            'category_id' => 4, // food
+            'detail' => "
+Filmed over three years, in their monastery in rural France and on the road in the USA, this visceral film is a meditation on a community grappling with existential questions and the everyday routine of monastic life. As the seasons come and go, the monastics' pursuit for a deeper connection to themselves and the world around them is amplified by insights from Thich Nhat Hanh's early journals, narrated by actor Benedict Cumberbatch.",
+            'precondition' => '',
+            'location' => 'Foreign Correspondents\' Club of Thailand',
+            'code' => bin2hex(openssl_random_pseudo_bytes(3)),
+            'category_id' => 5, // food
             'price' => 500,
             'payment_time' => Carbon::now()->addWeek()->subDay(),
             'start_time' => Carbon::now()->addWeek(),
-            'max_capacity' => 30,
+            'max_capacity' => 16,
         ));
 
         Event::create(array(
@@ -72,13 +87,13 @@ class EventsTableSeeder extends Seeder
             'detail' => 'Learn how to conduct your next voter registration drive, participate in one of the League\'s events, or train your group for their outreach activities. Led by Diane Burrows, we\'ll be talking about the logistics of voter registration, and how to run your own drives.
 The League of Women Voters of the City of New York is a nonpartisan organization whose purpose is to promote informed and active participation in government. The League neither supports nor opposes candidates or political parties. The League is supported by public-spirited individuals, businesses, and organizations.',
             'precondition' => 'Be a Good listener',
-            'location' => 'SCU-45 Kasetsart University Bangkok',
-            'code' => '444444',
+            'location' => 'Kasetsart University Bangkok',
+            'code' => bin2hex(openssl_random_pseudo_bytes(3)),
             'category_id' => 3, //Movement
             'price' => 0,
             'payment_time' => Carbon::now()->addWeek()->subDay(),
             'start_time' => Carbon::now()->addWeek(),
-            'max_capacity' => 64,
+            'max_capacity' => 32,
         ));
     }
 }

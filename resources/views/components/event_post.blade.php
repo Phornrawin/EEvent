@@ -1,7 +1,7 @@
-<div class="card flex-md-row mb-4 box-shadow  boxed-shadow" style="max-width: 540px;">
+<div class="card flex-md-row mb-4 box-shadow  boxed-shadow">
     <div class="card-body d-flex flex-column">
         <strong class="d-inline-block mb-2 text-danger">{{$event->category->name}}</strong>
-        <h3 class="mb-0 text-dark text-truncate">{{$event->name}}</h3>
+        <h3 class="mb-0 text-dark text-truncate"><p>{{$event->name}}</p></h3>
         <div class="my-1 text-muted card-subtitle">
             @if($event->getRemainingDay() <= 7)
                 {{$event->getRemainingDay() . ' days until begin'}}
