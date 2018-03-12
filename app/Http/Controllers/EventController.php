@@ -131,7 +131,6 @@ class EventController extends Controller
                 $imageName = time() . '.' . $request->image_path->getClientOriginalExtension();
                 $request->image_path->move(public_path('uploads/events_pic'), $imageName);
                 $data += array('image_path' => $imageName);
-
             }
 
             $event->update($data);
