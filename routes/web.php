@@ -64,6 +64,8 @@ Route::resource('events', 'EventController');
 Route::get('/admin', function () {
     return redirect()->route('admin.users.index');
 });
+Route::get('/admin/users/getpdf', 'Admin\UserController@getpdf')->name('admin.users.getpdf');
+Route::get('/admin/events/getpdf', 'Admin\EventController@getpdf')->name('admin.events.getpdf');
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::resource('users', 'Admin\UserController');

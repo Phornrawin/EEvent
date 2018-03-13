@@ -7,6 +7,8 @@ use EEvent\Http\Controllers\Controller;
 use EEvent\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Dompdf\Dompdf;
+use Carbon\Carbon;
 
 
 class UserController extends Controller
@@ -102,5 +104,56 @@ class UserController extends Controller
 
     }
 
+    public function getpdf()
+    {
+
+        $pdf = new Dompdf();
+        $users = User::all();
+        $records = "<h1 style='text-align: center'>EEvent users's report.</h1>";
+        $records .= <<<'EOT'
+<table class=\"table table-bordered table-striped\">
+                        <tr>
+                            <td>
+                                <a href=\"#\" ng-click=\"sortType = 'name'; sortReverse = !sortReverse\">
+                                    Name
+                                    <span ng-show=\"sortType == 'name' && !sortReverse\"
+                                          class=\"fa fa-caret-down\"></span>
+                                    <span ng-show=\"sortType == 'name' && sortReverse\" class=\"fa fa-caret-up\"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href=\"#\" ng-click=\"sortType = 'email'; sortReverse = !sortReverse\">
+                                    Email
+                                    <span ng-show=\"sortType == 'email' && !sortReverse\"
+                                          class=\"fa fa-caret-down\"></span>
+                                    <span ng-show=\"sortType == 'email' && sortReverse\"
+                                          class=\"fa fa-caret-up\"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href=\"#\" ng-click=\"sortType = 'avatar'; sortReverse = !sortReverse\">
+                                    Avatar
+                                    <span ng-show=\"sortType == 'avatar' && !sortReverse\"
+                                          class=\"fa fa-caret-down\"></span>
+                                    <span ng-show=\"sortType == 'avatar' && sortReverse\"
+                                          class=\"fa fa-caret-up\"></span>
+                                </a>
+                            </td>
+                        </tr>
+EOT;
+        foreach ($users as $user){
+            $records.= <<<EOT
+<tr><td>$user->name</td><td>$user->email</td><td>$user->avatar</td></tr>
+EOT;
+        }
+        $records.="</table>";
+
+        $pdf->loadHtml($records);
+        $pdf->setPaper('A4', 'landscape');
+        $pdf->render();
+        $pdf->stream('users_report'.Carbon::now());
+
+        return view('admin.users.index');
+    }
 
 }

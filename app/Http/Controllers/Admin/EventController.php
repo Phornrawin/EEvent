@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use EEvent\Event;
 use EEvent\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Dompdf\Dompdf;
 
 class EventController extends Controller
 {
@@ -123,4 +124,150 @@ class EventController extends Controller
     {
 
     }
+    public function getpdf()
+    {
+
+        $pdf = new Dompdf();
+        $events = Event::all();
+        $records = "<h1 style='text-align: center'>EEvent events's report.</h1>";
+        $records .= <<<'EOT'
+<table class="table table-bordered table-striped">
+                        <tr>
+                            <td>
+                                <a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+                                    ID
+                                    <span ng-show="sortType == 'name' && !sortReverse"
+                                          class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" ng-click="sortType = 'email'; sortReverse = !sortReverse">
+                                    Name
+                                    <span ng-show="sortType == 'email' && !sortReverse"
+                                          class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'email' && sortReverse"
+                                          class="fa fa-caret-up"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" ng-click="sortType = 'precondition'; sortReverse = !sortReverse">
+                                    Precondition
+                                    <span ng-show="sortType == 'precondition' && !sortReverse"
+                                          class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'precondition' && sortReverse"
+                                          class="fa fa-caret-up"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" ng-click="sortType = 'location'; sortReverse = !sortReverse">
+                                    Location
+                                    <span ng-show="sortType == 'location' && !sortReverse"
+                                          class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'location' && sortReverse"
+                                          class="fa fa-caret-up"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" ng-click="sortType = 'code'; sortReverse = !sortReverse">
+                                    Code
+                                    <span ng-show="sortType == 'code' && !sortReverse"
+                                          class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'code' && sortReverse"
+                                          class="fa fa-caret-up"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" ng-click="sortType = 'price'; sortReverse = !sortReverse">
+                                    Price
+                                    <span ng-show="sortType == 'price' && !sortReverse"
+                                          class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'price' && sortReverse"
+                                          class="fa fa-caret-up"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" ng-click="sortType = 'payment_time'; sortReverse = !sortReverse">
+                                    Payment_time
+                                    <span ng-show="sortType == 'payment_time' && !sortReverse"
+                                          class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'payment_time' && sortReverse"
+                                          class="fa fa-caret-up"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" ng-click="sortType = 'start_time'; sortReverse = !sortReverse">
+                                    Start_time
+                                    <span ng-show="sortType == 'start_time' && !sortReverse"
+                                          class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'start_time' && sortReverse"
+                                          class="fa fa-caret-up"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" ng-click="sortType = 'cur_capacity'; sortReverse = !sortReverse">
+                                    Cur_capacity
+                                    <span ng-show="sortType == 'cur_capacity' && !sortReverse"
+                                          class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'cur_capacity' && sortReverse"
+                                          class="fa fa-caret-up"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" ng-click="sortType = 'max_capacity'; sortReverse = !sortReverse">
+                                    Max_capacity
+                                    <span ng-show="sortType == 'max_capacity' && !sortReverse"
+                                          class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'max_capacity' && sortReverse"
+                                          class="fa fa-caret-up"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
+                                    Created_at
+                                    <span ng-show="sortType == 'created_at' && !sortReverse"
+                                          class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'created_at' && sortReverse"
+                                          class="fa fa-caret-up"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" ng-click="sortType = ' updated_at'; sortReverse = !sortReverse">
+                                    Updated_at
+                                    <span ng-show="sortType == 'updated_at' && !sortReverse"
+                                          class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'updated_at' && sortReverse"
+                                          class="fa fa-caret-up"></span>
+                                </a>
+                            </td>
+                        </tr>
+EOT;
+        foreach ($events as $event){
+            $records.= <<<"EOT"
+<tr ng-repeat="event in events | orderBy:sortType:sortReverse | filter:searchName">
+                            <td>$event->id</td>
+                            <td>$event->name</td>
+                            <td>$event->precondition</td>
+                            <td>$event->location</td>
+                            <td>$event->code</td>
+                            <td>$event->price</td>
+                            <td>$event->payment_time</td>
+                            <td>$event->start_time</td>
+                            <td>$event->cur_capacity</td>
+                            <td>$event->max_capacity</td>
+                            <td>$event->created_at</td>
+                            <td>$event->updated_at</td>
+                        </tr>
+EOT;
+        }
+        $records.="</table>";
+
+        $pdf->loadHtml($records);
+        $pdf->setPaper('A4', 'landscape');
+        $pdf->render();
+        $pdf->stream('events_report'.Carbon::now());
+
+        return view('admin.events.index');
+    }
+
 }
