@@ -3,17 +3,23 @@
 @section('title', 'About us - EEvent')
 
 @section('content')
-    <div class="py-5" >
-        <div class="display-2 text-center mb-4" style="line-height: 100px;">      About Us</div>
-        <div style="text-align: center;font-size: 20px; padding: 10px 0">This project is part of the 01418443 Web Technology & Web Services.</div>
-    <h2 style="text-align: center;">- Authorities -</h2>
-    <div style="text-align: center;font-size: 20px;letter-spacing: 3px">
+    <div class="">
+        <div class="display-2 text-center" style="background: #cb2d3e;line-height: 100px; padding-top: 220px; padding-bottom: 220px; color: white;">About Us</div>
+
+
+    <div style="text-align: center;font-size: 20px;letter-spacing: 3px;">
+        <div style="text-align: center;font-size: 40px; padding: 200px 0">This project is part of <br><small>01418443 Web Technology & Web Services.</small></div>
+        <h2 style="text-align: center;">- Authorities -</h2>
         <br>
-        Chatchapol Rasameluangon 5810404901<br><br>
-        Papada preedagorn 5810405126<br><br>
-        Thanadon Pakawatthippoyom 5810405037<br><br>
-        Phornrawin Chitsoonthorn 5810405185<br><br>
-        Nate Trakarntanasuk 5810405100<br><br>
+        <div class="row container-fluid" style="padding-left: 220px">
+            <div class="card mb-4 box-shadow  " style="height: 100px; margin: 50px 20px; width: 400px">Chatchapol Rasameluangon <br>5810404901</div>
+            <div class="card mb-4 box-shadow  " style="height: 100px; margin: 50px 20px; width: 400px">Papada preedagorn <br>5810405126</div>
+            <div class="card mb-4 position-relative box-shadow  " style="height: 100px; margin: 50px 20px; width: 400px">Thanadon Pakawatthippoyom <br>5810405037</div>
+            <div class="card mb-4 position-relative box-shadow  " style="height: 100px; margin: 50px 20px; width: 400px">Phornrawin Chitsoonthorn <br>5810405185</div>
+            <div class="card mb-4 position-relative box-shadow " style="height: 100px; margin: 50px 20px; width: 400px">Nate Trakarntanasuk <br>5810405100</div>
+        </div>
+
+
     </div>
     </div>
   
