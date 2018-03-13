@@ -404,7 +404,7 @@
 	            						</div>
 	            						<div class="col-md-4">
 	            							 <label>Pay fee before: <input type="datetime-local" name="payment_time"
-                                                  class="form-control" placeholder="yyyy-MM-ddTHH:mm:ss"></label>
+                                                  class="form-control"></label>
 						                    @if($errors->has('payment_time'))
 						                        <span class="help-block">{{ $errors->first('payment_time') }}</span>
 						                    @endif
@@ -412,7 +412,7 @@
 	            					
 	            						<div class="col-md-4">
 	            							<label>Event start time: <input type="datetime-local" name="start_time"
-                                                    class="form-control" placeholder="yyyy-MM-ddTHH:mm:ss"></label>
+                                                    class="form-control"></label>
 						                    @if($errors->has('start_time'))
 						                        <span class="help-block">{{ $errors->first('start_time') }}</span>
 						                    @endif
