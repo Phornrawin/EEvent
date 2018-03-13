@@ -3,7 +3,7 @@ let sortApp = angular.module('sortApp', [], function ($interpolateProvider) {
     $interpolateProvider.endSymbol('%>');
 });
 
-sortApp.controller('mainController', function ($scope, $http) {
+sortApp.controller('userController', function ($scope, $http) {
     $scope.sortType = 'name'; // set the default sort type
     $scope.sortReverse = false;  // set the default sort order
     $scope.searchName = '';     // set the default search/filter term
@@ -37,6 +37,45 @@ sortApp.controller('mainController', function ($scope, $http) {
             method: "GET",
         }).success(function (data, status, headers, config) {
             $scope.users = data;
+        });
+    };
+
+    $scope.init();
+});
+sortApp.controller('eventController', function ($scope, $http) {
+    $scope.sortType = 'name'; // set the default sort type
+    $scope.sortReverse = false;  // set the default sort order
+    $scope.searchName = '';     // set the default search/filter term
+
+    $scope.events = [];
+
+    $scope.deleteUser = function (id) {
+        let conf = confirm("Do you really want to delete this task?" + id);
+        if (conf === true) {
+            $http({
+                url: '/admin/events/' + id,
+                method: "DELETE",
+            }).success(function (data) {
+                console.log(data);
+                location.reload();
+            }).error(function (status) {
+                console.log(status);
+                console.log('data');
+                alert('unable to delete');
+            });
+        }
+    };
+
+    $scope.editView = function (id) {
+        window.location.replace('events/' + id + '/edit');
+    };
+
+    $scope.init = function () {
+        $http({
+            url: '/api/events',
+            method: "GET",
+        }).success(function (data, status, headers, config) {
+            $scope.events = data;
         });
     };
 
