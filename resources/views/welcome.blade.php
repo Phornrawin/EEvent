@@ -41,9 +41,9 @@
     {{-----Recent Events Zones-----}}
     <section class="container py-5">
         <h3 class="font-weight-bold ml-4 mb-4">Newest Events</h3>
-        <div class="row ">
+        <div class="row">
             @foreach($recent as $event)
-                <div class="col-md">
+                <div class="col-md-6">
                     @include('components.event_post', ['event' => $event])
                 </div>
             @endforeach

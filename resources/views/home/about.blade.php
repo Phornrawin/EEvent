@@ -3,19 +3,9 @@
 @section('title', 'About us - EEvent')
 
 @section('content')
-    <div class="d-flex justify-content-center align-items-center" >
-        <div class="display-2" style="line-height: 100px;">
-            About Us
-        </div>
-    </div>
-    <br><br><br>
-    <div style="text-align: center;font-size: 20px">WHAT'S YOUR EVENT CHOICE? <br>
-        We have solutions for various kinds of event.
-        Please choose one that best describes yours.</div>
-    <br><br><br><br>
-    <div style="text-align: center;font-size: 20px">
-        This project is part of the 01418443 Web Technology & Web Services.</div>
-    <br><br>
+    <div class="py-5" >
+        <div class="display-2 text-center mb-4" style="line-height: 100px;">      About Us</div>
+        <div style="text-align: center;font-size: 20px; padding: 10px 0">This project is part of the 01418443 Web Technology & Web Services.</div>
     <h2 style="text-align: center;">- Authorities -</h2>
     <div style="text-align: center;font-size: 20px;letter-spacing: 3px">
         <br>
@@ -25,4 +15,7 @@
         Phornrawin Chitsoonthorn 5810405185<br><br>
         Nate Trakarntanasuk 5810405100<br><br>
     </div>
+    </div>
+  
+    
 @endsection

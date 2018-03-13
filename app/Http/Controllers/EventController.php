@@ -47,6 +47,9 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        $payment_time = Carbon::createFromFormat('Y-m-d\TH:i', $request->get('payment_time'));
+        $start_time = Carbon::createFromFormat('Y-m-d\TH:i', $request->get('start_time'));
+
 
 //        Event::create($request->all());
         $data = $request->validate([
@@ -60,7 +63,16 @@ class EventController extends Controller
             'payment_time' => 'required',
             'start_time' => 'required'
         ]);
-        $data += array("image_path" => $request['img']);
+
+        if (isset($request['image_path'])) {
+                $this->validate($request, [
+                    'image_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ]);
+
+                $imageName = time() . '.' . $request->image_path->getClientOriginalExtension();
+                $request->image_path->move(public_path('uploads/events_pic'), $imageName);
+                $data += array('image_path' => $imageName);
+            }
 
         $code = random_int(100000, 999999);
 
@@ -82,7 +94,7 @@ class EventController extends Controller
     public function show($id)
     {
         try {
-            $qrcode = (new QRCode)->render('https://www.youtube.com/watch?v=DLzxrzFCyOs&t=43s');
+            $qrcode = (new QRCode)->render(action('EventController@show', ['id' => $id]));
             $event = Event::findOrFail($id);
         } catch (\Exception $e) {
             return redirect()->route('events.search', ['q' => $id]);
@@ -116,12 +128,12 @@ class EventController extends Controller
             $data = $request->validate([
                 'name' => 'required|max:255',
                 'precondition' => 'required',
-                'max_capacity' => 'required|',
+                'max_capacity' => 'required|min:'.$event->cur_capacity,
                 'detail' => 'required',
                 'location' => 'required',
                 'category_id' => 'required|min:1',
                 'price' => 'required|min:0',
-                'payment_time' => 'required|',
+                'payment_time' => 'required|before:'.strtotime($request['start_time']),
                 'start_time' => 'required',
             ]);
             $data['start_time'] = date("Y-m-d h:i:s", strtotime($data['start_time']));

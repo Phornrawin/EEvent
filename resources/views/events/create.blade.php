@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="{{asset('css/map.css')}}">
 
     <div class="container" onload="initMap()">
+        @if ($errors->any())
+        <script>swal("Error!", "{{$errors->first()}}", "error");</script>
+        @endif
+    
             <h1>Create your event here!</h1>
         <div class="form-group">
             <form method="post" class="contact1-form validate-form" action="{{route('events.store')}}"
@@ -84,7 +88,7 @@
                         <span class="help-block alert alert-danger">{{ $errors->first('payment_time') }}</span>
                     @endif
                 </div>
-                <div class="form-group">
+                <div class="form-group text-center d-flex justify-content-center">
                     <label>Location <input id="location" type="textbox" name="location" placeholder="Location"
                                            class="form-control" size="70"></label>
                     @if($errors->has('location'))

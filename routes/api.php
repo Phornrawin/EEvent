@@ -2,6 +2,8 @@
 
 use EEvent\Event;
 use EEvent\User;
+use EEvent\Attendee;
+use EEvent\Payment;
 use Illuminate\Http\Request;
 
 /*
@@ -48,3 +50,6 @@ Route::get('/events/{id}', function ($id) {
 
 
 
+Route::get('test/{id}', function($id){
+	return Attendee::with('payment')->where('user_id', '=', $id)->where('event_id', '=', 4)->first()->payment->status;
+});

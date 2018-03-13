@@ -7,6 +7,8 @@ use EEvent\Event;
 use EEvent\Http\Controllers\Controller;
 use EEvent\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
@@ -40,7 +42,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::create($request->all());
+        $data = $request->validate(['name' => 'required', 'email' => 'required|email', 'password' => 'required|min:6']);
+        User::create([
+            'name' => $data['name'], 
+            'email' => $data['email'],
+            'password' => Hash::make($data['password'])]);
         return redirect()->route('admin.users.index');
     }
 

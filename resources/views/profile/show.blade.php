@@ -27,7 +27,7 @@
                             <div alt="color" class="mr-2 rounded"
                                  style="width: 32px; height: 32px; background-color: {{'#'. bin2hex(openssl_random_pseudo_bytes(3))}}"
                                  data-holder-rendered="true"></div>
-                            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
+                            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray text-truncate">
                                 <strong class="d-block text-gray-dark">{{$event->name}}</strong>
                                 <i class="d-block text-gray-dark lato">{{$event->start_time}}</i>
                                 {{$event->detail}}
@@ -56,7 +56,7 @@
                             <div alt="color" class="mr-2 rounded"
                                  style="width: 32px; height: 32px; background-color: {{$event->category->color}}"
                                  data-holder-rendered="true"></div>
-                            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
+                            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray text-truncate">
                                 <strong class="d-block text-gray-dark">{{$event->name}}</strong>
                                 <i class="d-block text-gray-dark lato">{{$event->start_time}}</i>
                                 {{$event->detail}}                            </p>

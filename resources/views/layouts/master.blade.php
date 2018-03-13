@@ -37,7 +37,6 @@
                     <ul class="navbar-nav mr-auto">
                         <li><a class="nav-link d-none d-md-block" href="/">Home</a></li>
                         <li><a class="nav-link d-none d-md-block" href="{{ route('events.index') }}">Events</a></li>
-                        <li><a class="nav-link d-none d-md-block" href="{{ route('events.index') }}">Category</a></li>
                         <li><a class="nav-link d-none d-md-block" href="/about">About us</a></li>
                     </ul>
 

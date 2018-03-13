@@ -87,9 +87,9 @@ class Event extends Eloquent
         return isset($this->image_path) ? $this->image_path : mb_strtolower($this->category->name) . '.jpg';
     }
 
-    public function getPaymentStatus($id)
+    public function getPaymentStatus($id, $event_id)
     {
-        return Attendee::find($id)->payment->status;
+        return Attendee::with('payment')->where('user_id', '=', $id)->where('event_id', '=', $event_id)->first()->payment->status;
     }
 
 

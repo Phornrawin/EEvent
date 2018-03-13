@@ -33,7 +33,7 @@
     <script type="text/javascript" src="{{ asset('js/filter.js')}}"></script>
 
     
-    <div class="content" style="padding-top: 50px">
+    <div class="content">
     	<div class="row">
     			<div class="col-md-2 bg-dark" style="color: white" >
     				<br>

@@ -1,8 +1,10 @@
 @extends('layouts.master')
 
-@section('title', 'Edit Event - EEvent');
+@section('title', 'Edit Event - EEvent')
 
-@section('content');
+@section('content')
+<br>
+<br>
 <script type="text/javascript" src="{{asset('js/load_map.js')}}"></script>
 
 <script async defer
@@ -14,7 +16,13 @@
 <link rel="stylesheet" href="{{asset('css/map.css')}}">
 
 <div class="container" onload="initMap()">
+        @if ($errors->any())
+        <script>swal("Error!", "{{$errors->first()}}", "error");</script>
+        @endif
     <h1>Edit your event here!</h1>
+    <img class="card-img-top vignette"
+             src="/uploads/events_pic/{{$event->getPicture()}}"
+             alt="Card image cap" style="width: 100%; display: block;">
     <div class="form-group">
         <form method="post" class="contact1-form validate-form" action="{{route('events.update', ['id'=>$event->id])}}"
               enctype="multipart/form-data">
@@ -88,9 +96,9 @@
             </div>
 
 
-            <div class="form-group">
+            <div class="form-group text-center d-flex justify-content-center">
                 <label>Location <input id="location" type="textbox" name="location" value="{{$event->location}}"
-                                       class="form-control" size="70"></label>
+                                       class="form-control align-self-center" size="70"></label>
                 @if($errors->has('location'))
                     <span class="help-block alert alert-danger">{{ $errors->first('location') }}</span>
                 @endif

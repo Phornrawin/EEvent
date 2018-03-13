@@ -21,10 +21,10 @@
 
 
 <body>
-<div style="height: 200px; border: #ff4a5f">
-    <h2 style="text-align: center; font-family: Verdana,sans-serif">{{$event->name}}</h2>
-    <h3 style="text-align: center; font-family: Verdana,sans-serif">Hosted by {{$event->organizer->name}}</h3>
-    <p style="text-align: center; font-family: Verdana,sans-serif">At: {{$event->location}}</p>
+<div style="height: 200px; background-color: : #ff4a5f; padding: 40px 0;">
+    <h2 style="text-align: center; font-family: Verdana,sans-serif;">{{$event->name}}</h2>
+    <h3 style="text-align: center; font-family: Verdana,sans-serif;">Hosted by {{$event->organizer->name}}</h3>
+    <p style="text-align: center; font-family: Verdana,sans-serif;">At: {{$event->location}}</p>
 </div>
 
 

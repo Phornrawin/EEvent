@@ -1,6 +1,15 @@
 @extends('layouts.master')
 
 @section('content')
+
+<script type="text/javascript" src="{{asset('js/load_map.js')}}"></script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC48dOHizV6KELoop9nwltS-pNGZ9FHfdk&callback=initMap">
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{{asset('css/map.css')}}">
+
     @if ($errors->any())
         <script>swal('{{$errors}}')</script>
     @endif
@@ -69,7 +78,7 @@
                                         </form>
                                     @endif
                                     @if($event->isAttend(Auth::id()) and $event->price != 0)
-                                        @if($event->getPaymentStatus(Auth::id()) == 'unpaid'))
+                                        @if($event->getPaymentStatus(Auth::id(), $event->id) == 'unpaid'))
                                         <form method="post" action="">
                                             @csrf
                                             <button class="btn btn-success w-100 font-weight-bold">Pay Entry Fee
@@ -94,7 +103,7 @@
 
     </div>
 
-    <div class="container py-5">
+    <div class="container d-flex justify-content-around py-5">
         <div class="col-md-7">
             <img class="img-fluid my-3 box-shadow border border-dark"
                  src="/uploads/events_pic/{{$event->getPicture()}}">
@@ -118,11 +127,29 @@
                         </div>
                         <div class="card-header text-center text-truncate">
                             <p class="text-truncate">{{$attendee->user->name}}</p>
+                            @if($event->organizer_id == Auth::id())
+                            <div class="text-subtitle">{{$attendee->payment['status'] ? $attendee->payment['status']: ''}}</div>
+                            @endif
                         </div>
                     </div>
                 @endforeach
             </div>
-
         </div>
+        <div class="col-md-4">
+            <h3 class="pl-4">Share this code with your friend </h3>
+                 <img src="{{$code}}">
+        <div class="form-group" style="display: none">
+                <label>Location <input id="location" type="textbox" name="location" value="{{$event->location}}"
+                                       class="form-control"" size="70"></label>
+                @if($errors->has('location'))
+                    <span class="help-block alert alert-danger">{{ $errors->first('location') }}</span>
+                @endif
+
+                <input id="submit" type="button" value="Show on map" class="btn btn-dark">
+            </div>
+                            <div id="map" class="w-100"></div>
+
+        </div> 
+
     </div>
 @endsection

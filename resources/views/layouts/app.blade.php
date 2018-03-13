@@ -11,7 +11,7 @@
     <script src="https://use.fontawesome.com/ebc57c5fe2.js"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body style="padding-bottom: 100px">
+<body style="padding-top: 100px">
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container">

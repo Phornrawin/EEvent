@@ -10,7 +10,7 @@ function initMap() {
     geocoder = new google.maps.Geocoder();
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
+        zoom: 15,
         center: pos
     });
 

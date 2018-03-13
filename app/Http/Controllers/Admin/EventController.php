@@ -54,6 +54,7 @@ class EventController extends Controller
             'payment_time' => $payment_time,
             'start_time' => $start_time,
             'max_capacity' => $request->get('max_capacity'),
+
         ));
         return redirect()->route('admin.users.index');
     }
@@ -91,6 +92,15 @@ class EventController extends Controller
                 'category_id' => $request->get('category_id'),
                 'max_capacity' => $request->get('max_capacity'),
             ));
+             if (isset($request['image_path'])) {
+                $this->validate($request, [
+                    'image_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ]);
+
+                $imageName = time() . '.' . $request->image_path->getClientOriginalExtension();
+                $request->image_path->move(public_path('uploads/events_pic'), $imageName);
+                $data += array('image_path' => $imageName);
+            }
         }
         return redirect()->route('admin.users.index');
     }
