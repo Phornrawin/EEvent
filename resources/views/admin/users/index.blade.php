@@ -32,6 +32,64 @@
     <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/filter.js')}}"></script>
 
+    <script type="text/javascript" src="tableExport.js"></script>
+	<script type="text/javascript" src="jquery.base64.js"></script>
+	<script type="text/javascript" src="html2canvas.js"></script>
+	<script type="text/javascript" src="jspdf/libs/sprintf.js"></script>
+	<script type="text/javascript" src="jspdf/jspdf.js"></script>
+	<script type="text/javascript" src="jspdf/libs/base64.js"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+	<?php
+		mysql_connect('localhost', 'root');
+		mysql_select_db('eevent');
+		 
+		 
+		 $qry="SELECT * FROM users";
+		 $result=mysql_query($qry);
+		 
+		 
+		 $recordUsers = array();
+		 
+		 while($row = mysql_fetch_assoc($result)){ 
+		    $recordUsers[] = $row;
+		  }
+
+		$qry2 = "SELECT * FROM event";
+		$result2 = mysql_query($qry2);
+
+		$recordEvents = array();
+
+		while($row = mysql_fetch_assoc($result2)){ 
+		    $recordEvents[] = $row;
+		  }
+
+	 
+	?>
+	<div id="usersTable" class="row content" style="height:300px;overflow:scroll;">
+        <table id="users" class="table table-striped">
+			<thead>         
+			    <tr class="warning">
+			        <th>Id</th>
+			        <th>Name</th>
+			        <th>Email</th>
+			        <th>Role</th>
+			    </tr>
+			</thead>
+			<tbody>
+			    <?php foreach($recordUsers as $rec):?>
+			        <tr>
+			            <td><?php echo $rec['id']?></td>
+			            <td><?php echo $rec['name']?></td>
+			            <td><?php echo $rec['email']?></td>
+			            <td><?php echo $rec['role']?></td>
+			        </tr>
+			    <?php endforeach; ?>
+	        </tbody>
+        </table>
+	</div>
+
     
     <div class="content">
     	<div class="row">
@@ -114,7 +172,9 @@
 	                            <td><a href="#" ng-click="editView(user.id)">edit</a></td>
 	                            <td><a href="#" ng-click="deleteUser(user.id)">delete</a></td>
 	                        </tr>
-                    	</table>        
+                    	</table>  
+                    	 <li><a href="#" onclick="$('#users').tableExport({type:'pdf',escape:'false'});"> <img src="images/json.jpg" width="24px">PDF</a></li>
+                         
     				</div>
     				<div id="events" class="content" ng-controller="eventController">
     					<h3>Events Table</h3>

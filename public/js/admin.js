@@ -14,18 +14,22 @@ function onClickUser(){
     $("#users.content").show();
     $("#createEvent.content").hide();
     $("#createUser.content").hide();
+    $("#usersTable.content").hide();
 }
 function onClickEvent(){
     $("#events.content").show();
     $("#users.content").hide();
     $("#createEvent.content").hide();
     $("#createUser.content").hide();
+    $("#usersTable.content").hide();
+
 }
 function onClickCreateEvent() {
     $("#createEvent.content").show();
     $("#events.content").hide();
     $("#users.content").hide();
     $("#createUser.content").hide();
+    $("#usersTable.content").hide();
 
 }
 function onClickCreateUser() {
@@ -33,6 +37,7 @@ function onClickCreateUser() {
     $("#events.content").hide();
     $("#users.content").hide();
     $("#createUser.content").show();
+    $("#usersTable.content").hide();
 }
 // Get the element with id="defaultOpen" and click on it
 
@@ -40,4 +45,5 @@ $(document).ready(function(e){
         $("#events.content").hide();
         $("#createEvent.content").hide();
         $("#createUser.content").hide();
+        $("#usersTable.content").hide();
 });
