@@ -17,6 +17,8 @@ class CreateAttendeesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('event_id');
             $table->unsignedInteger('user_id');
+            $table->boolean('check_in')->default(false);
+            $table->boolean('accept')->default(false);
             $table->timestamps();
             $table->foreign('event_id')
                 ->references('id')

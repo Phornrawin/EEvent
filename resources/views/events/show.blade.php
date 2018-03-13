@@ -2,22 +2,15 @@
 
 @section('content')
 
-<script type="text/javascript" src="{{asset('js/load_map.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/load_map.js')}}"></script>
 
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC48dOHizV6KELoop9nwltS-pNGZ9FHfdk&callback=initMap">
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="{{asset('css/map.css')}}">
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC48dOHizV6KELoop9nwltS-pNGZ9FHfdk&callback=initMap">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{asset('css/map.css')}}">
 
-    @if ($errors->any())
-        <script>swal('{{$errors}}')</script>
-    @endif
-
-    @if (session('success'))
-        <script>swal("Success!", "{{session('success')}}", "success");</script>
-    @endif
-
+    @include('components.modal_alert')
 
     <div class="jumbotron">
         <div class="container">
@@ -46,9 +39,6 @@
                     </div>
                     <div class="col-md-5 px-0">
                         <div class="card ">
-                            {{--<img class="card-img-top vignette"--}}
-                            {{--src="/uploads/events_pic/{{$event->getPicture()}}"--}}
-                            {{--alt="Card image cap" style="height: 225px; width: 100%; display: block;">--}}
                             <div class="card-header">
                                 <h4 class="card-subtitle py-3 text-muted font-weight-light"><span
                                             class="badge badge-danger  mx-2">{{$event->getPriceText()}}</span></h4>
@@ -61,11 +51,7 @@
                             <div class="card-footer">
                                 {{--edit button for organizer--}}
                                 @auth
-                                    @if(Auth::id() == $event->organizer_id)
-                                        <a href="{{route('events.edit', ['id'=>$event->id])}}"
-                                           class="btn btn-warning w-100 font-weight-bold text-muted">
-                                            EDIT </a>
-                                    @elseif(!$event->isAttend(Auth::id()))
+                                    @if(!$event->isAttend(Auth::id()))
                                         <form method="post" action="{{route('events.attend', ['id' => $event->id])}}">
                                             @csrf
                                             <button class="btn btn-info w-100 font-weight-bold"><i
@@ -127,29 +113,35 @@
                         </div>
                         <div class="card-header text-center text-truncate">
                             <p class="text-truncate">{{$attendee->user->name}}</p>
-                            @if($event->organizer_id == Auth::id())
-                            <div class="text-subtitle">{{$attendee->payment['status'] ? $attendee->payment['status']: ''}}</div>
-                            @endif
                         </div>
                     </div>
                 @endforeach
             </div>
         </div>
         <div class="col-md-4">
-            <h3 class="pl-4">Share this code with your friend </h3>
-                 <img src="{{$code}}">
-        <div class="form-group" style="display: none">
-                <label>Location <input id="location" type="textbox" name="location" value="{{$event->location}}"
-                                       class="form-control"" size="70"></label>
-                @if($errors->has('location'))
-                    <span class="help-block alert alert-danger">{{ $errors->first('location') }}</span>
-                @endif
+            <h3>Location</h3>
+            <div class="card ">
+                <div class="card-header bg-white">
+                    <div class="d-flex">
+                        <i class=" fa fa-map-marker" style="font-size: 150%"></i>
+                        <div class="px-3 lato">
+                            {{$event->location}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="display: none">
+                    <label>Location <input id="location" type="textbox" name="location" value="{{$event->location}}"
+                                           class="form-control" size="70"></label>
+                    @if($errors->has('location'))
+                        <span class="help-block alert alert-danger">{{ $errors->first('location') }}</span>
+                    @endif
 
-                <input id="submit" type="button" value="Show on map" class="btn btn-dark">
+                    <input id="submit" type="button" value="Show on map" class="btn btn-dark">
+                </div>
+                <div id="map" class="w-100 card-footer"></div>
+
             </div>
-                            <div id="map" class="w-100"></div>
 
-        </div> 
-
+        </div>
     </div>
 @endsection

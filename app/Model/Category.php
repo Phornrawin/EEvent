@@ -3,14 +3,13 @@
 namespace EEvent;
 
 use Eloquent;
-use Illuminate\Database\Eloquent\Model;
 
 class Category extends Eloquent
 {
     public $timestamps = false;
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'color'];
 
-    public function event()
+    public function events()
     {
         return $this->hasMany('EEvent\Event');
     }

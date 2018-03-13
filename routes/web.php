@@ -38,25 +38,25 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/checkin/{event}', 'AttendeeController@checkIn');
+    Route::get('/organizer/accept', 'AttendeeController@changeStatus')->name('attendee.accept');
+
+
     Route::post('/events/attend/{id}', 'EventController@attend')
         ->name('events.attend');
 
     Route::post('/events/unattend/{id}', 'EventController@unAttend')
         ->name('events.unattend');
 
+
 });
+
 // all event crud route
-
-
 Route::get('/search', 'EventController@search')->name('events.search');
-Route::get('/category')->name('events.category');
+Route::get('/category/{q}', 'EventController@searchCat')->name('events.category');
 Route::get('/events/create', function () {
     return view('events.create');
 })->middleware('auth');
-
-//Route::post('/events/create', 'EventController@store')
-//    ->name('events.store')
-//    ->middleware('auth');
 
 Route::resource('events', 'EventController');
 
@@ -71,7 +71,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth', 'a
 });
 
 Route::get('test', function () {
-   return Hash::check('eiei', Auth::user()->makeVisible('password')->password);
+    return Hash::check('eiei', Auth::user()->makeVisible('password')->password);
 });
 
 

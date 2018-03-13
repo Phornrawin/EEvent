@@ -2,7 +2,6 @@
 
 namespace EEvent\Http\Controllers\Admin;
 
-use Auth;
 use EEvent\Event;
 use EEvent\Http\Controllers\Controller;
 use EEvent\User;
@@ -44,7 +43,7 @@ class UserController extends Controller
     {
         $data = $request->validate(['name' => 'required', 'email' => 'required|email', 'password' => 'required|min:6']);
         User::create([
-            'name' => $data['name'], 
+            'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password'])]);
         return redirect()->route('admin.users.index');
@@ -89,10 +88,13 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-         $user = User::find($id);
+        $user = User::find($id);
+        foreach ($user->attendEvent as $event) {
+            $event->cur_capacity -=1;
+            $event->save();
+        }
         $user->delete();
-
-        return response($user);
+        return $user;
     }
 
     public function show()

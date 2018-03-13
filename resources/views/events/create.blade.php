@@ -15,7 +15,7 @@
 
     <div class="container" onload="initMap()">
         @if ($errors->any())
-        <script>swal("Error!", "{{$errors->first()}}", "error");</script>
+        <script>swal("Error!", "{{$errors->first('error')}}", "error");</script>
         @endif
     
             <h1>Create your event here!</h1>

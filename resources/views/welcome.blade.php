@@ -19,11 +19,16 @@
     @include('components.event_search')
 
     <nav class="stripe row justify-content-center flex-nowrap py-4">
-        <button type="button" class="btn btn-danger rounded mx-2">Join a movement</button>
-        <button type="button" class="btn btn-danger rounded mx-2">Learn to cook</button>
-        <button type="button" class="btn btn-danger rounded mx-2">Dance your move</button>
-        <button type="button" class="btn btn-danger rounded mx-2">Watch a film</button>
-        <button type="button" class="btn btn-danger rounded mx-2">Become an adventurer</button>
+        <a href="{{route('events.category', ['q' => 'Movement'])}}"
+           class="btn btn-danger rounded mx-2">Join a movement</a>
+        <a href="{{route('events.category', ['q' => 'Food'])}}"
+           class="btn btn-danger rounded mx-2">Learn to cook</a>
+        <a href="{{route('events.category', ['q' => 'Dance'])}}"
+           class="btn btn-danger rounded mx-2">Dance your move</a>
+        <a href="{{route('events.category', ['q' => 'Movie'])}}"
+           class="btn btn-danger rounded mx-2">Watch a film</a>
+        <a href="{{route('events.category', ['q' => 'Adventure'])}}"
+           class="btn btn-danger rounded mx-2">Become an adventurer</a>
     </nav>
 
     {{-----Popular Events Zones-----}}
@@ -48,8 +53,10 @@
                 </div>
             @endforeach
         </div>
-
     </section>
+    <a class="btn btn-lg rounded-0 py-3 mx-auto w-100 text-white bg-danger" href={{route('events.index')}}>Explore</a>
+
+
 
     <section class="philosophy-block text-center p-5 bg-white">
         <div class="container">

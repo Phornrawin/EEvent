@@ -69,7 +69,7 @@ class Event extends Eloquent
 
     public function getFormattedDay()
     {
-        return $this->start_time->format('l jS F Y h:i:s A');
+        return $this->start_time->format('l jS F Y h:i A');
     }
 
     public function getRecentEvent()

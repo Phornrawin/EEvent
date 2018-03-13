@@ -3,11 +3,11 @@
     <div class="card mb-4 position-relative card-rounded box-shadow">
 
         <img class="card-img-top vignette"
-             src="uploads/events_pic/{{$event->getPicture()}}"
+             src="/uploads/events_pic/{{$event->getPicture()}}"
              alt="Card image cap" style="height: 225px; width: 100%; display: block;">
 
         <img class="rounded-circle position-absolute" style="width: 50px; height: 50px; top: 10px; left: 10px"
-             src="uploads/avatars/{{$event->organizer->avatar}}">
+             src="/uploads/avatars/{{$event->organizer->avatar}}">
         <div class="card-body">
 
             <h5 class="card-title text-truncate">{{$event->name}}</h5>

@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'avatar', 'password',
+        'name', 'email', 'avatar'
     ];
 
     /**
@@ -40,7 +40,7 @@ class User extends Authenticatable
 
     public function organizedEvent()
     {
-        return $this->hasMany('EEvent\Event' , 'organizer_id');
+        return $this->hasMany('EEvent\Event', 'organizer_id');
     }
 
 }

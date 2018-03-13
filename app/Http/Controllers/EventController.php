@@ -3,15 +3,15 @@
 namespace EEvent\Http\Controllers;
 
 use Auth;
+use Carbon\Carbon;
 use chillerlan\QRCode\QRCode;
 use EEvent\Attendee;
+use EEvent\Category;
 use EEvent\Event;
 use EEvent\Mail\AttendingMailer;
-use EEvent\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Mail;
-use Carbon\Carbon;
 
 
 class EventController extends Controller
@@ -23,7 +23,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::simplePaginate(3); //test
+        $events = Event::simplePaginate(9); //test
         return view('events.index', ['events' => $events]);
     }
 
@@ -65,14 +65,14 @@ class EventController extends Controller
         ]);
 
         if (isset($request['image_path'])) {
-                $this->validate($request, [
-                    'image_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                ]);
+            $this->validate($request, [
+                'image_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
 
-                $imageName = time() . '.' . $request->image_path->getClientOriginalExtension();
-                $request->image_path->move(public_path('uploads/events_pic'), $imageName);
-                $data += array('image_path' => $imageName);
-            }
+            $imageName = time() . '.' . $request->image_path->getClientOriginalExtension();
+            $request->image_path->move(public_path('uploads/events_pic'), $imageName);
+            $data += array('image_path' => $imageName);
+        }
 
         $code = random_int(100000, 999999);
 
@@ -93,14 +93,28 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        try {
-            $qrcode = (new QRCode)->render(action('EventController@show', ['id' => $id]));
-            $event = Event::findOrFail($id);
-        } catch (\Exception $e) {
+        $event = Event::find($id);
+        if (!$event) {
             return redirect()->route('events.search', ['q' => $id]);
         }
-        return view('events.show', ['event' => $event, 'code' => $qrcode]);
+
+        if ($event->organizer_id == Auth::id()) {
+            $requested = $event->attendees->where('accept', '=', false);
+            $accepted = $event->attendees->where('accept', '=', true);
+            $checkin = $event->attendees->where('check_in', '=', true);
+            $qrcode = (new QRCode)->render(action('AttendeeController@checkIn', ['event_id' => $id]));
+            return view('events.organizer', [
+                'event' => $event,
+                'code' => $qrcode,
+                'requested' => $requested,
+                'accepted' => $accepted,
+                'checkin' => $checkin]);
+        } else {
+            return view('events.show', ['event' => $event]);
+        }
+
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -128,12 +142,12 @@ class EventController extends Controller
             $data = $request->validate([
                 'name' => 'required|max:255',
                 'precondition' => 'required',
-                'max_capacity' => 'required|min:'.$event->cur_capacity,
+                'max_capacity' => 'required|min:' . $event->cur_capacity,
                 'detail' => 'required',
                 'location' => 'required',
                 'category_id' => 'required|min:1',
                 'price' => 'required|min:0',
-                'payment_time' => 'required|before:'.strtotime($request['start_time']),
+                'payment_time' => 'required|before:' . strtotime($request['start_time']),
                 'start_time' => 'required',
             ]);
             $data['start_time'] = date("Y-m-d h:i:s", strtotime($data['start_time']));
@@ -174,9 +188,16 @@ class EventController extends Controller
     public function search(Request $request)
     {
         $query = $request->get('q');
-        $events = Event::where('name', 'like', '%' . $query . '%')->simplePaginate(3);
+        $events = Event::where('name', 'like', '%' . $query . '%')->simplePaginate(9);
         session()->flash('q', $query);
         return view('events.index', ['events' => $events, 'query' => $query]);
+    }
+
+    public function searchCat($q)
+    {
+        $events = Category::where('name', '=', $q)->first()->events()->simplePaginate(9);
+        session()->flash('q', $q);
+        return view('events.index', ['events' => $events, 'query' => $q]);
     }
 
     public function attend(Request $request, $id)

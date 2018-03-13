@@ -3,7 +3,6 @@
 namespace EEvent;
 
 use Eloquent;
-use Illuminate\Database\Eloquent\Model;
 
 class Attendee extends Eloquent
 {
@@ -14,7 +13,7 @@ class Attendee extends Eloquent
      * @var array
      */
     protected $fillable = [
-        'event_id', 'user_id',
+        'event_id', 'user_id', 'check_in'
     ];
 
     public function user()

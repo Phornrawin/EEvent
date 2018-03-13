@@ -1,8 +1,8 @@
 <div class="card flex-md-row mb-4 box-shadow  boxed-shadow">
     <div class="card-body d-flex flex-column">
         <strong class="d-inline-block mb-2 text-danger">{{$event->category->name}}</strong>
-        <h3 class="mb-0 text-dark text-truncate"><p>{{$event->name}}</p></h3>
-        <div class="my-1 text-muted card-subtitle">
+        <h3 class="mb-0 text-dark">{{$event->name}}</h3>
+        <div class="mt-1 mb-3 text-muted card-subtitle">
             @if($event->getRemainingDay() <= 7)
                 {{$event->getRemainingDay() . ' days until begin'}}
             @else
@@ -16,8 +16,8 @@
                     <small class="text-muted row"
                            style="font-family: Lato,sans-serif">Hosted by {{$event->organizer->name}}
                     </small>
-                    <small class="text-muted row"
-                           style="font-family: Lato,sans-serif">{{$event->getRemainingSeat()}} seats left
+                    <small class="text-muted row lato"
+                           style="font-family: Lato,sans-serif">{{$event->getRemainingSeat()}} seats left from {{$event->max_capacity}}
                     </small>
                 </div>
             </div>

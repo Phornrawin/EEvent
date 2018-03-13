@@ -25,33 +25,30 @@ class UsersTableSeeder extends Seeder
             'name' => 'NoSleep',
             'email' => 'criticalxinfinite@gmail.com',
             'password' => Hash::make('nosleepnosleep'),
+            'Avatar' => 'NoSleep.jpg'
         ));
-
-
 
         User::create(array(
             'name' => 'Adam',
             'email' => 'adamawesome@gmail.com',
             'password' => Hash::make('adamadam'),
+            'avatar' => 'Adam.png'
         ));
 
         User::create(array(
             'name' => 'Jessica',
             'email' => 'jessicaawesome@gmail.com',
             'password' => Hash::make('jessicajessica'),
+            'avatar' => 'Jessica.png'
         ));
 
         User::create(array(
-            'name' => 'Albert',
+            'name' => 'Jeddo',
             'email' => 'albertawesome@gmail.com',
             'password' => Hash::make('albertalbert'),
+            'avatar' => 'Jeddo.jpg'
         ));
 
-        User::create(array(
-            'name' => 'Zack',
-            'email' => 'zackawesome@gmail.com',
-            'password' => Hash::make('zackzack'),
-        ));
 
         User::create(array(
             'name' => 'test',

@@ -26,7 +26,7 @@ class CreateEventsTable extends Migration
             $table->dateTime('payment_time');
             $table->dateTime('start_time');
             $table->integer('cur_capacity')->default(0);
-            $table->integer('max_capacity');
+            $table->integer('max_capacity')->default(12);
             $table->string('image_path')->nullable();
             $table->timestamps();
             $table->foreign('organizer_id')

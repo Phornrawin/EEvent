@@ -3,7 +3,6 @@
 namespace EEvent;
 
 use Eloquent;
-use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Eloquent
 {
