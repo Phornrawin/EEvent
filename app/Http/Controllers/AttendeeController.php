@@ -5,6 +5,10 @@ namespace EEvent\Http\Controllers;
 use Auth;
 use EEvent\Attendee;
 use Illuminate\Http\Request;
+use EEvent\Event;
+use Mail;
+use EEvent\Mail\AttendingMailer;
+
 
 class AttendeeController extends Controller
 {
@@ -28,11 +32,16 @@ class AttendeeController extends Controller
 
     public function changeStatus(Request $request)
     {
+
         $attendee = Attendee::find($request->get('id'));
+        $event = Event::find($attendee->event_id);
+
         if (!$attendee) {
             return back()->with('error', 'Something went wrong!');
         }
         if ($request->get('accepted')) {
+            Mail::to($request->user())->send(new AttendingMailer($event));
+
             $attendee->accept = true;
             $attendee->save();
             return back()->with('success', 'He or she had been invited!');

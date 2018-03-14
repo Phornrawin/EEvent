@@ -47,8 +47,8 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $payment_time = Carbon::createFromFormat('Y-m-d\TH:i', $request->get('payment_time'));
-        $start_time = Carbon::createFromFormat('Y-m-d\TH:i', $request->get('start_time'));
+//        $payment_time = Carbon::createFromFormat('Y-m-d\TH:i', $request->get('payment_time'));
+//        $start_time = Carbon::createFromFormat('Y-m-d\TH:i', $request->get('start_time'));
 
 
 //        Event::create($request->all());
@@ -147,7 +147,7 @@ class EventController extends Controller
                 'location' => 'required',
                 'category_id' => 'required|min:1',
                 'price' => 'required|min:0',
-                'payment_time' => 'required|before:' . strtotime($request['start_time']),
+                'payment_time' => 'required',
                 'start_time' => 'required',
             ]);
             $data['start_time'] = date("Y-m-d h:i:s", strtotime($data['start_time']));
@@ -162,6 +162,7 @@ class EventController extends Controller
                 $request->image_path->move(public_path('uploads/events_pic'), $imageName);
                 $data += array('image_path' => $imageName);
             }
+
 
             $event->update($data);
         }
@@ -204,7 +205,6 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         if ($event->cur_capacity < $event->max_capacity) {
-            Mail::to($request->user())->send(new AttendingMailer($event));
             $attendees = $event->attendees()->create([
                 "user_id" => Auth::id()
             ]);
