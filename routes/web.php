@@ -41,13 +41,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/checkin/{event}', 'AttendeeController@checkIn');
     Route::get('/organizer/accept', 'AttendeeController@changeStatus')->name('attendee.accept');
 
-
     Route::post('/events/attend/{id}', 'EventController@attend')
         ->name('events.attend');
 
     Route::post('/events/unattend/{id}', 'EventController@unAttend')
         ->name('events.unattend');
-
+    
+    // Route::post('/events/attend/{id}', 'PaymentController@pay')
+    //     ->name('events.payment');
 
 });
 
@@ -75,5 +76,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth', 'a
 Route::get('test', function () {
     return Hash::check('eiei', Auth::user()->makeVisible('password')->password);
 });
+
 
 

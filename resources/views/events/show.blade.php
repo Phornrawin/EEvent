@@ -65,11 +65,11 @@
                                     @endif
                                     @if($event->isAttend(Auth::id()) and $event->price != 0)
                                         @if($event->getPaymentStatus(Auth::id(), $event->id) == 'unpaid'))
-                                        <form method="post" action="">
+                                      <!--   <form method="post" action="{{}route('events.paymant', ['id' => $attendee->id])}"> -->
                                             @csrf
                                             <button class="btn btn-success w-100 font-weight-bold">Pay Entry Fee
                                             </button>
-                                        </form>
+                                       <!--  </form> -->
                                         @else
                                             <button class="btn btn-danger w-100 font-weight-bold disabled">Paid</button>
                                         @endif

@@ -238,4 +238,5 @@ class EventController extends Controller
         return back()->with('success', 'You not going there anymore!');
     }
 
+
 }

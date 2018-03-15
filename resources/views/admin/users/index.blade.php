@@ -118,7 +118,7 @@
                                 <td><a href="#" ng-click="deleteUser(user.id)">delete</a></td>
                             </tr>
                         </table>
-                        <form method="get" action="{{route("admin.users.getpdf")}}">
+                        <form method="get" action="{{route('admin.users.getpdf')}}">
                             <button type="submit">Download as PDF</button>
                         </form>
                 </div>
